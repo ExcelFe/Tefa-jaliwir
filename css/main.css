@@ -54,7 +54,7 @@
     --radius-lg: 20px;
     --radius-xl: 28px;
     --radius-pill: 999px;
-    --shadow-card: 4px 6px 12px rgba(var(--warm-rgb), 0.22);
+    --shadow-card: 4px 6px 12px rgba(var(--warm-rgb), 0.25);
     --shadow-nav: 0 2px 14px rgba(var(--warm-rgb), 0.14);
 
     /* SPACING */
@@ -68,7 +68,6 @@
     /* PAGE WIDTH */
     --maxw: 1152px;
     --gutter: clamp(1rem, 3vw, 1.5rem); /* left/right page padding */
-    --content-max: 40rem;               /* max width of lists and tabs on PC */
     --nav-h: 64px;                      /* fixed navbar height */
 
     /* HERO IMAGE (path is relative to this file) */
@@ -157,10 +156,6 @@ select {
 }
 .section {
     margin-top: 108px;
-}
-/* Pages without a hero: push content below the fixed navbar */
-.main-offset {
-    padding-top: var(--nav-h);
 }
 
 
@@ -508,7 +503,11 @@ select {
     padding: 72px 0 150px;
 }
 .page-hero {
-    padding: 64px 0 96px;
+    display: flex;                      /* centres the headline vertically */
+    align-items: center;
+    min-height: calc(var(--nav-h) + 12.5rem);
+    /* equal space above (below the fixed navbar) and under the headline */
+    padding: calc(var(--nav-h) + 4rem) 0 4rem;
 }
 .hero .container {                      /* phones/tablets: centred */
     display: flex;
@@ -551,15 +550,11 @@ select {
     margin-top: 20px;
     color: #e0e7ff;
 }
-.page-hero h1 {
-    font-size: 2.5rem;
+.page-hero .container {                 /* headline centred horizontally */
     text-align: center;
 }
-.page-hero p {
-    max-width: 520px;
-    margin-top: 12px;
-    text-align: right;
-    color: #e0e7ff;
+.page-hero h1 {
+    font-size: 2.5rem;
 }
 
 /* ---------- HIGHLIGHT CARD (overlaps the hero edge) ---------- */
@@ -854,18 +849,25 @@ select {
 /* ---------- PROGRAM KEAHLIAN: card grid ---------- */
 .program-grid {
     display: grid;
-    grid-template-columns: minmax(0, 28rem);    /* phones: 1 column */
+    grid-template-columns: minmax(0, 1fr);      /* phones: 1 column */
     gap: var(--space-4);
+    margin-bottom: 4rem;
 }
+/* Card = 3 areas: media (left, full height) | title (top right) | text (bottom right) */
 .program-card {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "media title"
+        "media text";
     overflow: hidden;                   /* clips media to the rounded corners */
 }
 .program-card-media {
+    grid-area: media;
     display: grid;
     place-items: center;
-    aspect-ratio: 16 / 9;
+    min-height: 7rem;
     color: var(--navy);
 }
 .program-card-media span {              /* abbreviation placeholder */
@@ -880,10 +882,12 @@ select {
     object-fit: cover;
 }
 .program-card h3 {
+    grid-area: title;
     padding: var(--space-4) var(--space-4) var(--space-1);
     font-size: clamp(1.25rem, 2vw, 1.5rem);
 }
 .program-card p {
+    grid-area: text;
     padding: 0 var(--space-4) var(--space-4);
     color: var(--warm-muted);
 }
@@ -901,8 +905,8 @@ select {
     color: var(--white);
 }
 .list-item:hover {
-    background: var(--primary-soft);
-    color: var(--ink);
+    background: var(--primary);
+    color: var(--white);
     text-transform: uppercase;
     font-weight: 500;
 }
@@ -931,7 +935,7 @@ select {
     border-radius: var(--radius-pill);
 }
 .dropdown-trigger:hover {
-    background: var(--secondary);
+    background: var(--primary);
 }
 .dropdown-trigger[aria-expanded="true"] {
     color: var(--white);
@@ -980,19 +984,9 @@ select {
     padding-top: var(--space-3);        /* inside the clipped box: a closed panel takes no space */
 }
 
+/* 2 x 2 grid on tablet, laptop and PC */
 @media (min-width: 600px) {
     .program-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .program-card-media { aspect-ratio: 4 / 3; }
-}
-@media (min-width: 1025px) {
-    .program-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-/* PC/laptop: lists and tabs stay narrow; tablet/phone: full width */
-@media (min-width: 1100px) {
-    .dropdown-group,
-    .list-stack {
-        max-width: var(--content-max);
-    }
 }
 @media (max-width: 600px) {
     .dropdown-triggers--4 { --trigger-cols: 2; }

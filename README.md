@@ -2,7 +2,7 @@
 
 Plain HTML, CSS and JavaScript. No frameworks, no build step. Rules: [`rules.md`](./rules.md). Update this README with every code change.
 
-**Last updated: 2026-10-12** (merged with `Tefa-jaliwir-pio-branch`)
+**Last updated: 2026-10-13**
 
 ## Pages and links
 
@@ -64,7 +64,9 @@ All scripts are in `<head>` with `defer`.
 
 ## Program Sekolah
 
-Each block: headline first, content below. Tabs closed on load; list opens under the tab row. Cards use abbreviation placeholders (TJKT, PPLG, DKV, BD); swap the `<span>` for an `<img>` when logos exist.
+Starts with a page hero (same `.page-hero` as Profil Manajemen). Each block: headline first, content below. Tabs closed on load; list opens under the tab row. Intra/Ko/Ekstra tabs and lists fill the full container width.
+
+**Program Keahlian:** 2 x 2 grid (1 column on phones). Each card has 3 areas (CSS grid areas, no extra HTML): logo left (full height), headline top right, body text bottom right. Cards use abbreviation placeholders (TJKT, PPLG, DKV, BD); swap the `<span>` for an `<img>` when logos exist.
 
 ## Login
 
@@ -74,12 +76,11 @@ Card = 2 columns (logo + school name | back button, headline, form). One column 
 
 | Width | Changes |
 |-------|---------|
-| >= 1100px | Lists/tabs capped at `40rem` |
-| >= 1025px | Full navbar (menu centred), 4 cards per row |
+| >= 1025px | Full navbar (menu centred) |
 | <= 1024px | Hamburger menu |
-| 600-1024px | 2 cards per row |
+| >= 600px | Program Keahlian 2 x 2 |
 | <= 768px | Login stacks; hero centred |
-| <= 600px | 1 card per row; ekstra tabs 2 x 2 |
+| <= 600px | Program Keahlian 1 column; ekstra tabs 2 x 2 |
 | <= 480px | Compact tabs |
 | <= 360px | Ekstra tabs 1 per row |
 
@@ -116,6 +117,19 @@ Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no con
 | No generated icons/images | Yes |
 
 ## Changelog
+
+### 2026-10-13 - Page hero
+- `.page-hero` (Profil Manajemen, Program Sekolah): headline centred vertically (equal space above and below, measured below the fixed navbar) and horizontally. Flex + `min-height`, no fixed heights.
+- Program Sekolah: added page hero "PROGRAM UNGGULAN SEKOLAH" (accent on "UNGGULAN"). HTML: one `<section class="page-hero">` added.
+- Removed unused `.main-offset` (the hero now clears the navbar).
+- Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no console errors.
+
+### 2026-10-13 - Layout fixes (`main.css` only)
+- Profil Manajemen: `.page-hero` headline and body text centred; top padding now clears the fixed navbar.
+- Program Keahlian: 2 x 2 grid (was 4 per row); phones keep 1 column.
+- Program Keahlian cards: 3 areas - logo left, headline top right, body text bottom right.
+- Intra/Ko/Ekstra: removed the `40rem` cap, tabs and lists fill the container. Removed unused `--content-max` token.
+- Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no console errors.
 
 ### 2026-10-12 - Merge + restyle
 - Merged `tefa_jlwr_codebase_5` and `Tefa-jaliwir-pio-branch` into one codebase (this structure). B pages moved: `profil-manajemen.html` and `index.html` restyled paths; `after-log/` -> `pages/after/`; `assets/` -> `media/`.
