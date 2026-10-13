@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Portal Siswa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/main.css">
+</head>
+<body>
+    <header>
+        <a href="../../index.html">&larr; Beranda</a>
+        <h1>Selamat Datang, <!-- {{ $siswa->nama }} --> [Nama Siswa]</h1>
+        <p>Kelas: <!-- {{ $siswa->kelas }} --> [Kelas Siswa]</p>
+    </header>
+
+    <main>
+        <!-- Bagian Informasi / Konten Utama (Plug & Play Database) -->
+        <section id="konten-utama">
+            <h2>Jadwal &amp; Pengumuman Hari Ini</h2>
+            
+            <!-- Wadah Pengumuman -->
+            <div class="card-container">
+                <!-- @forelse($pengumuman as $p) -->
+                <article>
+                    <h3><!-- {{ $p->judul }} --> Judul Pengumuman</h3>
+                    <p><!-- {{ $p->isi }} --> Isi pengumuman dari database akan tampil di sini.</p>
+                    <small>Tanggal: <!-- {{ $p->created_at }} --></small>
+                </article>
+                <!-- @empty -->
+                <p>Tidak ada pengumuman saat ini.</p>
+                <!-- @endforelse -->
+            </div>
+        </section>
+
+        <!-- Bagian Rekap Absensi Siswa -->
+        <section id="rekap-absensi">
+            <h2>Rekap Kehadiran Saya</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Status Kehadiran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- @foreach($riwayatAbsen as $absen) -->
+                    <tr>
+                        <td><!-- {{ $absen->tanggal }} --> 2026-10-10</td>
+                        <td><!-- {{ $absen->status }} --> Hadir</td>
+                    </tr>
+                    <!-- @endforeach -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

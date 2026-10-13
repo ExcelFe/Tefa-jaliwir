@@ -1,0 +1,1231 @@
+/* ==========================================================================
+   MAIN.CSS - SMK TI Bali Global Badung
+   Basic styles for every page. Transitions/keyframes: animation.css
+   Sections: 1 Fonts | 2 Tokens | 3 Base | 4 Layout | 5 Shared components |
+             6 Home | 7 Profil Manajemen | 8 Program Sekolah | 9 Login |
+             10 Dashboards (after login)
+   ========================================================================== */
+
+/* ==========================================================================
+   1. FONTS  (headings: Anton | body: Plus Jakarta Sans)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+
+/* ==========================================================================
+   2. TOKENS  (change colors, fonts and sizes here)
+   ========================================================================== */
+:root {
+    /* FONTS */
+    --font-heading: "Anton", sans-serif;
+    --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+
+    /* BRAND COLORS */
+    --primary: #1d4ed8;
+    --primary-dark: #1e40af;
+    --primary-soft: #eff6ff;
+    --secondary: #60a5fa;
+    --navy: #1e2a8a;
+    --accent: #2ee6d6;
+
+    /* NEUTRALS */
+    --white: #fff;
+    --ink: #0f172a;
+    --text: #475569;
+    --muted: #94a3b8;
+    --line: #e2e8f0;
+    --footer: #0f172a;
+
+    /* WARM PALETTE (Program Sekolah + Login) */
+    --warm-50: #fff7ea;                 /* page background */
+    --warm-100: #fdebcb;                /* rows, tabs, fields */
+    --warm-200: #f5dcb0;                /* hover, card media */
+    --warm-ink: #1e1919;                /* near-black text */
+    --warm-muted: color-mix(in srgb, var(--warm-ink) 78%, var(--warm-50));
+    --warm-rgb: 120, 90, 40;            /* warm shadow color */
+
+    /* PAGE THEME (default = white; .theme-warm overrides) */
+    --page-bg: var(--white);
+    --page-ink: #1e293b;
+
+    /* SHAPE + SHADOW */
+    --radius: 16px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-pill: 999px;
+    --shadow-card: 4px 6px 12px rgba(var(--warm-rgb), 0.22);
+    --shadow-nav: 0 2px 14px rgba(var(--warm-rgb), 0.14);
+
+    /* SPACING */
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2.5rem;
+    --space-6: clamp(3rem, 8vw, 6rem);  /* gap between page sections */
+
+    /* PAGE WIDTH */
+    --maxw: 1152px;
+    --gutter: clamp(1rem, 3vw, 1.5rem); /* left/right page padding */
+    --content-max: 40rem;               /* max width of lists and tabs on PC */
+    --nav-h: 64px;                      /* fixed navbar height */
+
+    /* HERO IMAGE (path is relative to this file) */
+    --hero-img: url("../media/landingsmkti.jpg");
+}
+
+
+/* ==========================================================================
+   3. BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--nav-h) + 1rem);  /* anchors stay below the fixed navbar */
+}
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;             /* footer stays at the bottom */
+    overflow-x: hidden;
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--page-ink);
+    background: var(--page-bg);
+    -webkit-font-smoothing: antialiased;
+}
+main {
+    flex: 1 0 auto;
+}
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+ul {
+    list-style: none;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+[hidden] {
+    display: none !important;
+}
+/* Anton has one weight: keep 400 to avoid faux-bold */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+}
+:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+/* The global user-select:none blocks typing on iOS: form fields opt back in */
+input,
+textarea,
+select {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+
+/* ==========================================================================
+   4. LAYOUT
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+.section {
+    margin-top: 108px;
+}
+/* Pages without a hero: push content below the fixed navbar */
+.main-offset {
+    padding-top: var(--nav-h);
+}
+
+
+/* ==========================================================================
+   5. SHARED COMPONENTS
+   ========================================================================== */
+
+/* ---------- IMAGE SLOT (shows data-label text until the image exists) ---------- */
+.img-slot {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--secondary);
+}
+.img-slot::before {
+    content: attr(data-label);
+}
+.img-slot > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.ratio-34 { aspect-ratio: 3 / 4; }
+.ratio-1610 { aspect-ratio: 16 / 10; }
+.logo-slot {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+}
+.logo-slot.lg {
+    width: 48px;
+    height: 48px;
+}
+
+/* ---------- BRAND (logo + school name) ---------- */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--ink);
+}
+.brand-sub {
+    font-weight: 500;
+    color: var(--text);
+}
+
+/* ---------- LOGIN BUTTON (navbar) ---------- */
+.btn-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary);
+    border-radius: var(--radius-pill);
+}
+.btn-login:hover {
+    background: var(--primary-dark);
+}
+
+/* ---------- NAVBAR ----------
+   Mobile/tablet: brand + hamburger, menu collapses below (js/main.js).
+   PC/laptop (>= 1025px): 3-column grid, menu centred on the page. */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-nav);
+}
+.navbar-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--nav-h);
+}
+/* Hamburger: bars drawn with CSS (become an X when open) */
+.nav-toggle {
+    position: relative;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--primary-soft);
+}
+.nav-toggle-bar,
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ink);
+}
+.nav-toggle-bar {
+    top: 50%;
+    left: 50%;
+    margin: -1px 0 0 -10px;
+}
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+    content: "";
+    left: 0;
+}
+.nav-toggle-bar::before { top: -6px; }
+.nav-toggle-bar::after { top: 6px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+    background: transparent;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+/* Collapsible panel: row 0fr -> 1fr animates the height without JS measuring.
+   visibility:hidden keeps closed links out of Tab order and screen readers. */
+.nav-panel {
+    flex-basis: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+}
+.nav-panel.is-open {
+    grid-template-rows: 1fr;
+    visibility: visible;
+}
+.nav-panel-inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;                      /* lets the row shrink to 0 */
+    overflow: hidden;
+}
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: var(--space-2);
+}
+.nav-links a {
+    display: block;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+    border-radius: 8px;
+}
+.nav-links a:hover {
+    color: var(--primary);
+    background: #f1f5f9;
+}
+.nav-links a.is-active {
+    color: var(--primary);
+    background: var(--primary-soft);
+}
+.nav-panel .btn-login {
+    margin-block: var(--space-2) var(--space-3);
+    padding-block: 12px;
+}
+
+@media (min-width: 1025px) {
+    .navbar-inner {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;    /* brand | menu | login */
+        height: var(--nav-h);
+    }
+    .nav-toggle {
+        display: none;
+    }
+    .nav-panel,
+    .nav-panel-inner {
+        display: contents;                      /* menu + login become grid items */
+        visibility: visible;
+    }
+    .nav-links {
+        flex-direction: row;
+        padding-top: 0;
+    }
+    .nav-links a {
+        padding: 8px 12px;
+        font-size: 0.875rem;
+    }
+    .nav-panel .btn-login {
+        justify-self: end;
+        margin: 0;
+        padding-block: 8px;
+    }
+}
+
+/* ---------- CARD (white, warm shadow) ---------- */
+.card-soft {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+}
+
+/* ---------- ICON CIRCLE ---------- */
+.icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+    color: var(--primary);
+    background: #bcdcf2;
+    border-radius: 50%;
+}
+
+/* ---------- FOOTER (brand + 3 link columns + copyright) ---------- */
+.footer {
+    margin-top: 80px;
+    color: #cbd5e1;
+    background: var(--footer);
+}
+.footer-grid {
+    display: grid;
+    gap: 40px;
+    padding-block: 48px;
+}
+.footer .brand {
+    color: var(--white);
+}
+.footer .brand-sub {
+    color: #cbd5e1;
+}
+.footer-desc {
+    max-width: 320px;
+    margin-top: var(--space-3);
+    font-size: 0.875rem;
+    color: var(--muted);
+}
+.sosmed {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+}
+.sosmed a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+}
+.sosmed a:hover {
+    color: var(--white);
+    background: var(--primary);
+}
+.footer h3 {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    color: var(--white);
+}
+.footer li {
+    margin-bottom: 8px;
+    font-size: 0.875rem;
+}
+.footer li a:hover {
+    color: var(--white);
+}
+.footer-contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+.footer-contact i {
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 1rem;
+    color: var(--accent);
+}
+.footer-bottom {
+    /* background: rgba(0, 0, 0, 0.25);    darker band instead of a border */
+    background: var(--footer);
+}
+.footer-bottom .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+    padding-block: 20px;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+.footer-bottom nav {
+    display: flex;
+    gap: 20px;
+}
+.footer-bottom a:hover {
+    color: var(--white);
+}
+
+@media (min-width: 640px) {
+    .footer-bottom .container {
+        flex-direction: row;
+    }
+}
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    }
+}
+
+
+/* ==========================================================================
+   6. HOME  (index.html)
+   ========================================================================== */
+
+/* ---------- HERO (also used by .page-hero on inner pages) ---------- */
+.hero,
+.page-hero {
+    position: relative;
+    color: var(--white);
+    background:
+        linear-gradient(90deg, rgba(30, 27, 130, 0.92) 0%, rgba(52, 64, 176, 0.72) 45%, rgba(40, 80, 170, 0.18) 100%),
+        var(--hero-img) center / cover no-repeat;
+}
+.hero {
+    padding: 72px 0 150px;
+}
+.page-hero {
+    padding: 64px 0 96px;
+}
+.hero .container {                      /* phones/tablets: centred */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 14px;
+    margin: 60px auto 0;
+    padding: 6px 18px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(6px);
+}
+.hero-tags span + span::before {
+    content: "\2022";
+    margin-right: 14px;
+    opacity: 0.7;
+}
+.hero h1 {
+    max-width: 640px;
+    margin-top: 20px;
+    font-size: 2.5rem;
+    line-height: 1.12;
+}
+.hero h1 em,
+.page-hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+}
+.hero p {
+    max-width: 520px;
+    margin-top: 20px;
+    color: #e0e7ff;
+}
+.page-hero h1 {
+    font-size: 2.5rem;
+    text-align: center;
+}
+.page-hero p {
+    max-width: 520px;
+    margin-top: 12px;
+    text-align: right;
+    color: #e0e7ff;
+}
+
+/* ---------- HIGHLIGHT CARD (overlaps the hero edge) ---------- */
+.info-wrap {
+    position: relative;
+    z-index: 5;
+    max-width: 1000px;
+    margin: 0 auto -40px;
+    padding: 0 var(--gutter);
+    transform: translateY(-50%);        /* moves up by half of its own height */
+}
+.info-card {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 8px 0;
+    background: var(--white);
+    border: 1px solid var(--warm-200);
+    border-radius: 24px;
+    box-shadow: 0 12px 28px rgba(30, 42, 138, 0.18);
+}
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 24px;
+    text-align: center;
+}
+.info-item + .info-item {
+    border-top: 1px solid rgba(30, 42, 138, 0.15);
+}
+.info-item strong {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 800;
+    line-height: 1.3;
+    color: var(--navy);
+}
+.info-item span {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #334155;
+}
+
+/* ---------- KURIKULUM + PERKS ---------- */
+.section-title {
+    font-size: 2.5rem;
+    color: var(--navy);
+}
+.kurikulum {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+}
+.kurikulum .bar {
+    display: block;
+    width: 56px;
+    height: 6px;
+    margin-bottom: 16px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #4f6bff, #7aa2ff);
+}
+.kurikulum h2 {
+    font-size: 3rem;
+    color: var(--navy);
+}
+.kurikulum p {
+    max-width: 56ch;
+    margin-top: 16px;
+    color: #334155;
+}
+.feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+}
+.feature-card h3 {
+    font-size: 1.375rem;
+    color: var(--navy);
+}
+.feature-card p {
+    max-width: none;
+    margin-top: 8px;
+    font-size: 0.8125rem;
+}
+.perks-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 40px;
+}
+.perk-card {
+    min-height: 190px;
+    padding: 20px 20px 24px;
+}
+.perk-card .icon-circle {
+    width: 52px;
+    height: 52px;
+    font-size: 1.375rem;
+}
+.perk-card h3 {
+    margin-top: 14px;
+    font-size: 1.25rem;
+    color: var(--navy);
+}
+.perk-card p {
+    margin-top: 6px;
+    font-size: 0.8125rem;
+    color: var(--text);
+}
+
+/* ---------- FASILITAS ---------- */
+.fasilitas-box {
+    display: grid;
+    gap: 20px;
+    margin-top: 24px;
+    padding: 16px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+}
+.fasilitas-box figure {
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+.fasilitas-box figcaption {
+    padding: 12px 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--primary-dark);
+    background: var(--primary-soft);
+}
+
+@media (min-width: 640px) {
+    .hero h1,
+    .page-hero h1 { font-size: 3.25rem; }
+    .info-card { grid-template-columns: repeat(2, 1fr); }
+    .info-item + .info-item { border-top: 0; }
+    .perks-grid { grid-template-columns: repeat(2, 1fr); }
+    .fasilitas-box {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 32px;
+    }
+}
+@media (min-width: 769px) {
+    .hero .container {                  /* PC/laptop: left aligned */
+        display: block;
+        text-align: left;
+    }
+    .hero-tags {
+        display: inline-flex;
+        margin: 60px 0 0;
+    }
+    .hero h1,
+    .hero p {
+        text-align: left;
+    }
+}
+@media (min-width: 1024px) {
+    .hero { padding: 96px 0 170px; }
+    .hero h1 { font-size: 4rem; }
+    .info-card { grid-template-columns: repeat(4, 1fr); padding: 16px 0; }
+    .info-item + .info-item { border-left: 1px solid rgba(30, 42, 138, 0.2); }
+    .kurikulum { grid-template-columns: 1.1fr 1fr; }
+    .perks-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+
+/* ==========================================================================
+   7. PROFIL MANAJEMEN  (pages/before/profil-manajemen.html)
+   ========================================================================== */
+.profil-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+    padding-block: 48px;
+}
+.group-title {
+    padding-left: 12px;
+    font-size: 1.75rem;
+    color: var(--ink);
+    border-left: 4px solid var(--primary);
+}
+.person-grid {
+    display: grid;
+    gap: 16px;
+    margin-top: 20px;
+}
+.person-grid.extra {
+    margin-top: 16px;
+}
+.person {
+    display: flex;
+    gap: 16px;
+    padding: 12px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.person .img-slot {
+    width: 112px;
+    flex-shrink: 0;
+    border-radius: 12px;
+}
+.person-info {
+    min-width: 0;
+    padding: 4px 0;
+}
+.person-info h3 {
+    font-size: 1.25rem;
+    color: var(--ink);
+}
+.person-info p {
+    margin-top: 4px;
+    font-size: 0.875rem;
+    color: var(--text);
+}
+.person-info i {
+    width: 16px;
+    margin-right: 4px;
+    color: var(--primary);
+}
+.more-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+.btn-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: transparent;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-pill);
+}
+.btn-more:hover {
+    color: var(--white);
+    background: var(--primary);
+}
+.btn-more i {
+    font-size: 0.75rem;
+}
+.btn-more[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+@media (min-width: 640px) {
+    .person .img-slot { width: 128px; }
+}
+@media (min-width: 768px) {
+    .person-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .profil-wrap section {
+        padding-block: 15px;
+    }
+}
+
+
+/* ==========================================================================
+   8. PROGRAM SEKOLAH  (pages/before/program-sekolah.html)
+   Each block = headline first, content below it.
+   ========================================================================== */
+.program {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) var(--space-6);
+}
+.program-block {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+}
+.headline {
+    font-size: clamp(2.5rem, 7vw, 4.75rem);
+    line-height: 1.02;
+    color: var(--navy);
+}
+
+/* ---------- PROGRAM KEAHLIAN: card grid ---------- */
+.program-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 28rem);    /* phones: 1 column */
+    gap: var(--space-4);
+}
+.program-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;                   /* clips media to the rounded corners */
+}
+.program-card-media {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 9;
+    color: var(--navy);
+}
+.program-card-media span {              /* abbreviation placeholder */
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: 0.06em;
+}
+.program-card-media img {               /* for the real program logo */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.program-card h3 {
+    padding: var(--space-4) var(--space-4) var(--space-1);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+.program-card p {
+    padding: 0 var(--space-4) var(--space-4);
+    color: var(--warm-muted);
+}
+
+/* ---------- LIST ROWS (Intra, Ko, Ekstra) ---------- */
+.list-stack {
+    display: grid;
+    gap: var(--space-1);
+}
+.list-item {
+    padding: 0.85rem 1.25rem;
+    font-weight: 500;
+    background: var(--secondary);
+    border-radius: var(--radius-md);
+    color: var(--white);
+}
+.list-item:hover {
+    background: var(--primary-soft);
+    color: var(--ink);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* ---------- DROPDOWN GROUP ----------
+   Tabs in one row, the open list sits below them (pushes content down).
+   One panel open at a time (js/program-sekolah.js). */
+.dropdown-triggers {
+    display: grid;
+    grid-template-columns: repeat(var(--trigger-cols, 3), minmax(0, 1fr));
+    gap: var(--space-2);
+}
+.dropdown-triggers--3 { --trigger-cols: 3; }
+.dropdown-triggers--4 { --trigger-cols: 4; }
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--secondary);
+    border: 0;
+    border-radius: var(--radius-pill);
+}
+.dropdown-trigger:hover {
+    background: var(--secondary);
+}
+.dropdown-trigger[aria-expanded="true"] {
+    color: var(--white);
+    background: var(--primary);
+}
+/* "+" drawn with CSS; becomes "-" when open */
+.dropdown-icon {
+    position: relative;
+    flex: none;
+    width: 14px;
+    height: 14px;
+}
+.dropdown-icon::before,
+.dropdown-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    margin-top: -1px;
+    border-radius: 2px;
+    background: currentColor;
+}
+.dropdown-icon::after {
+    transform: rotate(90deg);
+}
+.dropdown-trigger[aria-expanded="true"] .dropdown-icon::after {
+    transform: rotate(0deg);
+}
+/* Panel: same 0fr -> 1fr height trick as the navbar panel */
+.dropdown-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+}
+.dropdown-panel.is-open {
+    grid-template-rows: 1fr;
+    visibility: visible;
+}
+.dropdown-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+.dropdown-inner > ul {
+    padding-top: var(--space-3);        /* inside the clipped box: a closed panel takes no space */
+}
+
+@media (min-width: 600px) {
+    .program-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .program-card-media { aspect-ratio: 4 / 3; }
+}
+@media (min-width: 1025px) {
+    .program-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+/* PC/laptop: lists and tabs stay narrow; tablet/phone: full width */
+@media (min-width: 1100px) {
+    .dropdown-group,
+    .list-stack {
+        max-width: var(--content-max);
+    }
+}
+@media (max-width: 600px) {
+    .dropdown-triggers--4 { --trigger-cols: 2; }
+}
+/* Phones: compact tabs so Kelas 10 / 11 / 12 stay on one row */
+@media (max-width: 480px) {
+    .dropdown-triggers { gap: var(--space-1); }
+    .dropdown-trigger {
+        gap: 0.4rem;
+        padding: 0.75rem 0.4rem;
+        font-size: 0.95rem;
+    }
+    .dropdown-icon {
+        width: 12px;
+        height: 12px;
+    }
+    .list-item { padding: 0.8rem 1rem; }
+}
+@media (max-width: 360px) {
+    .dropdown-triggers--3 .dropdown-icon { display: none; }
+    .dropdown-triggers--4 { --trigger-cols: 1; }
+}
+
+
+/* ==========================================================================
+   9. LOGIN  (pages/login.html)
+   Card = 2 columns: school logo + name (left) | form (right).
+   Phones: stacked. Gradients mix both palettes (navy, blue, cyan, warm).
+   ========================================================================== */
+.page-login {
+    background:
+        radial-gradient(48rem 32rem at 8% 0%, var(--secondary), transparent 62%),
+        radial-gradient(40rem 30rem at 100% 100%, var(--secondary), transparent 62%),
+        radial-gradient(26rem 20rem at 92% 6%, var(--primary-soft), transparent 62%),
+        linear-gradient(135deg, var(--secondary) 0%, var(--primary-soft) 55%, var(--secondary) 100%);
+}
+.login-main {
+    display: grid;
+    place-items: center;                /* centres the card */
+    padding: var(--gutter);
+}
+.login-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: min(100%, 56rem);
+    overflow: hidden;                   /* clips both panels to the rounded corners */
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 24px 60px rgba(30, 42, 138, 0.25), var(--shadow-card);
+}
+
+/* LEFT: logo + school name */
+.login-brand {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--space-4);
+    text-align: center;
+    color: var(--white);
+    background:
+        radial-gradient(circle at 0% 100%, rgba(245, 220, 176, 0.4), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(46, 230, 214, 0.35), transparent 50%),
+        linear-gradient(160deg, var(--primary-dark) 0%, var(--primary) 60%, var(--secondary) 100%);
+}
+.login-logo {
+    width: 6rem;
+    height: 6rem;
+    padding: 0.75rem;
+    background: var(--white);
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3);
+}
+.login-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.login-school {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+}
+.login-school span {
+    display: block;
+    color: var(--accent);             /* warm highlight on the second line */
+}
+
+/* RIGHT: back button, headline, form */
+.login-panel {
+    display: grid;
+    align-content: center;
+    gap: var(--space-4);
+    padding: clamp(1.5rem, 5vw, 3rem);
+    background: linear-gradient(180deg, var(--white) 0%, var(--warm-50) 100%);
+}
+.back-btn {
+    display: grid;
+    place-items: center;
+    justify-self: start;
+    width: 3rem;
+    height: 2.5rem;
+    color: var(--warm-ink);
+    background: var(--line);
+    border-radius: var(--radius-md);
+}
+.back-btn::before {
+    content: "\2190" / "";              /* left arrow; the link has an aria-label */
+    font-size: 1.4rem;
+    line-height: 1;
+}
+.back-btn:hover {
+    color: var(--white);
+    background: var(--primary);
+}
+.login-head h1 {
+    font-size: clamp(2.25rem, 7vw, 3rem);
+}
+.login-head p {
+    margin-top: var(--space-1);
+    color: var(--warm-muted);
+}
+.login-form {
+    display: grid;
+    gap: var(--space-4);
+}
+.login-fields {
+    display: grid;
+    gap: var(--space-3);
+}
+.login-field {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);   /* icon | input */
+    align-items: center;
+    column-gap: var(--space-3);
+    padding-inline: 1.25rem;
+    cursor: text;
+    background: var(--line);
+    border-radius: var(--radius-lg);
+}
+/* Icon box is bigger than the 2.5rem column and cancelled by a negative margin:
+   sizes each icon visually without growing the field
+   (email.png has more transparent padding than lock.png). */
+.login-field img {
+    --icon-size: 20px;
+    opacity: 50%;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin: calc((2.5rem - var(--icon-size)) / 2);
+    justify-self: center;
+    object-fit: contain;
+}
+.login-field--email img {
+    --icon-size: 36px;
+    opacity: 50%;
+}
+.login-field input {
+    width: 100%;
+    padding-block: 1.1rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--warm-ink);
+    background: transparent;
+    border: 0;
+}
+.login-field input::placeholder {
+    color: var(--warm-muted);
+}
+.login-field input:focus-visible {
+    outline: none;                      /* the whole field shows the ring below */
+}
+.login-field:focus-within {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+/* Autofill paints its own background: cover it with the field color */
+.login-field input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 100px var(--warm-100) inset;
+    -webkit-text-fill-color: var(--warm-ink);
+}
+.login-actions {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+}
+.btn-signin {
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    border: 0;
+    border-radius: var(--radius-pill);
+}
+.btn-signin:hover {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+@media (min-width: 769px) {
+    .login-card {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);   /* brand | form */
+        min-height: 32rem;
+    }
+    .login-brand { padding: var(--space-5); }
+    .login-logo {
+        width: 8rem;
+        height: 8rem;
+        padding: 1rem;
+    }
+}
+@media (max-width: 480px) {
+    .login-field { padding-inline: 1rem; }
+}
+
+
+/* ==========================================================================
+   10. DASHBOARDS  (pages/after/*.html - pop-up modals)
+   Opened/closed by js/dashboard.js
+   ========================================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+    width: min(92%, 42rem);
+    max-height: 80vh;
+    margin: 10% auto;
+    padding: 20px;
+    overflow: auto;
+    background: var(--white);
+}
