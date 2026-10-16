@@ -39,7 +39,7 @@
     /* WARM PALETTE (Program Sekolah + Login) */
     --warm-50: #fff7ea;                 /* page background */
     --warm-100: #fdebcb;                /* rows, tabs, fields */
-    --warm-200: #f5dcb0;                /* hover, card media */
+    --warm-200: #f5dcb0;                /* hover, card mediaqwewqeqweqw */
     --warm-ink: #1e1919;                /* near-black text */
     --warm-muted: color-mix(in srgb, var(--warm-ink) 78%, var(--warm-50));
     --warm-rgb: 120, 90, 40;            /* warm shadow color */
