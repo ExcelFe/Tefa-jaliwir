@@ -1,0 +1,101 @@
+/* ==========================================================================
+   ANIMATION.CSS - transitions & keyframes (basic styles: main.css)
+   ========================================================================== */
+
+/* Smooth scroll for in-page links (footer -> program cards) */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   HOVER / STATE COLORS
+   -------------------------------------------------------------------------- */
+.nav-links a,
+.nav-toggle,
+.btn-login,
+.sosmed a,
+.footer li a,
+.footer-bottom a,
+.btn-more,
+.card-soft,
+.list-item,
+.dropdown-trigger,
+.back-btn,
+.btn-signin,
+.login-actions a {
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Chevron on "Selengkapnya" (profil manajemen) */
+.btn-more i {
+    transition: transform 0.2s ease;
+}
+
+/* --------------------------------------------------------------------------
+   DROPDOWN (Intra- & Ekstra-kulikuler)
+   -------------------------------------------------------------------------- */
+/* "+" -> "-" */
+.dropdown-icon::after {
+    transition: transform 0.3s ease;
+}
+
+/* Closing: height first, visibility flips at the end (delay = duration) */
+.dropdown-panel {
+    transition: grid-template-rows 0.4s ease, visibility 0s linear 0.4s;
+}
+
+/* Opening: visibility flips at once so the height animation shows */
+.dropdown-panel.is-open {
+    transition: grid-template-rows 0.4s ease, visibility 0s linear 0s;
+}
+
+/* --------------------------------------------------------------------------
+   HAMBURGER MENU (tablet/phone)
+   -------------------------------------------------------------------------- */
+/* Bars -> X */
+.nav-toggle-bar,
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+    transition: top 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
+}
+
+/* Same open/close pattern as the dropdown panel */
+.nav-panel {
+    transition: grid-template-rows 0.35s ease, visibility 0s linear 0.35s;
+}
+.nav-panel.is-open {
+    transition: grid-template-rows 0.35s ease, visibility 0s linear 0s;
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION: keep state changes, drop the movement
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .nav-links a,
+    .nav-toggle,
+    .nav-toggle-bar,
+    .nav-toggle-bar::before,
+    .nav-toggle-bar::after,
+    .nav-panel,
+    .nav-panel.is-open,
+    .btn-login,
+    .sosmed a,
+    .footer li a,
+    .footer-bottom a,
+    .btn-more,
+    .btn-more i,
+    .card-soft,
+    .list-item,
+    .dropdown-trigger,
+    .dropdown-icon::after,
+    .dropdown-panel,
+    .dropdown-panel.is-open,
+    .back-btn,
+    .btn-signin,
+    .login-actions a {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+    }
+}
