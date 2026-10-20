@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal - Dashboard Guru - SMK TI Bali Global Badung</title>
+
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/animation.css">
+    <script defer src="../../../js/main.js"></script>
+    <script defer src="../../../js/animation.js"></script>
+</head>
+<body class="dash-body">
+    <div class="dash">
+        <!-- Dimmed area behind the sidebar on tablet/phone (click closes it) -->
+        <div class="dash-scrim" data-sidebar-close></div>
+
+        <!-- Sidebar: minimize + brand (top) | page menu (middle) | account + settings (bottom) -->
+        <aside class="dash-sidebar" id="sidebar" aria-label="Menu guru">
+            <div class="dash-sidebar__top">
+                <button type="button" class="dash-icon-btn" data-sidebar-close aria-label="Tutup sidebar">
+                    <img class="dash-icon" src="../../../media/vector/minimize-icon.png" alt="" width="24" height="24">
+                </button>
+                <span class="dash-brand">Globaliti Badung</span>
+            </div>
+
+            <nav class="dash-menu" aria-label="Halaman guru">
+                <a class="dash-menu__item" href="guru-jadwal.html" aria-current="page">
+                    <img class="dash-icon" src="../../../media/vector/jadwal-icon.png" alt="" width="24" height="24">
+                    Jadwal
+                </a>
+                <a class="dash-menu__item" href="guru-absen.html">
+                    <img class="dash-icon" src="../../../media/vector/absensi-icon.png" alt="" width="24" height="24">
+                    Absen Siswa
+                </a>
+                <a class="dash-menu__item" href="guru-jurnal.html">
+                    <img class="dash-icon" src="../../../media/vector/jurnal-icon.png" alt="" width="24" height="24">
+                    Jurnal Kelas
+                </a>
+                <a class="dash-menu__item" href="guru-rekap.html">
+                    <img class="dash-icon" src="../../../media/vector/clipboard-icon.png" alt="" width="24" height="24">
+                    Rekap Absensi
+                </a>
+            </nav>
+
+            <div class="dash-account">
+                <div class="dash-account__info">
+                    <span class="dash-avatar"><img class="dash-icon" src="../../../media/vector/absensi-icon.png" alt="" width="24" height="24"></span>
+                    <span class="dash-account__name">Nama Guru Mapel</span>
+                </div>
+                <button type="button" class="dash-icon-btn" data-settings-toggle aria-label="Pengaturan" aria-expanded="false" aria-controls="settings-menu">
+                    <img class="dash-icon" src="../../../media/vector/setting-icon.png" alt="" width="24" height="24">
+                </button>
+
+                <!-- Settings menu: opens above the account container -->
+                <div class="dash-settings" id="settings-menu">
+                    <button type="button" class="dash-settings__item" role="switch" aria-checked="false" data-theme-toggle>
+                        <img class="dash-icon dash-icon--light" src="../../../media/vector/lightmode-icon.png" alt="" width="24" height="24">
+                        <img class="dash-icon dash-icon--dark" src="../../../media/vector/darkmode-icon.png" alt="" width="24" height="24">
+                        Appearance Mode
+                        <span class="dash-switch" aria-hidden="true"></span>
+                    </button>
+
+                    <!-- Learn More: sub-menu shows on hover, to the right -->
+                    <div class="dash-learn">
+                        <button type="button" class="dash-settings__item" aria-haspopup="true">
+                            <img class="dash-icon" src="../../../media/vector/info-icon.png" alt="" width="24" height="24">
+                            Learn More
+                            <img class="dash-icon dash-icon--end" src="../../../media/vector/right-arrow-icon.png" alt="" width="24" height="24">
+                        </button>
+                        <div class="dash-submenu">
+                            <div class="dash-submenu__box">
+                                <a class="dash-settings__item" href="#">Kebijakan Privasi</a>
+                                <a class="dash-settings__item" href="#">Syarat &amp; Ketentuan</a>
+                                <a class="dash-settings__item" href="#">Panduan Pengguna</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Log Out: back to the login page until the backend handles sessions -->
+                    <a class="dash-settings__item" href="../../login.html">
+                        <img class="dash-icon" src="../../../media/vector/log-out-icon.png" alt="" width="24" height="24">
+                        Log Out
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Shown while the sidebar is closed (always above the page on tablet/phone) -->
+        <div class="dash-topbar">
+            <button type="button" class="dash-icon-btn" data-sidebar-open aria-label="Buka sidebar" aria-expanded="true" aria-controls="sidebar">
+                <img class="dash-icon" src="../../../media/vector/maximize-icon.png" alt="" width="24" height="24">
+            </button>
+            <span class="dash-brand">Globaliti Badung</span>
+        </div>
+
+        <main class="dash-main">
+            <div class="dash-content">
+        <header class="dash-head">
+            <div class="dash-head__title">
+                <h1 class="dash-title">Jadwal Hari Ini (Per Guru)</h1>
+            </div>
+        </header>
+                <!-- Placeholder schedule: green = running now, red = not running -->
+                <ul class="dash-list">
+                    <li class="dash-item">
+                        <span class="dash-status dash-status--on" role="img" aria-label="Sedang berlangsung"></span>
+                        <div class="dash-card dash-card--lg">
+                            <span class="dash-card__title">XI PPLG 1</span>
+                            <div class="dash-card__side">
+                                <span class="dash-card__title">Sejarah</span>
+                                <small>07:00 - 08:00</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dash-item">
+                        <span class="dash-status dash-status--off" role="img" aria-label="Belum berlangsung"></span>
+                        <div class="dash-card dash-card--lg">
+                            <span class="dash-card__title">XI PPLG 2</span>
+                            <div class="dash-card__side">
+                                <span class="dash-card__title">Sejarah</span>
+                                <small>08:00 - 09:00</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dash-item">
+                        <span class="dash-status dash-status--off" role="img" aria-label="Belum berlangsung"></span>
+                        <div class="dash-card dash-card--lg">
+                            <span class="dash-card__title">XI DKV 1</span>
+                            <div class="dash-card__side">
+                                <span class="dash-card__title">Sejarah</span>
+                                <small>09:00 - 10:30</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dash-item">
+                        <span class="dash-status dash-status--off" role="img" aria-label="Belum berlangsung"></span>
+                        <div class="dash-card dash-card--lg">
+                            <span class="dash-card__title">XI DKV 2</span>
+                            <div class="dash-card__side">
+                                <span class="dash-card__title">Sejarah</span>
+                                <small>10:30 - 11:30</small>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dash-item">
+                        <span class="dash-status dash-status--off" role="img" aria-label="Belum berlangsung"></span>
+                        <div class="dash-card dash-card--lg">
+                            <span class="dash-card__title">XI TJKT</span>
+                            <div class="dash-card__side">
+                                <span class="dash-card__title">Sejarah</span>
+                                <small>11:30 - 12:25</small>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
