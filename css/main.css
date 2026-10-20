@@ -3,7 +3,7 @@
    Basic styles for every page. Transitions/keyframes: animation.css
    Sections: 1 Fonts | 2 Tokens | 3 Base | 4 Layout | 5 Shared components |
              6 Home | 7 Profil Manajemen | 8 Program Sekolah | 9 Login |
-             10 Dashboards (after login)
+             10 Dashboards (after login) | 11 Teacher dashboard
    ========================================================================== */
 
 /* ==========================================================================
@@ -39,10 +39,14 @@
     /* WARM PALETTE (Program Sekolah + Login) */
     --warm-50: #fff7ea;                 /* page background */
     --warm-100: #fdebcb;                /* rows, tabs, fields */
-    --warm-200: #f5dcb0;                /* hover, card media */
+    --warm-200: #f5dcb0;                /* hover, card mediaqwewqeqweqw */
     --warm-ink: #1e1919;                /* near-black text */
     --warm-muted: color-mix(in srgb, var(--warm-ink) 78%, var(--warm-50));
     --warm-rgb: 120, 90, 40;            /* warm shadow color */
+
+    /* STATUS (teacher dashboard: present / absent, schedule square) */
+    --status-ok: #16a34a;               /* green */
+    --status-bad: #dc2626;              /* red */
 
     /* PAGE THEME (default = white; .theme-warm overrides) */
     --page-bg: var(--white);
@@ -114,7 +118,7 @@ ul {
     list-style: none;
 }
 a {
-    color: inherit;
+    color: var(--white);
     text-decoration: none;
 }
 button {
@@ -1222,4 +1226,1022 @@ select {
     padding: 20px;
     overflow: auto;
     background: var(--white);
+}
+
+
+/* ==========================================================================
+   11. DASHBOARDS: TEACHER / STUDENT / GURU PIKET / ADMIN  (pages/after/ROLE/)
+   Sidebar + main. Dark mode: <html data-theme="dark"> (set in main.js).
+   Colors come from the existing tokens.
+   Main containers: soft shadow + subtle border. Menu hover ring = inset shadow.
+   Transitions: animation.css
+   ========================================================================== */
+
+/* ---- 11.1 Tokens: light / dark ---- */
+.dash-body {
+    --dash-sidebar-w: 18rem;
+    --dash-content-w: 56rem;            /* content never fills a wide screen */
+
+    --dash-bg: var(--white);
+    --dash-sidebar: var(--primary-dark);
+    --dash-surface: var(--line);    /* rows, fields */
+    --dash-hover: var(--secondary);
+    --dash-popup: var(--line);         /* settings menu, pop-ups */
+    --dash-ink: var(--ink);
+    --dash-muted: var(--text);
+    --dash-accent: var(--primary);
+    --dash-on-accent: var(--white);
+    --dash-hairline: color-mix(in srgb, var(--ink) 14%, transparent);
+    --dash-edge: color-mix(in srgb, var(--dash-surface) 78%, var(--secondary));  /* container border */
+    --dash-scrim: rgba(15, 23, 42, 0.45);
+    --dash-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+    --dash-shadow-pop: 0 10px 30px rgba(15, 23, 42, 0.18);
+    /* Icons are black PNGs: invert them on dark surfaces */
+    --dash-icon-filter: none;
+    --dash-accent-icon-filter: invert(1);
+
+    background: var(--dash-bg);
+    color: var(--dash-ink);
+}
+html[data-theme="dark"] {
+    color-scheme: dark;                 /* native date picker, select, scrollbars */
+}
+html[data-theme="dark"] .dash-body {
+    --dash-bg: var(--ink);
+    --dash-sidebar: color-mix(in srgb, var(--ink) 82%, var(--navy));
+    --dash-surface: color-mix(in srgb, var(--ink) 72%, var(--navy));
+    --dash-hover: color-mix(in srgb, var(--ink) 52%, var(--navy));
+    --dash-popup: color-mix(in srgb, var(--ink) 64%, var(--navy));
+    --dash-ink: var(--white);
+    --dash-muted: var(--muted);
+    --dash-accent: var(--secondary);
+    --dash-on-accent: var(--ink);
+    --dash-hairline: color-mix(in srgb, var(--white) 18%, transparent);
+    --dash-edge: color-mix(in srgb, var(--dash-surface) 85%, var(--secondary));
+    --dash-scrim: rgba(15, 23, 42, 0.7);
+    --dash-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    --dash-shadow-pop: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --dash-icon-filter: invert(1);
+    --dash-accent-icon-filter: none;
+}
+
+/* Reset native button/field look (zero specificity: classes below win) */
+:where(.dash-body) :is(button, input, select, textarea) {
+    border: 0;
+    background: none;
+}
+.dash-body :focus-visible {
+    outline-color: var(--dash-accent);
+}
+.dash-body.has-modal {
+    overflow: hidden;                   /* page stays still behind a pop-up */
+}
+.dash-sr {                              /* visually hidden, read by screen readers */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.dash-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    flex-shrink: 0;
+    filter: var(--dash-icon-filter);
+}
+
+
+/* ---- 11.2 Shell: sidebar (fixed) + main ---- */
+.dash {
+    position: relative;
+    flex: 1 0 auto;
+}
+.dash-main {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: var(--space-5) var(--gutter);
+}
+.dash-content {
+    width: 100%;
+    max-width: var(--dash-content-w);
+    margin-inline: auto;
+}
+.dash[data-sidebar="closed"] .dash-sidebar {
+    transform: translateX(-100%);           /* closes to the left */
+    visibility: hidden;                     /* out of the tab order */
+}
+.dash-scrim {
+    display: none;
+}
+
+/* ---- 11.3 Sidebar ---- */
+.dash-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    width: var(--dash-sidebar-w);
+    max-width: 85vw;
+    background: var(--dash-sidebar);
+    color: var(--dash-ink);
+    /* No overflow clipping: the Learn More menu opens outside the sidebar */
+}
+/* Top left: toggle icon + brand text. Same spot in the sidebar and in .dash-topbar */
+.dash-sidebar__top,
+.dash-topbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-3);
+}
+.dash-brand {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--white);
+}
+.dash-icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+.dash-icon-btn:hover,
+.dash-icon-btn[aria-expanded="true"] {
+    background: var(--dash-hover);
+}
+
+/* Page menu: no border by default; ring only on hover / focus / click */
+.dash-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-3);
+    overflow-y: auto;
+}
+.dash-menu__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.8rem var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    outline: none;                          /* the ring below replaces the outline */
+}
+.dash-menu__item[aria-current="page"] {
+    background: var(--dash-hover);          /* current page: fill only */
+}
+.dash-menu__item:hover,
+.dash-menu__item:focus,
+.dash-menu__item:active {
+    background: var(--secondary);
+    box-shadow: inset 0 0 0 2px var(--dash-ink);
+}
+
+/* Account (bottom) + settings button */
+.dash-account {
+    position: relative;                     /* the settings menu opens above this */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: var(--line);
+    border-color: var(--muted);
+}
+.dash-account::before {                     /* divider line */
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: var(--white);
+}
+.dash-account__info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+}
+.dash-avatar {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--white);
+    flex-shrink: 0;
+}
+.dash-account__name {
+    overflow: hidden;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* ---- 11.4 Settings menu (above the account container) ---- */
+.dash-settings {
+    position: absolute;
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: calc(100% + var(--space-1));
+    z-index: 2;
+    padding: 0.35rem;
+    border-radius: var(--radius-md);
+    background: var(--dash-popup);
+    box-shadow: var(--dash-shadow-pop);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.5rem);
+}
+.dash-settings.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+.dash-settings > * + * {                    /* hairline between menus */
+    background: linear-gradient(var(--dash-hairline), var(--dash-hairline)) no-repeat top center / calc(100% - var(--space-4)) 1px;
+}
+.dash-settings__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: 0.75rem var(--space-2);
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: left;
+    color: var(--ink);
+}
+.dash-settings__item:hover,
+.dash-settings__item:focus-visible {
+    background-color: var(--primary-soft);
+}
+.dash-settings__item .dash-icon--end {
+    width: 1rem;
+    height: 1rem;
+    margin-left: auto;
+}
+
+/* Dark / light switch: both icons exist, the one for the current mode shows */
+.dash-switch {
+    position: relative;
+    width: 2.5rem;
+    height: 1.4rem;
+    margin-left: auto;
+    border-radius: var(--radius-pill);
+    background: var(--muted);
+    flex-shrink: 0;
+}
+.dash-switch::after {                       /* knob */
+    content: "";
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+[aria-checked="true"] > .dash-switch {
+    background: var(--dash-accent);
+}
+[aria-checked="true"] > .dash-switch::after {
+    transform: translateX(1.1rem);
+}
+.dash-icon--dark {
+    display: none;
+}
+html[data-theme="dark"] .dash-icon--dark {
+    display: block;
+}
+html[data-theme="dark"] .dash-icon--light {
+    display: none;
+}
+
+/* Learn More (desktop): sub-menu opens on hover, to the right, with its bottom
+   on the same level as the settings menu (.dash-learn is not positioned, so the
+   sub-menu is placed against .dash-settings). Touch/phone: opens on click. */
+.dash-submenu {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    min-width: 13rem;
+    padding-left: 0.6rem;                   /* hover bridge across the gap */
+    opacity: 0;
+    visibility: hidden;
+}
+.dash-submenu__box {
+    padding: 0.35rem;
+    border-radius: var(--radius-md);
+    background: var(--dash-popup);
+    box-shadow: var(--dash-shadow-pop);
+}
+.dash-learn:has(:focus-visible) .dash-submenu {        /* keyboard focus */
+    opacity: 1;
+    visibility: visible;
+}
+@media (hover: hover) and (min-width: 601px) {
+    .dash-learn:hover .dash-submenu {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+@media (hover: none), (max-width: 600px) {              /* click (main.js adds .is-open) */
+    .dash-learn.is-open .dash-submenu {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+
+/* ---- 11.5 Page header: title + tools ---- */
+.dash-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-5);          /* gap between header and content */
+}
+.dash-head__title {
+    min-width: 0;
+}
+.dash-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+    text-transform: uppercase;
+}
+.dash-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+}
+.dash-search {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    width: 13rem;
+    max-width: 100%;
+    height: 2.75rem;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-pill);
+    background: var(--dash-surface);
+}
+.dash-search:focus-within {
+    border-color: var(--dash-accent);
+    box-shadow: 0 0 0 1px var(--dash-accent);
+}
+.dash-search input {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+.dash-search input::placeholder {
+    color: var(--dash-muted);
+    opacity: 1;
+}
+.dash-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    height: 2.75rem;
+    padding: 0 var(--space-4);
+    border: 1px solid color-mix(in srgb, var(--dash-accent) 85%, var(--ink));
+    border-radius: var(--radius-pill);
+    background: var(--dash-accent);
+    color: var(--dash-on-accent);
+    font-weight: 600;
+    white-space: nowrap;
+}
+.dash-btn:hover {
+    border-color: color-mix(in srgb, var(--dash-accent) 78%, var(--ink));
+    background: color-mix(in srgb, var(--dash-accent) 85%, var(--ink));
+}
+.dash-btn .dash-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    filter: var(--dash-accent-icon-filter);
+}
+.dash-btn--ghost {
+    border-color: var(--dash-edge);
+    background: var(--dash-surface);
+    color: var(--dash-ink);
+}
+.dash-btn--ghost:hover {
+    border-color: var(--dash-edge);
+    background: var(--dash-hover);
+}
+
+
+/* ---- 11.6 Lists (jadwal, logs, rekap) ---- */
+.dash-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+.dash-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+.dash-card {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-3);
+    min-height: 4rem;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+}
+.dash-card__name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.dash-card__meta {
+    margin-left: auto;
+    align-self: flex-end;                   /* date sits bottom right */
+    font-size: 0.8125rem;
+    color: var(--dash-muted);
+    white-space: nowrap;
+}
+.dash-action {                              /* edit / download button */
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+    flex-shrink: 0;
+}
+.dash-action:hover {
+    background: var(--dash-hover);
+}
+
+/* Jadwal: status square + larger card */
+.dash-status {
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 1px solid transparent;          /* color set per status below */
+    border-radius: var(--radius-md);
+    box-shadow: var(--dash-shadow);
+    flex-shrink: 0;
+}
+.dash-status--on {
+    border-color: color-mix(in srgb, var(--status-ok) 85%, var(--ink));
+    background: var(--status-ok);
+}
+.dash-status--off {
+    border-color: color-mix(in srgb, var(--status-bad) 85%, var(--ink));
+    background: var(--status-bad);
+}
+.dash-card--lg {
+    min-height: 5.5rem;
+}
+.dash-card__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+.dash-card__side {
+    margin-left: auto;
+    text-align: right;
+}
+.dash-card__side small {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--dash-muted);
+}
+
+/* Student jadwal: sub-headings + zoom button in the middle of the card */
+.dash-section + .dash-section {
+    margin-top: var(--space-5);
+}
+.dash-subtitle {
+    margin-bottom: var(--space-3);
+    font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+    text-transform: uppercase;
+}
+.dash-card__zoom {
+    margin-inline: auto;
+}
+.dash-card__zoom + .dash-card__side {
+    margin-left: 0;                         /* free space is shared around the zoom button */
+}
+
+/* Admin: featured card (photo, name, date) */
+.dash-feature {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+}
+.dash-feature .dash-card__title {
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+}
+.dash-feature .dash-card__meta {
+    margin-left: 0;
+}
+.dash-photo {                               /* photo placeholder */
+    display: grid;
+    place-items: center;
+    width: 5.5rem;
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-popup);
+    color: var(--dash-muted);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+
+/* ---- 11.7 Pop-ups (Mulai Absensi, Tambah Jurnal) ---- */
+.dash-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: var(--space-3);
+    background: var(--dash-scrim);
+    opacity: 0;
+    visibility: hidden;
+}
+.dash-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+.dash-modal__box {
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 38rem);
+    max-height: min(46rem, calc(100vh - 2 * var(--space-3)));
+    max-height: min(46rem, calc(100dvh - 2 * var(--space-3)));
+    border-radius: var(--radius-lg);
+    background: var(--dash-popup);
+    color: var(--dash-ink);
+    box-shadow: var(--dash-shadow-pop);
+    position: relative;                     /* anchors .dash-modal__close */
+    overflow: hidden;
+    outline: none;
+    transform: translateY(0.75rem) scale(0.97);
+}
+.dash-modal.is-open .dash-modal__box {
+    transform: none;
+}
+.dash-modal__box--wide {
+    width: min(100%, 44rem);
+}
+.dash-modal__head {
+    padding: var(--space-4) var(--space-4) var(--space-2);
+}
+.dash-modal__title {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+.dash-modal__body {
+    flex: 1;
+    min-height: 0;
+    padding: var(--space-2) var(--space-4);
+    overflow: auto;                         /* long forms/tables scroll here */
+}
+.dash-modal__body--table {                  /* no padding above the sticky header: rows can't show there */
+    padding-block: 0;
+}
+.dash-modal__foot {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+/* Form fields */
+.dash-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3) var(--space-4);
+}
+.dash-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+}
+.dash-field--full {
+    grid-column: 1 / -1;
+}
+.dash-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+}
+.dash-input {
+    width: 100%;
+    min-width: 0;
+    height: 2.75rem;
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    color: inherit;
+    font: inherit;
+}
+.dash-input:focus,
+.dash-range:focus-within {
+    outline: 2px solid var(--dash-accent);
+}
+.dash-input--center {
+    text-align: center;
+}
+.dash-input::placeholder,
+.dash-range input::placeholder {
+    color: var(--dash-muted);
+    opacity: 1;
+}
+.dash-input[type="date"]:invalid {          /* empty date reads like a placeholder */
+    color: var(--dash-muted);
+}
+textarea.dash-input {
+    height: auto;
+    min-height: 9rem;
+    max-height: 50vh;
+    padding: var(--space-2) var(--space-3);
+    resize: vertical;                       /* grows downward only */
+}
+/* Pilih Guru Piket pop-up: centered title, close button, stacked fields */
+.dash-modal__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--dash-hover);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.dash-modal__close:hover {
+    background: var(--dash-edge);
+}
+.dash-modal__head--center {
+    padding-inline: 3.5rem;                 /* clear of the close button */
+    text-align: center;
+}
+.dash-modal__body--last {
+    padding-bottom: var(--space-4);
+}
+.dash-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+.dash-stack > .dash-btn {
+    align-self: center;
+}
+.dash-label--left {
+    text-align: left;
+}
+.dash-or {                                  /* "ATAU" divider */
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-block: var(--space-3);
+    color: var(--dash-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.dash-or::before,
+.dash-or::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--dash-hairline);
+}
+.dash-copy-field {
+    position: relative;
+}
+.dash-copy-field .dash-input {
+    padding-right: 3.25rem;
+}
+.dash-copy-btn {
+    position: absolute;
+    top: 50%;
+    right: 0.35rem;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-md);
+    transform: translateY(-50%);
+}
+.dash-copy-btn:hover {
+    background: var(--dash-hover);
+}
+.dash-copy-btn.is-copied {                  /* feedback for 1.4s (admin-piket.js) */
+    background: var(--dash-accent);
+}
+.dash-copy-btn.is-copied .dash-icon {
+    filter: var(--dash-accent-icon-filter);
+}
+.dash-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    align-self: flex-start;
+    margin-top: var(--space-2);
+    color: var(--dash-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.dash-link-btn .dash-icon {
+    width: 1rem;
+    height: 1rem;
+}
+.dash-link-btn:hover {
+    text-decoration: underline;
+}
+
+/* Jam ke-: two number inputs with a line between them */
+.dash-range {
+    display: flex;
+    height: 2.75rem;
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    overflow: hidden;
+}
+.dash-range input {
+    flex: 1;
+    min-width: 0;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    outline: none;
+}
+.dash-range__line {
+    width: 2px;
+    background: var(--dash-ink);
+}
+/* Mata Pelajaran: select with the arrow icon on the right */
+.dash-select {
+    position: relative;
+}
+.dash-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 2.75rem;
+    cursor: pointer;
+}
+.dash-select .dash-icon {
+    position: absolute;
+    top: 50%;
+    right: var(--space-3);
+    width: 1rem;
+    height: 1rem;
+    transform: translateY(-50%) rotate(90deg);   /* right arrow -> down arrow */
+    pointer-events: none;
+}
+
+/* Absensi table: sticky header, zebra rows, green / red checkboxes */
+.dash-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.dash-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+.dash-table th {
+    padding: 0.6rem var(--space-2);
+    background: var(--dash-hover);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.dash-table td {
+    padding: 0.5rem var(--space-2);
+    font-size: 0.9rem;
+    text-align: center;
+}
+.dash-table .dash-table__name {            /* Nama Siswa: left aligned */
+    text-align: left;
+}
+.dash-table tbody tr:nth-child(odd) {
+    background: var(--dash-surface);
+}
+.dash-check {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-grid;
+    place-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.dash-check::after {                        /* check mark */
+    content: "";
+    width: 0.9rem;
+    height: 0.9rem;
+    background: var(--white);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+    transform: scale(0);
+}
+.dash-check:checked::after {
+    transform: scale(1);
+}
+.dash-check--ok {
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--status-ok) 70%, transparent);
+}
+.dash-check--bad {
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--status-bad) 70%, transparent);
+}
+.dash-check--ok:checked {
+    background: var(--status-ok);
+    box-shadow: none;
+}
+.dash-check--bad:checked {
+    background: var(--status-bad);
+    box-shadow: none;
+}
+
+
+/* ---- 11.8 Responsive ---- */
+/* Desktop: the sidebar pushes the content. Closed: content centers on the page
+   and the topbar (toggle + brand) shows top left. */
+@media (min-width: 1025px) {
+    .dash-main {
+        margin-left: var(--dash-sidebar-w);
+    }
+    .dash[data-sidebar="closed"] .dash-main {
+        margin-left: 0;
+    }
+    .dash-topbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        opacity: 0;                         /* fades in when the sidebar closes */
+        visibility: hidden;
+    }
+    .dash[data-sidebar="closed"] .dash-topbar {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+/* Narrow desktops: centered content reaches the topbar, so it starts below it */
+@media (min-width: 1025px) and (max-width: 1375px) {
+    .dash[data-sidebar="closed"] .dash-main {
+        padding-top: calc(var(--space-5) + 2.5rem);
+    }
+}
+/* Tablet + phone: topbar above the page, sidebar opens as a drawer */
+@media (max-width: 1024px) {
+    .dash-main {
+        padding-top: var(--space-3);        /* topbar sits above */
+    }
+    .dash-topbar {
+        background: var(--dash-sidebar);    /* faint color; no shadow, no border */
+    }
+    .dash[data-sidebar="open"] .dash-topbar {
+        opacity: 0;                         /* fades out while the drawer is open */
+        visibility: hidden;
+        pointer-events: none;
+    }
+    .dash-sidebar {
+        transform: translateX(-100%);
+        visibility: hidden;
+        box-shadow: var(--dash-shadow-pop);
+    }
+    .dash[data-sidebar="open"] .dash-sidebar {
+        transform: none;
+        visibility: visible;
+    }
+    .dash-scrim {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: var(--dash-scrim);
+        opacity: 0;
+        visibility: hidden;
+    }
+    .dash[data-sidebar="open"] .dash-scrim {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+@media (max-width: 600px) {
+    /* Tools: filter left of a shorter search bar, button on its own full row */
+    .dash-tools {
+        width: 100%;
+    }
+    .dash-tools .dash-icon-btn {
+        order: -1;
+    }
+    .dash-search {
+        flex: 1 1 0;
+        width: auto;
+    }
+    .dash-tools .dash-btn {
+        flex: 1 1 100%;
+    }
+    .dash-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .dash-modal__head,
+    .dash-modal__body,
+    .dash-modal__foot {
+        padding-inline: var(--space-3);
+    }
+    .dash-card {
+        padding-inline: var(--space-3);
+    }
+    /* Admin featured card: photo + name, date on its own row */
+    .dash-feature {
+        grid-template-columns: auto 1fr;
+        gap: var(--space-2) var(--space-3);
+        padding: var(--space-3);
+    }
+    .dash-feature .dash-card__meta {
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
+    /* Student jadwal cards (with zoom button) stay on one line */
+    .dash-card--lg:has(.dash-card__zoom) {
+        flex-wrap: nowrap;
+        gap: var(--space-1);
+    }
+    .dash-card--lg:has(.dash-card__zoom) .dash-card__title {
+        font-size: clamp(1rem, 5vw, 1.25rem);   /* fits 320px phones */
+        white-space: nowrap;
+    }
+    .dash-card--lg:has(.dash-card__zoom) .dash-card__side small {
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+    .dash-card--lg .dash-card__zoom {
+        width: 2rem;
+        height: 2rem;
+    }
+    .dash-status {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .dash-table th,
+    .dash-table td {
+        padding-inline: 0.35rem;
+    }
+    /* Learn More: pop-up above the button, over the Toggle row (higher z-index) */
+    .dash-learn {
+        position: relative;
+    }
+    .dash-submenu {
+        z-index: 3;
+        top: auto;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        min-width: 0;
+        padding: 0 0 var(--space-1);        /* gap above the button */
+    }
 }

@@ -70,6 +70,96 @@
 }
 
 /* --------------------------------------------------------------------------
+   DASHBOARDS: TEACHER / STUDENT / GURU PIKET / ADMIN (pages/after/ROLE/)
+   -------------------------------------------------------------------------- */
+/* Sidebar slides left to close, right to open. Visibility flips after the
+   slide so closed menus leave the tab order (delay = duration). */
+.dash-sidebar {
+    transition: transform 0.3s ease, visibility 0s linear 0s;
+}
+.dash[data-sidebar="closed"] .dash-sidebar {
+    transition: transform 0.3s ease, visibility 0s linear 0.3s;
+}
+.dash-main {
+    transition: margin-left 0.3s ease, padding-top 0.3s ease;   /* content follows the sidebar */
+}
+/* Topbar: fades in when the sidebar closes, fades out (then hides) when it opens */
+.dash-topbar {
+    transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+.dash[data-sidebar="open"] .dash-topbar {
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+@media (max-width: 1024px) {
+    .dash-sidebar {
+        transition: transform 0.3s ease, visibility 0s linear 0.3s;
+    }
+    .dash[data-sidebar="open"] .dash-sidebar {
+        transition: transform 0.3s ease, visibility 0s linear 0s;
+    }
+    .dash-scrim {
+        transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    }
+    .dash[data-sidebar="open"] .dash-scrim {
+        transition: opacity 0.3s ease, visibility 0s linear 0s;
+    }
+}
+
+/* Hover / focus colors */
+.dash-menu__item,
+.dash-icon-btn,
+.dash-settings__item,
+.dash-btn,
+.dash-action,
+.dash-modal__close,
+.dash-copy-btn,
+.dash-link-btn,
+.dash-search,
+.dash-input,
+.dash-table tbody tr {
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+/* Settings menu + Learn More sub-menu: fade and rise */
+.dash-settings {
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+}
+.dash-settings.is-open {
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+}
+.dash-submenu {
+    transition: opacity 0.15s ease, visibility 0s linear 0.15s;
+}
+.dash-learn:hover .dash-submenu,
+.dash-learn:has(:focus-visible) .dash-submenu,
+.dash-learn.is-open .dash-submenu {
+    transition: opacity 0.15s ease, visibility 0s linear 0s;
+}
+
+/* Dark / light switch */
+.dash-switch,
+.dash-switch::after {
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Pop-ups: fade in, box rises */
+.dash-modal {
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+.dash-modal.is-open {
+    transition: opacity 0.2s ease, visibility 0s linear 0s;
+}
+.dash-modal__box {
+    transition: transform 0.2s ease;
+}
+
+/* Check mark pops in */
+.dash-check,
+.dash-check::after {
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* --------------------------------------------------------------------------
    REDUCED MOTION: keep state changes, drop the movement
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -95,6 +185,32 @@
     .back-btn,
     .btn-signin,
     .login-actions a {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dash-sidebar,
+    .dash-main,
+    .dash-topbar,
+    .dash-scrim,
+    .dash-menu__item,
+    .dash-icon-btn,
+    .dash-settings,
+    .dash-settings__item,
+    .dash-submenu,
+    .dash-switch,
+    .dash-switch::after,
+    .dash-btn,
+    .dash-action,
+    .dash-search,
+    .dash-input,
+    .dash-table tbody tr,
+    .dash-modal,
+    .dash-modal__box,
+    .dash-check,
+    .dash-check::after {
         transition-duration: 0.01ms !important;
         transition-delay: 0s !important;
     }
