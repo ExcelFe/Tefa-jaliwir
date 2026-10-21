@@ -1156,6 +1156,39 @@ select {
     --icon-size: 36px;
     opacity: 50%;
 }
+.login-field--password {
+    grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
+}
+.password-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--radius-pill);
+    justify-self: center;
+    padding: 0;
+    outline: none;
+}
+.password-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+.password-toggle img {
+    --icon-size: 22px;
+    opacity: 50%;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin: 0;
+    justify-self: center;
+    object-fit: contain;
+    transition: opacity 0.15s ease;
+}
+.password-toggle:hover img {
+    opacity: 85%;
+}
 .login-field input {
     width: 100%;
     padding-block: 1.1rem;

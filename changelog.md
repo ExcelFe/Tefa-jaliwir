@@ -2,7 +2,7 @@
 
 Plain HTML, CSS and JavaScript. No frameworks, no build step. Rules: [`rules.md`](./rules.md). Update this README with every code change.
 
-**Last updated: 2026-10-21**
+**Last updated: 2026-10-22**
 
 ## Pages and links
 
@@ -135,6 +135,11 @@ Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no con
 | No generated icons/images | Yes |
 
 ## Changelog
+
+### 2026-10-22 - Login show/hide password toggle
+- Added password visibility toggle button to password field on `pages/login.html`.
+- Uses `eye-off.png` (hidden) and `eye-icon.png` (visible) from `media/vector/`.
+- Logic implemented in `js/login.js` (`initPasswordToggle`); styles in `css/main.css` (`.login-field--password`, `.password-toggle`).
 
 ### 2026-10-21 - Soft Balance palette overhaul (after-login)
 - Overhauled after-login dashboard color palette based on "Soft Balance" palette (`--sb-ivory`: `#f0efea`, `--sb-sky`: `#d3dbf0`, `--sb-gray`: `#b8b5ac`, `--sb-beige`: `#e0d2c7`, `--sb-periwinkle`: `#7a90c9`, `--sb-navy`: `#33415e`).
