@@ -2,7 +2,7 @@
 
 Plain HTML, CSS and JavaScript. No frameworks, no build step. Rules: [`rules.md`](./rules.md). Update this README with every code change.
 
-**Last updated: 2026-10-18**
+**Last updated: 2026-10-21**
 
 ## Pages and links
 
@@ -135,6 +135,13 @@ Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no con
 | No generated icons/images | Yes |
 
 ## Changelog
+
+### 2026-10-21 - Soft Balance palette overhaul (after-login)
+- Overhauled after-login dashboard color palette based on "Soft Balance" palette (`--sb-ivory`: `#f0efea`, `--sb-sky`: `#d3dbf0`, `--sb-gray`: `#b8b5ac`, `--sb-beige`: `#e0d2c7`, `--sb-periwinkle`: `#7a90c9`, `--sb-navy`: `#33415e`).
+- Main canvas uses soft ivory backdrop (`#f5f4ef`) with crisp white cards (`#ffffff`), subtle gray/beige borders (`#ded9d1`), and navy soft shadows.
+- Sidebar styled with deep navy (`#33415e`), white brand, periwinkle active page indicator (`#7a90c9`), sky-tint hover (`#dce4f4`), and frosted account container.
+- Inputs, search, range, and modals updated with harmonized borders and ivory recessed fields.
+- Dark mode updated to harmonized deep slate navy with ivory text and luminous periwinkle accents.
 
 ### 2026-10-19 - Admin pages
 - 5 pages replace the old single Admin page: `admin-status`, `admin-piket`, `admin-rekap-siswa`, `admin-rekap-guru`, `admin-edit`. The empty `admin-rekap.html` is gone (split in two). Same sidebar, settings, Learn More, theme and topbar as the other roles. Account: "Nama Admin".

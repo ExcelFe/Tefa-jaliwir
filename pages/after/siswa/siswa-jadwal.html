@@ -102,60 +102,48 @@
                 <!-- Placeholder schedule: green = running now, red = not running -->
                 <section class="dash-section" aria-labelledby="jadwal-hari-ini">
                     <h2 class="dash-subtitle" id="jadwal-hari-ini">Jadwal Hari Ini</h2>
+
+                    <!-- Day-of-week tabs -->
+                    <div class="dash-daytabs" role="tablist" aria-label="Pilih hari">
+                        <button type="button" class="dash-daytab is-active" role="tab" aria-selected="true">Senin</button>
+                        <button type="button" class="dash-daytab" role="tab" aria-selected="false">Selasa</button>
+                        <button type="button" class="dash-daytab" role="tab" aria-selected="false">Rabu</button>
+                        <button type="button" class="dash-daytab" role="tab" aria-selected="false">Kamis</button>
+                        <button type="button" class="dash-daytab" role="tab" aria-selected="false">Jumat</button>
+                    </div>
+
+                    <!-- Schedule cards: green left border = running, red = not running -->
                     <ul class="dash-list">
-                        <li class="dash-item">
-                            <span class="dash-status dash-status--on" role="img" aria-label="Sedang berlangsung"></span>
-                            <div class="dash-card dash-card--lg">
-                                <span class="dash-card__title">XI PPLG 1</span>
-                                <button type="button" class="dash-icon-btn dash-card__zoom" aria-label="Lihat detail XI PPLG 1, Sejarah">
-                                    <img class="dash-icon" src="../../../media/vector/enlarge-icon.png" alt="" width="24" height="24">
-                                </button>
-                                <div class="dash-card__side">
-                                    <span class="dash-card__title">Sejarah</span>
-                                    <small>07:00 - 08:00</small>
+                        <li>
+                            <div class="dash-jadwal-card dash-jadwal-card--on">
+                                <div class="dash-jadwal-card__info">
+                                    <span class="dash-jadwal-card__subject">Sejarah</span>
+                                    <span class="dash-jadwal-card__teacher">Made Aldo Jusventus sr</span>
                                 </div>
+                                <span class="dash-jadwal-card__time">07:00 - 08:00</span>
                             </div>
                         </li>
-                        <li class="dash-item">
-                            <span class="dash-status dash-status--off" role="img" aria-label="Belum berlangsung"></span>
-                            <div class="dash-card dash-card--lg">
-                                <span class="dash-card__title">XI PPLG 2</span>
-                                <button type="button" class="dash-icon-btn dash-card__zoom" aria-label="Lihat detail XI PPLG 2, Sejarah">
-                                    <img class="dash-icon" src="../../../media/vector/enlarge-icon.png" alt="" width="24" height="24">
-                                </button>
-                                <div class="dash-card__side">
-                                    <span class="dash-card__title">Sejarah</span>
-                                    <small>08:00 - 09:00</small>
+                        <li>
+                            <div class="dash-jadwal-card dash-jadwal-card--off">
+                                <div class="dash-jadwal-card__info">
+                                    <span class="dash-jadwal-card__subject">Sejarah</span>
+                                    <span class="dash-jadwal-card__teacher">Made Aldo Jusventus sr</span>
                                 </div>
+                                <span class="dash-jadwal-card__time">08:00 - 09:00</span>
                             </div>
                         </li>
-                        <li class="dash-item">
-                            <span class="dash-status dash-status--off" role="img" aria-label="Belum berlangsung"></span>
-                            <div class="dash-card dash-card--lg">
-                                <span class="dash-card__title">XI PPLG 2</span>
-                                <button type="button" class="dash-icon-btn dash-card__zoom" aria-label="Lihat detail XI PPLG 2, Sejarah">
-                                    <img class="dash-icon" src="../../../media/vector/enlarge-icon.png" alt="" width="24" height="24">
-                                </button>
-                                <div class="dash-card__side">
-                                    <span class="dash-card__title">Sejarah</span>
-                                    <small>09:00 - 10:30</small>
+                        <li>
+                            <div class="dash-jadwal-card dash-jadwal-card--off">
+                                <div class="dash-jadwal-card__info">
+                                    <span class="dash-jadwal-card__subject">Sejarah</span>
+                                    <span class="dash-jadwal-card__teacher">Made Aldo Jusventus sr</span>
                                 </div>
+                                <span class="dash-jadwal-card__time">09:00 - 10:30</span>
                             </div>
                         </li>
                     </ul>
                 </section>
 
-                <section class="dash-section" aria-labelledby="jadwal-full">
-                    <h2 class="dash-subtitle" id="jadwal-full">Jadwal Pelajaran Full (Per Kelas)</h2>
-                    <div class="dash-item">
-                        <div class="dash-card dash-card--lg">
-                            <span class="dash-card__title">XI PPLG 2</span>
-                            <button type="button" class="dash-icon-btn dash-card__zoom" aria-label="Lihat jadwal lengkap XI PPLG 2">
-                                <img class="dash-icon" src="../../../media/vector/enlarge-icon.png" alt="" width="24" height="24">
-                            </button>
-                        </div>
-                    </div>
-                </section>
             </div>
         </main>
     </div>

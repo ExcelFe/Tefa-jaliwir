@@ -39,10 +39,18 @@
     /* WARM PALETTE (Program Sekolah + Login) */
     --warm-50: #fff7ea;                 /* page background */
     --warm-100: #fdebcb;                /* rows, tabs, fields */
-    --warm-200: #f5dcb0;                /* hover, card mediaqwewqeqweqw */
+    --warm-200: #f5dcb0;                /* hover, card media */
     --warm-ink: #1e1919;                /* near-black text */
     --warm-muted: color-mix(in srgb, var(--warm-ink) 78%, var(--warm-50));
     --warm-rgb: 120, 90, 40;            /* warm shadow color */
+
+    /* SOFT BALANCE PALETTE (After-Login Dashboards: admin, guru, guru-piket, siswa) */
+    --sb-ivory: #f0efea;
+    --sb-sky: #d3dbf0;
+    --sb-gray: #b8b5ac;
+    --sb-beige: #e0d2c7;
+    --sb-periwinkle: #7a90c9;
+    --sb-navy: #33415e;
 
     /* STATUS (teacher dashboard: present / absent, schedule square) */
     --status-ok: #16a34a;               /* green */
@@ -1242,20 +1250,21 @@ select {
     --dash-sidebar-w: 18rem;
     --dash-content-w: 56rem;            /* content never fills a wide screen */
 
-    --dash-bg: var(--white);
-    --dash-sidebar: var(--primary-dark);
-    --dash-surface: var(--line);    /* rows, fields */
-    --dash-hover: var(--secondary);
-    --dash-popup: var(--line);         /* settings menu, pop-ups */
-    --dash-ink: var(--ink);
-    --dash-muted: var(--text);
-    --dash-accent: var(--primary);
-    --dash-on-accent: var(--white);
-    --dash-hairline: color-mix(in srgb, var(--ink) 14%, transparent);
-    --dash-edge: color-mix(in srgb, var(--dash-surface) 78%, var(--secondary));  /* container border */
-    --dash-scrim: rgba(15, 23, 42, 0.45);
-    --dash-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
-    --dash-shadow-pop: 0 10px 30px rgba(15, 23, 42, 0.18);
+    /* SOFT BALANCE PALETTE (from image) */
+    --dash-bg: #f5f4ef;                 /* IVORY-tint soft serene backdrop */
+    --dash-sidebar: var(--sb-navy);     /* #33415e NAVY */
+    --dash-surface: #ffffff;            /* crisp white cards & panels */
+    --dash-hover: #dce4f4;              /* SKY-tint hover glow */
+    --dash-popup: #ffffff;              /* pure white modal & popup surface */
+    --dash-ink: #222d42;                /* deep slate-navy text */
+    --dash-muted: #6b7588;              /* soft slate-gray */
+    --dash-accent: var(--sb-periwinkle);/* #7a90c9 PERIWINKLE accent */
+    --dash-on-accent: var(--white);     /* crisp white on periwinkle */
+    --dash-hairline: rgba(51, 65, 94, 0.12);
+    --dash-edge: #ded9d1;               /* GRAY/BEIGE harmonized subtle border */
+    --dash-scrim: rgba(33, 44, 66, 0.5);
+    --dash-shadow: 0 2px 8px rgba(51, 65, 94, 0.06);
+    --dash-shadow-pop: 0 12px 32px rgba(51, 65, 94, 0.15);
     /* Icons are black PNGs: invert them on dark surfaces */
     --dash-icon-filter: none;
     --dash-accent-icon-filter: invert(1);
@@ -1267,20 +1276,20 @@ html[data-theme="dark"] {
     color-scheme: dark;                 /* native date picker, select, scrollbars */
 }
 html[data-theme="dark"] .dash-body {
-    --dash-bg: var(--ink);
-    --dash-sidebar: color-mix(in srgb, var(--ink) 82%, var(--navy));
-    --dash-surface: color-mix(in srgb, var(--ink) 72%, var(--navy));
-    --dash-hover: color-mix(in srgb, var(--ink) 52%, var(--navy));
-    --dash-popup: color-mix(in srgb, var(--ink) 64%, var(--navy));
-    --dash-ink: var(--white);
-    --dash-muted: var(--muted);
-    --dash-accent: var(--secondary);
-    --dash-on-accent: var(--ink);
-    --dash-hairline: color-mix(in srgb, var(--white) 18%, transparent);
-    --dash-edge: color-mix(in srgb, var(--dash-surface) 85%, var(--secondary));
-    --dash-scrim: rgba(15, 23, 42, 0.7);
-    --dash-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-    --dash-shadow-pop: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --dash-bg: #1c2433;                 /* deep slate navy */
+    --dash-sidebar: #141b27;            /* midnight navy */
+    --dash-surface: #252f42;            /* elevated slate-navy card */
+    --dash-hover: #323e57;              /* lighter slate hover */
+    --dash-popup: #252f42;              /* modal popup surface */
+    --dash-ink: var(--sb-ivory);        /* #f0efea IVORY text */
+    --dash-muted: var(--sb-gray);       /* #b8b5ac GRAY muted text */
+    --dash-accent: #8ea3d7;             /* luminous PERIWINKLE */
+    --dash-on-accent: #141b27;
+    --dash-hairline: rgba(240, 239, 234, 0.12);
+    --dash-edge: rgba(211, 219, 240, 0.14);
+    --dash-scrim: rgba(10, 15, 23, 0.75);
+    --dash-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --dash-shadow-pop: 0 12px 32px rgba(0, 0, 0, 0.55);
     --dash-icon-filter: invert(1);
     --dash-accent-icon-filter: none;
 }
@@ -1345,8 +1354,13 @@ html[data-theme="dark"] .dash-body {
     width: var(--dash-sidebar-w);
     max-width: 85vw;
     background: var(--dash-sidebar);
-    color: var(--dash-ink);
+    color: var(--white);
     /* No overflow clipping: the Learn More menu opens outside the sidebar */
+}
+/* Ensure icons in dark navy sidebar/topbar are crisp white */
+.dash-sidebar .dash-icon,
+.dash-topbar .dash-icon {
+    filter: brightness(0) invert(1);
 }
 /* Top left: toggle icon + brand text. Same spot in the sidebar and in .dash-topbar */
 .dash-sidebar__top,
@@ -1374,7 +1388,7 @@ html[data-theme="dark"] .dash-body {
 }
 .dash-icon-btn:hover,
 .dash-icon-btn[aria-expanded="true"] {
-    background: var(--dash-hover);
+    background: rgba(255, 255, 255, 0.12);
 }
 
 /* Page menu: no border by default; ring only on hover / focus / click */
@@ -1396,16 +1410,20 @@ html[data-theme="dark"] .dash-body {
     font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+    color: rgba(240, 239, 234, 0.85);
     outline: none;                          /* the ring below replaces the outline */
+    transition: background 0.15s ease, color 0.15s ease;
 }
 .dash-menu__item[aria-current="page"] {
-    background: var(--dash-hover);          /* current page: fill only */
+    background: var(--dash-accent);         /* periwinkle active page fill */
+    color: var(--white);
 }
 .dash-menu__item:hover,
 .dash-menu__item:focus,
 .dash-menu__item:active {
-    background: var(--secondary);
-    box-shadow: inset 0 0 0 2px var(--dash-ink);
+    background: rgba(211, 219, 240, 0.18);
+    color: var(--white);
+    box-shadow: inset 0 0 0 2px var(--dash-accent);
 }
 
 /* Account (bottom) + settings button */
@@ -1416,15 +1434,16 @@ html[data-theme="dark"] .dash-body {
     justify-content: space-between;
     gap: var(--space-2);
     padding: var(--space-3);
-    background: var(--line);
-    border-color: var(--muted);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--white);
 }
 .dash-account::before {                     /* divider line */
     content: "";
     position: absolute;
     inset: 0 0 auto;
     height: 1px;
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.12);
 }
 .dash-account__info {
     display: flex;
@@ -1438,7 +1457,9 @@ html[data-theme="dark"] .dash-body {
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 50%;
-    background: var(--white);
+    background: var(--sb-sky);
+    color: var(--sb-navy);
+    font-weight: 700;
     flex-shrink: 0;
 }
 .dash-account__name {
@@ -1459,10 +1480,15 @@ html[data-theme="dark"] .dash-body {
     padding: 0.35rem;
     border-radius: var(--radius-md);
     background: var(--dash-popup);
+    border: 1px solid var(--dash-edge);
     box-shadow: var(--dash-shadow-pop);
     opacity: 0;
     visibility: hidden;
     transform: translateY(0.5rem);
+}
+.dash-settings .dash-icon,
+.dash-submenu .dash-icon {
+    filter: var(--dash-icon-filter);
 }
 .dash-settings.is-open {
     opacity: 1;
@@ -1482,11 +1508,11 @@ html[data-theme="dark"] .dash-body {
     font-size: 0.9rem;
     font-weight: 500;
     text-align: left;
-    color: var(--ink);
+    color: var(--dash-ink);
 }
 .dash-settings__item:hover,
 .dash-settings__item:focus-visible {
-    background-color: var(--primary-soft);
+    background-color: var(--dash-hover);
 }
 .dash-settings__item .dash-icon--end {
     width: 1rem;
@@ -1547,6 +1573,7 @@ html[data-theme="dark"] .dash-icon--light {
     padding: 0.35rem;
     border-radius: var(--radius-md);
     background: var(--dash-popup);
+    border: 1px solid var(--dash-edge);
     box-shadow: var(--dash-shadow-pop);
 }
 .dash-learn:has(:focus-visible) .dash-submenu {        /* keyboard focus */
@@ -1812,6 +1839,7 @@ html[data-theme="dark"] .dash-icon--light {
     max-height: min(46rem, calc(100dvh - 2 * var(--space-3)));
     border-radius: var(--radius-lg);
     background: var(--dash-popup);
+    border: 1px solid var(--dash-edge);
     color: var(--dash-ink);
     box-shadow: var(--dash-shadow-pop);
     position: relative;                     /* anchors .dash-modal__close */
@@ -1873,8 +1901,9 @@ html[data-theme="dark"] .dash-icon--light {
     min-width: 0;
     height: 2.75rem;
     padding: 0 var(--space-3);
+    border: 1px solid var(--dash-edge);
     border-radius: var(--radius-md);
-    background: var(--dash-surface);
+    background: var(--dash-bg);
     color: inherit;
     font: inherit;
 }
@@ -2001,8 +2030,9 @@ textarea.dash-input {
 .dash-range {
     display: flex;
     height: 2.75rem;
+    border: 1px solid var(--dash-edge);
     border-radius: var(--radius-md);
-    background: var(--dash-surface);
+    background: var(--dash-bg);
     overflow: hidden;
 }
 .dash-range input {
@@ -2102,6 +2132,81 @@ textarea.dash-input {
 .dash-check--bad:checked {
     background: var(--status-bad);
     box-shadow: none;
+}
+
+
+/* ---- 11.7b Day tabs + redesigned jadwal cards ---- */
+
+/* Day-of-week tab row */
+.dash-daytabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+}
+.dash-daytab {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--dash-ink);
+    background: var(--dash-surface);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    white-space: nowrap;
+}
+.dash-daytab:hover {
+    background: var(--dash-hover);
+}
+.dash-daytab.is-active {
+    color: var(--dash-on-accent);
+    background: var(--dash-accent);
+    border-color: var(--dash-accent);
+}
+
+/* Jadwal card with left-border status indicator */
+.dash-jadwal-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 4.75rem;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+    border-left: 5px solid transparent;
+}
+.dash-jadwal-card--on {
+    border-left-color: var(--status-ok);
+}
+.dash-jadwal-card--off {
+    border-left-color: var(--status-bad);
+}
+
+/* Inside the card: info on the left, time on the right */
+.dash-jadwal-card__info {
+    flex: 1;
+    min-width: 0;
+}
+.dash-jadwal-card__subject {
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 3vw, 1.6rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+.dash-jadwal-card__teacher {
+    font-size: 0.875rem;
+    color: var(--dash-muted);
+    margin-top: 2px;
+}
+.dash-jadwal-card__time {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: auto;
 }
 
 
@@ -2243,5 +2348,22 @@ textarea.dash-input {
         right: 0;
         min-width: 0;
         padding: 0 0 var(--space-1);        /* gap above the button */
+    }
+    /* Day tabs: smaller on phones */
+    .dash-daytab {
+        padding: 0.45rem 0.9rem;
+        font-size: 0.8rem;
+    }
+    /* Jadwal card: tighter padding on phones */
+    .dash-jadwal-card {
+        padding: var(--space-2) var(--space-3);
+        min-height: 4rem;
+        gap: var(--space-2);
+    }
+    .dash-jadwal-card__subject {
+        font-size: clamp(1rem, 4vw, 1.25rem);
+    }
+    .dash-jadwal-card__time {
+        font-size: 0.8125rem;
     }
 }
