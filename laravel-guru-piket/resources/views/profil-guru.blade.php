@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Manajemen Sekolah - SMK TI Bali Global Badung</title>
+
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ asset('css/animation.css') }}">
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+<script src="{{ asset('js/animation.js') }}"></script>
+<script src="{{ asset('js/dashboard.js') }}"></script>
+<script src="{{ asset('js/dashboard-afterlog.js') }}"></script>
+<script src="{{ asset('js/data-mock.js') }}"></script>
+<script src="{{ asset('js/login.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/profil-manajemen.js') }}"></script>
+<script src="{{ asset('js/program-sekolah.js') }}"></script>
+
+</head>
+<body>
+    <!-- NAVBAR: same block on every page (hamburger on tablet/phone, js/main.js) -->
+    <header class="navbar">
+        <div class="container navbar-inner">
+            <a href="../../index.html" class="brand">
+                <div class="img-slot logo-slot"><img src="../../media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
+                <span>SMK TI<br><span class="brand-sub">Bali Global Badung</span></span>
+            </a>
+            <button type="button" class="nav-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="nav-panel">
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <div class="nav-panel" id="nav-panel">
+                <div class="nav-panel-inner">
+                    <nav class="nav-links" aria-label="Navigasi utama">
+                    <a href="{{ route('welcome') }}" class="active">Beranda</a>
+                    <a href="{{ route('profil') }}" class="active">Profil Manajemen</a>
+                    <a href="{{ route('program') }}" class="active">Program Sekolah</a>
+                    </nav>
+                    <a href="{{ route('login') }}" class="btn-login">Login <i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i></a>
+                </div>
+            </div>  
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>PROFIL <em>MANAJEMEN</em> SEKOLAH</h1>
+            </div>
+        </section>
+        <div class="container profil-wrap">
+
+            <!-- ===== MANAJEMEN SEKOLAH ===== -->
+            <section id="manajemen">
+                <h2 class="group-title">Manajemen Sekolah</h2>
+                <!-- The first 4 cards always show. Copy/remove <article> blocks as needed -->
+                <div class="person-grid">
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/imdia.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Made Indra Aribawa, SH</h3><p><i class="fa-solid fa-book-open"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-people-group"></i>Kepala Sekolah</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/manajemen/manajemen-2.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Gede Putu Agustyawan, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Sejarah</p><p><i class="fa-solid fa-people-group"></i>Waka Kurikulum</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/manajemen/manajemen-3.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Made Dwi Adnyana, SH</h3><p><i class="fa-solid fa-book-open"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-people-group"></i>Waka Sarpras</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/manajemen/manajemen-4.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ida Ayu Cempaka Putri, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Waka Kesiswaan</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/manajemen/manajemen-5.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ida Ayu Made Ari Widyawati, S.Pd.H</h3><p><i class="fa-solid fa-book-open"></i>Agama Hindu & Budi Pekerti</p><p><i class="fa-solid fa-people-group"></i>Waka Humas</p></div>
+                </article>
+                </div>
+            </section>
+
+            <!-- ===== KEPALA PROGRAM KEAHLIAN ===== -->
+            <section id="kaprog">
+                <h2 class="group-title">Kepala Program Keahlian</h2>
+                <div class="person-grid">
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/kaprog/kaprog-1.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Putu Ade Pranata, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>KK RPL</p><p><i class="fa-solid fa-people-group"></i>Kaprog PPLG</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/kaprog/kaprog-2.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Bagas Alif Rizkianto, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>DPK PPLG & DPK BD</p><p><i class="fa-solid fa-people-group"></i>Kaprog DKV</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/kaprog/kaprog-3.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gede Bagus Ardiyana Irawan, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>DPK TJKT</p><p><i class="fa-solid fa-people-group"></i>Kaprog TJKT & Kepala LAB</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/kaprog/kaprog-4.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>A.A Ngurah Putra Agung Amurvabhumi Yoga Cara, S.M</h3><p><i class="fa-solid fa-book-open"></i>KK BD</p><p><i class="fa-solid fa-people-group"></i>Kaprog BD</p></div>
+                </article>
+                </div>
+            </section>
+
+            <!-- ===== GURU PENGAJAR ===== -->
+            <section id="guru">
+                <h2 class="group-title">Guru Pengajar</h2>
+                <!-- The first 4 cards always show. Copy/remove <article> blocks as needed -->
+                <div class="person-grid">
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/guru/guru-1.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/guru/guru-2.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/guru/guru-3.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/guru/guru-4.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                </div>
+                <!-- Extra cards: shown after "Selengkapnya" (js/profil-manajemen.js). Remove this block + its button if not needed -->
+                <div id="extra-guru" class="person-grid extra" hidden>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/guru/guru-5.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/guru/guru-6.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/guru/guru-7.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/guru/guru-8.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                </div>
+                <div class="more-row">
+                    <button type="button" class="btn-more" data-toggle="extra-guru" aria-expanded="false"><span>Selengkapnya</span> <i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+            </section>
+
+            <!-- ===== STAF PEGAWAI ===== -->
+            <section id="staff">
+                <h2 class="group-title">Staff Pegawai</h2>
+                <!-- The first 4 cards always show. Copy/remove <article> blocks as needed -->
+                <div class="person-grid">
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/staff/staff-1.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/staff/staff-2.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/staff/staff-3.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/staff/staff-4.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                </div>
+                <!-- Extra cards: shown after "Selengkapnya" (js/profil-manajemen.js). Remove this block + its button if not needed -->
+                <div id="extra-staff" class="person-grid extra" hidden>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/staff/staff-5.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/staff/staff-6.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nama, Gelar</h3><p><i class="fa-solid fa-book-open"></i>Mata pelajaran yang diajar</p><p><i class="fa-solid fa-people-group"></i>Pembimbing ekstrakurikuler</p></div>
+                </article>
+                </div>
+                <div class="more-row">
+                    <button type="button" class="btn-more" data-toggle="extra-staff" aria-expanded="false"><span>Selengkapnya</span> <i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER: same block on every page -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="brand">
+                    <div class="img-slot logo-slot lg"><img src="../../media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
+                    <span>SMK TI<br><span class="brand-sub">Bali Global Badung</span></span>
+                </div>
+                <p class="footer-desc">Deskripsi singkat sekolah. Ganti teks ini dengan profil singkat SMK TI Bali Global Badung.</p>
+                <!-- Social links: change href and the Font Awesome icon class -->
+                <div class="sosmed">
+                    <a href="https://www.instagram.com/globalitibadung_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/globalitibadung" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@globalitibadung_" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://youtube.com/@smktibaliglobalbadung" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3>Navigasi</h3>
+                <ul>
+                    <li><a href="../../index.html">Beranda</a></li>
+                    <li><a href="profil-manajemen.html">Profil Manajemen</a></li>
+                    <li><a href="program-sekolah.html">Program Sekolah</a></li>
+                    <li><a href="../../index.html#fasilitas">Fasilitas</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Program Studi</h3>
+                <ul>
+                    <li><a href="program-sekolah.html#tjkt">TJKT</a></li>
+                    <li><a href="program-sekolah.html#pplg">PPLG</a></li>
+                    <li><a href="program-sekolah.html#dkv">DKV</a></li>
+                    <li><a href="program-sekolah.html#bd">BD</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Kontak</h3>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i><span>Jl. Tibungsari No. 1, Desa Dalung, Kuta Utara, Badung, Bali</span></li>
+                    <li><i class="fa-solid fa-phone"></i><span>+62 361-419097</span></li>
+                    <li><i class="fa-brands fa-whatsapp"></i><span>+62 822-61-9000-70</span></li>
+                    <li><i class="fa-solid fa-envelope"></i><span>info@smktibaliglobalbadung.sch.id</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 SMK TI Bali Global Badung. All rights reserved.</p>
+                <nav><a href="#">Kebijakan privasi</a><a href="#">Syarat &amp; Ketentuan</a></nav>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

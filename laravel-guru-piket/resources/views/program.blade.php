@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Sekolah - SMK TI Bali Global Badung</title>
+<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+<link rel="stylesheet" href="{{ asset('css/animation.css') }}">
+<link rel="stylesheet" href="{{ asset('css/main.css') }}">
+
+<script src="{{ asset('js/animation.js') }}"></script>
+<script src="{{ asset('js/dashboard.js') }}"></script>
+<script src="{{ asset('js/dashboard-afterlog.js') }}"></script>
+<script src="{{ asset('js/data-mock.js') }}"></script>
+<script src="{{ asset('js/login.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('js/profil-manajemen.js') }}"></script>
+<script src="{{ asset('js/program-sekolah.js') }}"></script>
+
+</head>
+<body class="theme-warm">
+    <!-- NAVBAR: same block on every page (hamburger on tablet/phone, js/main.js) -->
+    <header class="navbar">
+        <div class="container navbar-inner">
+            <a href="../../index.html" class="brand">
+                <div class="img-slot logo-slot"><img src="../../media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
+                <span>SMK TI<br><span class="brand-sub">Bali Global Badung</span></span>
+            </a>
+            <button type="button" class="nav-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="nav-panel">
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <div class="nav-panel" id="nav-panel">
+                <div class="nav-panel-inner">
+                    <nav class="nav-links" aria-label="Navigasi utama">
+                    <a href="{{ route('welcome') }}" class="active">Beranda</a>
+                    <a href="{{ route('profil') }}" class="active">Profil Manajemen</a>
+                    <a href="{{ route('program') }}" class="active">Program Sekolah</a>
+                    </nav>
+                    <a href="{{ route('login') }}" class="btn-login">Login <i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- PAGE HERO: same style as Profil Manajemen -->
+        <section class="page-hero">
+            <div class="container">
+                <h1>PROGRAM <em>UNGGULAN</em> SEKOLAH</h1>
+            </div>
+        </section>
+        <div class="container program">
+            <!-- PROGRAM KEAHLIAN: 4 cards -->
+            <section class="program-block">
+                <h1 class="headline">PROGRAM KEAHLIAN</h1>
+                <div class="program-grid">
+                    <article class="program-card card-soft" id="tjkt">
+                        <!-- IMAGE SLOT: replace <span> with <img> -->
+                        <div class="program-card-media" aria-hidden="true"><span>TJKT</span></div>
+                        <h3>Teknik Jaringan Komputer dan Telekomunikasi</h3>
+                        <p>Lorem Ipsum Dolor Sit Amet</p>
+                    </article>
+                    <article class="program-card card-soft" id="pplg">
+                        <!-- IMAGE SLOT: replace <span> with <img> -->
+                        <div class="program-card-media" aria-hidden="true"><span>PPLG</span></div>
+                        <h3>Pengembangan Perangakat Lunak dan Gim</h3>
+                        <p>Lorem Ipsum Dolor Sit Amet</p>
+                    </article>
+                    <article class="program-card card-soft" id="dkv">
+                        <!-- IMAGE SLOT: replace <span> with <img> -->
+                        <div class="program-card-media" aria-hidden="true"><span>DKV</span></div>
+                        <h3>Desain Komunikasi Visual</h3>
+                        <p>Lorem Ipsum Dolor Sit Amet</p>
+                    </article>
+                    <article class="program-card card-soft" id="bd">
+                        <!-- IMAGE SLOT: replace <span> with <img> -->
+                        <div class="program-card-media" aria-hidden="true"><span>BD</span></div>
+                        <h3>Bisnis Digital</h3>
+                        <p>Lorem Ipsum Dolor Sit Amet</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- INTRA-KULIKULER: headline first, tabs below. One open at a time, closed by default -->
+            <section class="program-block">
+                <h1 class="headline">INTRA-KULIKULER</h1>
+                <div class="dropdown-group">
+                    <div class="dropdown-triggers dropdown-triggers--3">
+                        <button type="button" class="dropdown-trigger" id="ik-trigger-10" aria-expanded="false" aria-controls="ik-panel-10">
+                            Kelas 10
+                            <span class="dropdown-icon" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="dropdown-trigger" id="ik-trigger-11" aria-expanded="false" aria-controls="ik-panel-11">
+                            Kelas 11
+                            <span class="dropdown-icon" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="dropdown-trigger" id="ik-trigger-12" aria-expanded="false" aria-controls="ik-panel-12">
+                            Kelas 12
+                            <span class="dropdown-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="dropdown-panel" id="ik-panel-10">
+                        <div class="dropdown-inner">
+                            <ul class="list-stack" aria-labelledby="ik-trigger-10">
+                                <li class="list-item">Bahasa Indonesia</li>
+                                <li class="list-item">Bahasa Bali</li>
+                                <li class="list-item">Bahasa Inggris</li>
+                                <li class="list-item">Bahasa Jepang</li>
+                                <li class="list-item">PJOK</li>
+                                <li class="list-item">Agama</li>
+                                <li class="list-item">Seni Budaya</li>
+                                <li class="list-item">IPAS</li>
+                                <li class="list-item">KKA</li>
+                                <li class="list-item">Informatika</li>
+                                <li class="list-item">Sejarah</li>
+                                <li class="list-item">Pendidikan Pancasila</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown-panel" id="ik-panel-11">
+                        <div class="dropdown-inner">
+                            <ul class="list-stack" aria-labelledby="ik-trigger-11">
+                                <li class="list-item">Bahasa Indonesia</li>
+                                <li class="list-item">Bahasa Bali</li>
+                                <li class="list-item">Bahasa Inggris</li>
+                                <li class="list-item">Bahasa Jepang</li>
+                                <li class="list-item">PJOK</li>
+                                <li class="list-item">Agama</li>
+                                <li class="list-item">Seni Budaya</li>
+                                <li class="list-item">IPAS</li>
+                                <li class="list-item">KKA</li>
+                                <li class="list-item">Informatika</li>
+                                <li class="list-item">Sejarah</li>
+                                <li class="list-item">Pendidikan Pancasila</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown-panel" id="ik-panel-12">
+                        <div class="dropdown-inner">
+                            <ul class="list-stack" aria-labelledby="ik-trigger-12">
+                                <li class="list-item">Bahasa Indonesia</li>
+                                <li class="list-item">Bahasa Bali</li>
+                                <li class="list-item">Bahasa Inggris</li>
+                                <li class="list-item">Bahasa Jepang</li>
+                                <li class="list-item">PJOK</li>
+                                <li class="list-item">Agama</li>
+                                <li class="list-item">Seni Budaya</li>
+                                <li class="list-item">IPAS</li>
+                                <li class="list-item">KKA</li>
+                                <li class="list-item">Informatika</li>
+                                <li class="list-item">Sejarah</li>
+                                <li class="list-item">Pendidikan Pancasila</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KO-KULIKULER: static list -->
+            <section class="program-block">
+                <h1 class="headline">KO-KULIKULER</h1>
+                <ul class="list-stack">
+                    <li class="list-item">Projek Penguatan Profil Pelajar Pancasila</li>
+                    <li class="list-item">Kunjungan Indsutri</li>
+                    <li class="list-item">Outing Class</li>
+                </ul>
+            </section>
+
+            <!-- EKSTRA-KULIKULER: headline first, tabs below. One open at a time, closed by default -->
+            <section class="program-block">
+                <h1 class="headline">EKSTRA-KULIKULER</h1>
+                <div class="dropdown-group">
+                    <div class="dropdown-triggers dropdown-triggers--4">
+                        <button type="button" class="dropdown-trigger" id="ek-trigger-olahraga" aria-expanded="false" aria-controls="ek-panel-olahraga">
+                            Olahraga
+                            <span class="dropdown-icon" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="dropdown-trigger" id="ek-trigger-kesenian" aria-expanded="false" aria-controls="ek-panel-kesenian">
+                            Kesenian
+                            <span class="dropdown-icon" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="dropdown-trigger" id="ek-trigger-teknologi" aria-expanded="false" aria-controls="ek-panel-teknologi">
+                            Teknologi
+                            <span class="dropdown-icon" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="dropdown-trigger" id="ek-trigger-akademik" aria-expanded="false" aria-controls="ek-panel-akademik">
+                            Akademik
+                            <span class="dropdown-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    <div class="dropdown-panel" id="ek-panel-olahraga">
+                        <div class="dropdown-inner">
+                            <ul class="list-stack" aria-labelledby="ek-trigger-olahraga">
+                                <li class="list-item">Bulu Tangkis</li>
+                                <li class="list-item">Volley</li>
+                                <li class="list-item">Futsal</li>
+                                <li class="list-item">Basket</li>
+                                <li class="list-item">MuayThai</li>
+                                <li class="list-item">GateBall</li>
+                                <li class="list-item">Paskibra</li>
+                                <li class="list-item">Pramuka</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown-panel" id="ek-panel-kesenian">
+                        <div class="dropdown-inner">
+                            <ul class="list-stack" aria-labelledby="ek-trigger-kesenian">
+                                <li class="list-item">Tari</li>
+                                <li class="list-item">Tabuh</li>
+                                <li class="list-item">Theater</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown-panel" id="ek-panel-teknologi">
+                        <div class="dropdown-inner">
+                            <ul class="list-stack" aria-labelledby="ek-trigger-teknologi">
+                                <li class="list-item">Jurnalistik dan Broadcasting</li>
+                                <li class="list-item">Web Design</li>
+                                <li class="list-item">Robotika</li>
+                                <li class="list-item">Esport</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="dropdown-panel" id="ek-panel-akademik">
+                        <div class="dropdown-inner">
+                            <ul class="list-stack" aria-labelledby="ek-trigger-akademik">
+                                <li class="list-item">Bahasa Jepang</li>
+                                <li class="list-item">English Club</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER: same block on every page -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="brand">
+                    <div class="img-slot logo-slot lg"><img src="../../media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
+                    <span>SMK TI<br><span class="brand-sub">Bali Global Badung</span></span>
+                </div>
+                <p class="footer-desc">Deskripsi singkat sekolah. Ganti teks ini dengan profil singkat SMK TI Bali Global Badung.</p>
+                <!-- Social links: change href and the Font Awesome icon class -->
+                <div class="sosmed">
+                    <a href="https://www.instagram.com/globalitibadung_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/globalitibadung" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@globalitibadung_" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://youtube.com/@smktibaliglobalbadung" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3>Navigasi</h3>
+                <ul>
+                    <li><a href="../../index.html">Beranda</a></li>
+                    <li><a href="profil-manajemen.html">Profil Manajemen</a></li>
+                    <li><a href="program-sekolah.html">Program Sekolah</a></li>
+                    <li><a href="../../index.html#fasilitas">Fasilitas</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Program Studi</h3>
+                <ul>
+                    <li><a href="program-sekolah.html#tjkt">TJKT</a></li>
+                    <li><a href="program-sekolah.html#pplg">PPLG</a></li>
+                    <li><a href="program-sekolah.html#dkv">DKV</a></li>
+                    <li><a href="program-sekolah.html#bd">BD</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Kontak</h3>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i><span>Jl. Tibungsari No. 1, Desa Dalung, Kuta Utara, Badung, Bali</span></li>
+                    <li><i class="fa-solid fa-phone"></i><span>+62 361-419097</span></li>
+                    <li><i class="fa-brands fa-whatsapp"></i><span>+62 822-61-9000-70</span></li>
+                    <li><i class="fa-solid fa-envelope"></i><span>info@smktibaliglobalbadung.sch.id</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 SMK TI Bali Global Badung. All rights reserved.</p>
+                <nav><a href="#">Kebijakan privasi</a><a href="#">Syarat &amp; Ketentuan</a></nav>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
