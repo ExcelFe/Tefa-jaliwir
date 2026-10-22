@@ -1419,6 +1419,29 @@ html[data-theme="dark"] .dash-body {
     border-radius: var(--radius-md);
     flex-shrink: 0;
 }
+/* Brand and sidebar-open icon for the transparent topbar when sidebar is closed */
+.dash-topbar .dash-brand-closed {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    color: #000;
+}
+.dash-topbar .dash-icon {
+    filter: none;
+}
+/* In dark mode, keep the closed-sidebar brand and toggle readable on the page background. */
+html[data-theme="dark"] .dash-topbar .dash-brand-closed {
+    color: var(--dash-ink);
+}
+html[data-theme="dark"] .dash-topbar .dash-icon {
+    filter: brightness(0) invert(1);
+}
+.dash-topbar {
+    background: transparent;
+}
+
 .dash-icon-btn:hover,
 .dash-icon-btn[aria-expanded="true"] {
     background: rgba(255, 255, 255, 0.12);
@@ -2278,7 +2301,7 @@ textarea.dash-input {
         padding-top: var(--space-3);        /* topbar sits above */
     }
     .dash-topbar {
-        background: var(--dash-sidebar);    /* faint color; no shadow, no border */
+        background: transparent;            /* follows the page background */
     }
     .dash[data-sidebar="open"] .dash-topbar {
         opacity: 0;                         /* fades out while the drawer is open */
