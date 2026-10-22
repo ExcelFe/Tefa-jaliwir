@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Absen Guru - Dashboard Guru Piket - SMK TI Bali Global Badung</title>
+
+    <link rel="stylesheet" href="../../../css/main.css">
+    <link rel="stylesheet" href="../../../css/animation.css">
+    <script defer src="../../../js/main.js"></script>
+    <script defer src="../../../js/guru-absen-siswa.js"></script>
+    <script defer src="../../../js/animation.js"></script>
+</head>
+<body class="dash-body">
+    <div class="dash">
+        <!-- Dimmed area behind the sidebar on tablet/phone (click closes it) -->
+        <div class="dash-scrim" data-sidebar-close></div>
+
+        <!-- Sidebar: minimize + brand (top) | page menu (middle) | account + settings (bottom) -->
+        <aside class="dash-sidebar" id="sidebar" aria-label="Menu guru piket">
+            <div class="dash-sidebar__top">
+                <button type="button" class="dash-icon-btn" data-sidebar-close aria-label="Tutup sidebar">
+                    <img class="dash-icon" src="../../../media/vector/minimize-icon.png" alt="" width="24" height="24">
+                </button>
+                <span class="dash-brand">Globaliti Badung</span>
+            </div>
+
+            <nav class="dash-menu" aria-label="Halaman guru piket">
+                <a class="dash-menu__item" href="piket-status.html">
+                    <img class="dash-icon" src="../../../media/vector/status-icon.png" alt="" width="24" height="24">
+                    Status Guru
+                </a>
+                <a class="dash-menu__item" href="piket-absen.html" aria-current="page">
+                    <img class="dash-icon" src="../../../media/vector/absensi-icon.png" alt="" width="24" height="24">
+                    Absen Guru
+                </a>
+                <a class="dash-menu__item" href="piket-jadwal.html">
+                    <img class="dash-icon" src="../../../media/vector/jadwal-icon.png" alt="" width="24" height="24">
+                    Jadwal
+                </a>
+            </nav>
+
+            <div class="dash-account">
+                <div class="dash-account__info">
+                    <span class="dash-avatar"><img class="dash-icon" src="../../../media/vector/absensi-icon.png" alt="" width="24" height="24"></span>
+                    <span class="dash-account__name">Nama Guru Piket</span>
+                </div>
+                <button type="button" class="dash-icon-btn" data-settings-toggle aria-label="Pengaturan" aria-expanded="false" aria-controls="settings-menu">
+                    <img class="dash-icon" src="../../../media/vector/setting-icon.png" alt="" width="24" height="24">
+                </button>
+
+                <!-- Settings menu: opens above the account container -->
+                <div class="dash-settings" id="settings-menu">
+                    <button type="button" class="dash-settings__item" role="switch" aria-checked="false" data-theme-toggle>
+                        <img class="dash-icon dash-icon--light" src="../../../media/vector/lightmode-icon.png" alt="" width="24" height="24">
+                        <img class="dash-icon dash-icon--dark" src="../../../media/vector/darkmode-icon.png" alt="" width="24" height="24">
+                        Appearance Mode
+                        <span class="dash-switch" aria-hidden="true"></span>
+                    </button>
+
+                    <!-- Learn More: sub-menu shows on hover, to the right -->
+                    <div class="dash-learn">
+                        <button type="button" class="dash-settings__item" aria-haspopup="true">
+                            <img class="dash-icon" src="../../../media/vector/info-icon.png" alt="" width="24" height="24">
+                            Learn More
+                            <img class="dash-icon dash-icon--end" src="../../../media/vector/right-arrow-icon.png" alt="" width="24" height="24">
+                        </button>
+                        <div class="dash-submenu">
+                            <div class="dash-submenu__box">
+                                <a class="dash-settings__item" href="#">Kebijakan Privasi</a>
+                                <a class="dash-settings__item" href="#">Syarat &amp; Ketentuan</a>
+                                <a class="dash-settings__item" href="#">Panduan Pengguna</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Log Out: back to the login page until the backend handles sessions -->
+                    <a class="dash-settings__item" href="../../login.html">
+                        <img class="dash-icon" src="../../../media/vector/log-out-icon.png" alt="" width="24" height="24">
+                        Log Out
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Shown while the sidebar is closed (always above the page on tablet/phone) -->
+        <div class="dash-topbar">
+            <button type="button" class="dash-icon-btn" data-sidebar-open aria-label="Buka sidebar" aria-expanded="true" aria-controls="sidebar">
+                <img class="dash-icon" src="../../../media/vector/maximize-icon.png" alt="" width="24" height="24">
+            </button>
+            <div class="dash-brand-closed">Globaliti Badung</div>
+        </div>
+
+
+        <main class="dash-main">
+            <div class="dash-content">
+                <header class="dash-head">
+                    <div class="dash-head__title">
+                        <h1 class="dash-title">Log Absensi Guru</h1>
+                    </div>
+                    <div class="dash-tools">
+                        <div class="dash-search" role="search">
+                            <input type="search" placeholder="Search log" aria-label="Search log">
+                            <img class="dash-icon" src="../../../media/vector/search-icon.png" alt="" width="24" height="24">
+                        </div>
+                        <button type="button" class="dash-btn" data-modal-open="modal-absen">
+                            Mulai Absensi
+                            <img class="dash-icon" src="../../../media/vector/add-icon.png" alt="" width="24" height="24">
+                        </button>
+                    </div>
+                </header>
+                <ul class="dash-list">
+                    <li class="dash-item">
+                        <div class="dash-card">
+                            <span class="dash-card__name">Absensi Guru</span>
+                            <span class="dash-card__meta">Rabu, 14 Oktober 2026</span>
+                        </div>
+                        <button type="button" class="dash-action" aria-label="Edit absensi guru, Rabu, 14 Oktober 2026">
+                            <img class="dash-icon" src="../../../media/vector/edit-icon.png" alt="" width="24" height="24">
+                        </button>
+                    </li>
+                    <li class="dash-item">
+                        <div class="dash-card">
+                            <span class="dash-card__name">Absensi Guru</span>
+                            <span class="dash-card__meta">Selasa, 13 Oktober 2026</span>
+                        </div>
+                        <button type="button" class="dash-action" aria-label="Edit absensi guru, Selasa, 13 Oktober 2026">
+                            <img class="dash-icon" src="../../../media/vector/edit-icon.png" alt="" width="24" height="24">
+                        </button>
+                    </li>
+                    <li class="dash-item">
+                        <div class="dash-card">
+                            <span class="dash-card__name">Absensi Guru</span>
+                            <span class="dash-card__meta">Senin, 12 Oktober 2026</span>
+                        </div>
+                        <button type="button" class="dash-action" aria-label="Edit absensi guru, Senin, 12 Oktober 2026">
+                            <img class="dash-icon" src="../../../media/vector/edit-icon.png" alt="" width="24" height="24">
+                        </button>
+                    </li>
+                    <li class="dash-item">
+                        <div class="dash-card">
+                            <span class="dash-card__name">Absensi Guru</span>
+                            <span class="dash-card__meta">Jumat, 9 Oktober 2026</span>
+                        </div>
+                        <button type="button" class="dash-action" aria-label="Edit absensi guru, Jumat, 9 Oktober 2026">
+                            <img class="dash-icon" src="../../../media/vector/edit-icon.png" alt="" width="24" height="24">
+                        </button>
+                    </li>
+                    <li class="dash-item">
+                        <div class="dash-card">
+                            <span class="dash-card__name">Absensi Guru</span>
+                            <span class="dash-card__meta">Kamis, 8 Oktober 2026</span>
+                        </div>
+                        <button type="button" class="dash-action" aria-label="Edit absensi guru, Kamis, 8 Oktober 2026">
+                            <img class="dash-icon" src="../../../media/vector/edit-icon.png" alt="" width="24" height="24">
+                        </button>
+                    </li>
+                    <li class="dash-item">
+                        <div class="dash-card">
+                            <span class="dash-card__name">Absensi Guru</span>
+                            <span class="dash-card__meta">Rabu, 7 Oktober 2026</span>
+                        </div>
+                        <button type="button" class="dash-action" aria-label="Edit absensi guru, Rabu, 7 Oktober 2026">
+                            <img class="dash-icon" src="../../../media/vector/edit-icon.png" alt="" width="24" height="24">
+                        </button>
+                    </li>
+                    <li class="dash-item">
+                        <div class="dash-card">
+                            <span class="dash-card__name">Absensi Guru</span>
+                            <span class="dash-card__meta">Selasa, 6 Oktober 2026</span>
+                        </div>
+                        <button type="button" class="dash-action" aria-label="Edit absensi guru, Selasa, 6 Oktober 2026">
+                            <img class="dash-icon" src="../../../media/vector/edit-icon.png" alt="" width="24" height="24">
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </main>
+    </div>
+
+    <!-- Pop-up: Mulai Absensi (form). Placeholder teachers; the backend fills the rows. -->
+    <div class="dash-modal" id="modal-absen" role="dialog" aria-modal="true" aria-labelledby="modal-absen-title">
+        <form class="dash-modal__box dash-modal__box--wide" action="#" method="post" tabindex="-1">
+            <div class="dash-modal__head">
+                <h2 class="dash-modal__title" id="modal-absen-title">Mulai Absensi</h2>
+            </div>
+            <div class="dash-modal__body dash-modal__body--table">
+                <table class="dash-table">
+                    <caption class="dash-sr">Daftar kehadiran guru</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" rowspan="2">No.</th>
+                            <th scope="col" rowspan="2" class="dash-table__name">Nama Guru</th>
+                            <th scope="colgroup" colspan="2">Kehadiran</th>
+                        </tr>
+                        <tr>
+                            <th scope="col">Hadir</th>
+                            <th scope="col">Tidak Hadir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="dash-table__name">Dra. Ni Made Sri Rahayu, M.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[1]" value="hadir" aria-label="Hadir: Dra. Ni Made Sri Rahayu, M.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[1]" value="tidak-hadir" aria-label="Tidak hadir: Dra. Ni Made Sri Rahayu, M.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td class="dash-table__name">I Wayan Sudiarta, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[2]" value="hadir" aria-label="Hadir: I Wayan Sudiarta, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[2]" value="tidak-hadir" aria-label="Tidak hadir: I Wayan Sudiarta, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td class="dash-table__name">Ni Kadek Ayu Prameswari, S.Kom.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[3]" value="hadir" aria-label="Hadir: Ni Kadek Ayu Prameswari, S.Kom."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[3]" value="tidak-hadir" aria-label="Tidak hadir: Ni Kadek Ayu Prameswari, S.Kom."></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td class="dash-table__name">Drs. I Made Gunawan</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[4]" value="hadir" aria-label="Hadir: Drs. I Made Gunawan"></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[4]" value="tidak-hadir" aria-label="Tidak hadir: Drs. I Made Gunawan"></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td class="dash-table__name">Putu Eka Wirawan, S.T.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[5]" value="hadir" aria-label="Hadir: Putu Eka Wirawan, S.T."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[5]" value="tidak-hadir" aria-label="Tidak hadir: Putu Eka Wirawan, S.T."></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td class="dash-table__name">Ni Luh Putu Sari Dewi, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[6]" value="hadir" aria-label="Hadir: Ni Luh Putu Sari Dewi, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[6]" value="tidak-hadir" aria-label="Tidak hadir: Ni Luh Putu Sari Dewi, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td class="dash-table__name">Komang Ardana, S.Kom.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[7]" value="hadir" aria-label="Hadir: Komang Ardana, S.Kom."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[7]" value="tidak-hadir" aria-label="Tidak hadir: Komang Ardana, S.Kom."></td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td class="dash-table__name">Dewi Anggraini, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[8]" value="hadir" aria-label="Hadir: Dewi Anggraini, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[8]" value="tidak-hadir" aria-label="Tidak hadir: Dewi Anggraini, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td class="dash-table__name">I Gede Mahendra, M.Kom.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[9]" value="hadir" aria-label="Hadir: I Gede Mahendra, M.Kom."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[9]" value="tidak-hadir" aria-label="Tidak hadir: I Gede Mahendra, M.Kom."></td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td class="dash-table__name">Ni Wayan Suartini, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[10]" value="hadir" aria-label="Hadir: Ni Wayan Suartini, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[10]" value="tidak-hadir" aria-label="Tidak hadir: Ni Wayan Suartini, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td class="dash-table__name">Agus Setiawan, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[11]" value="hadir" aria-label="Hadir: Agus Setiawan, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[11]" value="tidak-hadir" aria-label="Tidak hadir: Agus Setiawan, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td class="dash-table__name">Kadek Dian Pratiwi, S.Sn.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[12]" value="hadir" aria-label="Hadir: Kadek Dian Pratiwi, S.Sn."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[12]" value="tidak-hadir" aria-label="Tidak hadir: Kadek Dian Pratiwi, S.Sn."></td>
+                                </tr>
+                                <tr>
+                                    <td>13</td>
+                                    <td class="dash-table__name">I Nyoman Budiasa, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[13]" value="hadir" aria-label="Hadir: I Nyoman Budiasa, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[13]" value="tidak-hadir" aria-label="Tidak hadir: I Nyoman Budiasa, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>14</td>
+                                    <td class="dash-table__name">Rina Marlina, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[14]" value="hadir" aria-label="Hadir: Rina Marlina, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[14]" value="tidak-hadir" aria-label="Tidak hadir: Rina Marlina, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>15</td>
+                                    <td class="dash-table__name">Ni Made Yuliani, S.E.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[15]" value="hadir" aria-label="Hadir: Ni Made Yuliani, S.E."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[15]" value="tidak-hadir" aria-label="Tidak hadir: Ni Made Yuliani, S.E."></td>
+                                </tr>
+                                <tr>
+                                    <td>16</td>
+                                    <td class="dash-table__name">I Ketut Arsana, S.T.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[16]" value="hadir" aria-label="Hadir: I Ketut Arsana, S.T."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[16]" value="tidak-hadir" aria-label="Tidak hadir: I Ketut Arsana, S.T."></td>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td class="dash-table__name">Bayu Ananta Putra, S.Kom.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[17]" value="hadir" aria-label="Hadir: Bayu Ananta Putra, S.Kom."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[17]" value="tidak-hadir" aria-label="Tidak hadir: Bayu Ananta Putra, S.Kom."></td>
+                                </tr>
+                                <tr>
+                                    <td>18</td>
+                                    <td class="dash-table__name">Ni Putu Indah Lestari, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[18]" value="hadir" aria-label="Hadir: Ni Putu Indah Lestari, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[18]" value="tidak-hadir" aria-label="Tidak hadir: Ni Putu Indah Lestari, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>19</td>
+                                    <td class="dash-table__name">Hendra Wijaya, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[19]" value="hadir" aria-label="Hadir: Hendra Wijaya, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[19]" value="tidak-hadir" aria-label="Tidak hadir: Hendra Wijaya, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>20</td>
+                                    <td class="dash-table__name">Ayu Kartika Sari, S.Hum.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[20]" value="hadir" aria-label="Hadir: Ayu Kartika Sari, S.Hum."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[20]" value="tidak-hadir" aria-label="Tidak hadir: Ayu Kartika Sari, S.Hum."></td>
+                                </tr>
+                                <tr>
+                                    <td>21</td>
+                                    <td class="dash-table__name">I Made Dwi Arimbawa, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[21]" value="hadir" aria-label="Hadir: I Made Dwi Arimbawa, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[21]" value="tidak-hadir" aria-label="Tidak hadir: I Made Dwi Arimbawa, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>22</td>
+                                    <td class="dash-table__name">Siti Nurhaliza, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[22]" value="hadir" aria-label="Hadir: Siti Nurhaliza, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[22]" value="tidak-hadir" aria-label="Tidak hadir: Siti Nurhaliza, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>23</td>
+                                    <td class="dash-table__name">Gusti Ayu Ratna Dewi, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[23]" value="hadir" aria-label="Hadir: Gusti Ayu Ratna Dewi, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[23]" value="tidak-hadir" aria-label="Tidak hadir: Gusti Ayu Ratna Dewi, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>24</td>
+                                    <td class="dash-table__name">Rudi Hartono, S.Kom.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[24]" value="hadir" aria-label="Hadir: Rudi Hartono, S.Kom."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[24]" value="tidak-hadir" aria-label="Tidak hadir: Rudi Hartono, S.Kom."></td>
+                                </tr>
+                                <tr>
+                                    <td>25</td>
+                                    <td class="dash-table__name">Ni Komang Widiastuti, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[25]" value="hadir" aria-label="Hadir: Ni Komang Widiastuti, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[25]" value="tidak-hadir" aria-label="Tidak hadir: Ni Komang Widiastuti, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>26</td>
+                                    <td class="dash-table__name">I Wayan Ardika, S.T.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[26]" value="hadir" aria-label="Hadir: I Wayan Ardika, S.T."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[26]" value="tidak-hadir" aria-label="Tidak hadir: I Wayan Ardika, S.T."></td>
+                                </tr>
+                                <tr>
+                                    <td>27</td>
+                                    <td class="dash-table__name">Fitri Handayani, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[27]" value="hadir" aria-label="Hadir: Fitri Handayani, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[27]" value="tidak-hadir" aria-label="Tidak hadir: Fitri Handayani, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>28</td>
+                                    <td class="dash-table__name">Putu Gede Santika, S.Kom.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[28]" value="hadir" aria-label="Hadir: Putu Gede Santika, S.Kom."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[28]" value="tidak-hadir" aria-label="Tidak hadir: Putu Gede Santika, S.Kom."></td>
+                                </tr>
+                                <tr>
+                                    <td>29</td>
+                                    <td class="dash-table__name">Ni Luh Ayu Mirah, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[29]" value="hadir" aria-label="Hadir: Ni Luh Ayu Mirah, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[29]" value="tidak-hadir" aria-label="Tidak hadir: Ni Luh Ayu Mirah, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>30</td>
+                                    <td class="dash-table__name">Eko Prasetyo, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[30]" value="hadir" aria-label="Hadir: Eko Prasetyo, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[30]" value="tidak-hadir" aria-label="Tidak hadir: Eko Prasetyo, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>31</td>
+                                    <td class="dash-table__name">Kadek Surya Adnyana, S.Kom.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[31]" value="hadir" aria-label="Hadir: Kadek Surya Adnyana, S.Kom."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[31]" value="tidak-hadir" aria-label="Tidak hadir: Kadek Surya Adnyana, S.Kom."></td>
+                                </tr>
+                                <tr>
+                                    <td>32</td>
+                                    <td class="dash-table__name">Made Ratih Kusumawati, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[32]" value="hadir" aria-label="Hadir: Made Ratih Kusumawati, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[32]" value="tidak-hadir" aria-label="Tidak hadir: Made Ratih Kusumawati, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>33</td>
+                                    <td class="dash-table__name">I Ketut Sudana, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[33]" value="hadir" aria-label="Hadir: I Ketut Sudana, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[33]" value="tidak-hadir" aria-label="Tidak hadir: I Ketut Sudana, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>34</td>
+                                    <td class="dash-table__name">Wulan Septiani, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[34]" value="hadir" aria-label="Hadir: Wulan Septiani, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[34]" value="tidak-hadir" aria-label="Tidak hadir: Wulan Septiani, S.Pd."></td>
+                                </tr>
+                                <tr>
+                                    <td>35</td>
+                                    <td class="dash-table__name">Gede Aditya Nugraha, S.T.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[35]" value="hadir" aria-label="Hadir: Gede Aditya Nugraha, S.T."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[35]" value="tidak-hadir" aria-label="Tidak hadir: Gede Aditya Nugraha, S.T."></td>
+                                </tr>
+                                <tr>
+                                    <td>36</td>
+                                    <td class="dash-table__name">Ni Putu Eka Cahyani, S.Pd.</td>
+                                    <td><input class="dash-check dash-check--ok" type="checkbox" name="kehadiran[36]" value="hadir" aria-label="Hadir: Ni Putu Eka Cahyani, S.Pd."></td>
+                                    <td><input class="dash-check dash-check--bad" type="checkbox" name="kehadiran[36]" value="tidak-hadir" aria-label="Tidak hadir: Ni Putu Eka Cahyani, S.Pd."></td>
+                                </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="dash-modal__foot">
+                <button type="button" class="dash-btn dash-btn--ghost" data-modal-close>Batal</button>
+                <button type="submit" class="dash-btn">Simpan</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
