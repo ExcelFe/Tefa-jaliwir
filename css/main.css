@@ -1922,8 +1922,9 @@ html[data-theme="dark"] .dash-icon--light {
     padding: var(--space-2) var(--space-4);
     overflow: auto;                         /* long forms/tables scroll here */
 }
-.dash-modal__body--table {                  /* no padding above the sticky header: rows can't show there */
+.dash-modal__body--table {                  /* Full-bleed table/header: remove body padding on all sides */
     padding-block: 0;
+    padding-inline: 0;
 }
 .dash-modal__foot {
     display: flex;
@@ -2133,10 +2134,16 @@ textarea.dash-input {
     position: sticky;
     top: 0;
     z-index: 1;
+    /* Fill the entire header area, including any space behind spanning cells. */
+    background: var(--dash-hover);
+    color: var(--dash-ink);
+}
+.dash-table thead tr,
+.dash-table th {
+    background-color: var(--dash-hover);
 }
 .dash-table th {
     padding: 0.6rem var(--space-2);
-    background: var(--dash-hover);
     font-size: 0.9rem;
     font-weight: 600;
     text-align: center;
@@ -2231,7 +2238,7 @@ textarea.dash-input {
     border-radius: var(--radius-md);
     background: var(--dash-surface);
     box-shadow: var(--dash-shadow);
-    border-left: 5px solid transparent;
+    border-left: 12px solid transparent;
 }
 .dash-jadwal-card--on {
     border-left-color: var(--status-ok);
@@ -2244,6 +2251,8 @@ textarea.dash-input {
 .dash-jadwal-card__info {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 .dash-jadwal-card__subject {
     font-family: var(--font-heading);
@@ -2422,4 +2431,131 @@ textarea.dash-input {
     .dash-jadwal-card__time {
         font-size: 0.8125rem;
     }
+}
+
+/* ---- 11.7c Absensi Wizard & Nihil Checkbox ---- */
+.absen-step {
+    display: none;
+}
+.absen-step.is-active {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+#step-kelas.is-active,
+#step-jurusan.is-active {
+    display: block;
+    overflow-y: auto;
+}
+.absen-step__desc {
+    margin-bottom: var(--space-3);
+    font-size: 0.95rem;
+    color: var(--dash-muted);
+}
+.absen-grid-select {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-2);
+}
+.absen-choice-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-2);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    color: var(--dash-ink);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    text-align: center;
+}
+.absen-choice-card small {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--dash-muted);
+    font-weight: 400;
+}
+.absen-choice-card:hover {
+    background: var(--dash-hover);
+    border-color: var(--dash-accent);
+    transform: translateY(-2px);
+}
+.absen-choice-card:active {
+    transform: translateY(0);
+}
+
+/* Header modal with back button */
+.dash-modal__head-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+.dash-modal__back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid var(--dash-edge);
+    background: var(--dash-surface);
+    color: var(--dash-ink);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+}
+.dash-modal__back-btn:hover {
+    background: var(--dash-hover);
+    border-color: var(--dash-accent);
+}
+.dash-modal__back-btn .dash-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    transform: rotate(180deg);              /* right arrow rotated to back arrow */
+}
+
+/* Nihil control bar */
+.absen-nihil-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    align-self: stretch;
+    padding: 0.75rem var(--space-4);
+    /* Full-width colored bar; follows the active light/dark theme. */
+    background: var(--dash-hover);
+    border-top: 1px solid var(--dash-edge);
+    border-bottom: 1px solid var(--dash-edge);
+    flex-shrink: 0;
+}
+.absen-nihil-info {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dash-ink);
+}
+.absen-nihil-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dash-ink);
+}
+.absen-nihil-toggle .dash-check {
+    margin: 0;
+}
+
+#step-form .dash-modal__body--table {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
 }
