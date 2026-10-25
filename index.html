@@ -10,10 +10,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script defer src="js/main.js"></script>
     <script defer src="js/animation.js"></script>
+    <script defer src="js/cool-cards.js"></script>
+    <!-- No JS: the navbar is hidden by CSS until main.js shows it, so show it -->
+    <noscript><style>.navbar--float { opacity: 1; visibility: visible; transform: none; }</style></noscript>
 </head>
 <body>
     <!-- NAVBAR: same block on every page (hamburger on tablet/phone, js/main.js) -->
-    <header class="navbar">
+    <header class="navbar navbar--float">
         <div class="container navbar-inner">
             <a href="index.html" class="brand">
                 <div class="img-slot logo-slot"><img src="media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
@@ -35,90 +38,134 @@
         </div>
     </header>
 
-    <main>
-        <!-- HERO: background photo = media/landingsmkti.jpg (change --hero-img in css/main.css) -->
-        <section class="hero">
-            <div class="container">
+    <main class="home">
+        <!-- HERO: full viewport, no navbar. Photo = --hero-img in css/main.css -->
+        <section class="home-hero" id="beranda">
+            <!-- Decorative pills (hero-refs.png corners). Delete this block to remove them -->
+            <span class="hero-pill hero-pill--red" aria-hidden="true"></span>
+            <span class="hero-pill hero-pill--green" aria-hidden="true"></span>
+            <span class="hero-pill hero-pill--blue" aria-hidden="true"></span>
+            <span class="hero-pill hero-pill--gold" aria-hidden="true"></span>
+
+            <div class="hero-inner">
                 <div class="hero-tags"><span>Pendidikan Berkualitas</span><span>Karakter Kuat</span><span>Masa Depan Cerah</span></div>
-                <h1>Bersama Membangun Generasi <em>Berdaya</em> dan <em>Berkarakter</em></h1>
-                <p>Sekolah kami hadir untuk memberikan pendidikan berkualitas dengan perpaduan ilmu pengetahuan, teknologi, dan nilai-nilai budaya yang luhur.</p>
-            </div>
-        </section>
-
-        <!-- HIGHLIGHT CARD (overlaps the hero edge) -->
-        <div class="info-wrap">
-            <div class="info-card">
-                <div class="info-item"><strong>Kurikulum Modern</strong><span></span></div>
-                <div class="info-item"><strong>Tenaga Pendidik Profesional</strong><span></span></div>
-                <div class="info-item"><strong>Fasilitas Lengkap</strong><span></span></div>
-                <div class="info-item"><strong>Lingkungan Positif</strong><span></span></div>
-            </div>
-        </div>
-
-        <!-- KURIKULUM -->
-        <section class="container section">
-            <div class="kurikulum">
-                <div>
-                    <span class="bar"></span>
-                    <h2>Kurikulum</h2>
-                    <p>Kurikulum adalah seperangkat rencana dan pengaturan mengenai tujuan, isi, dan proses pembelajaran. Dalam pendidikan vokasi, kurikulum sangat penting karena menjadi pedoman untuk mencetak lulusan yang kompeten, siap kerja, dan mampu beradaptasi dengan perkembangan industri dan teknologi.</p>
-                </div>
-                <div class="card-soft feature-card">
-                    <div class="icon-circle"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <div>
-                        <h3>Kurikulum Yang Diterapkan</h3>
-                        <p>SMK TI Bali Global Badung menerapkan kurikulum berorientasi industri dan berbasis kompetensi, yang menggabungkan fondasi akademik, proyek praktik, pengembangan karakter, serta persiapan untuk menghadapi dunia kerja digital.</p>
+                <h1><span>SMK TI Bali</span> <span>Global Badung</span></h1>
+                <p class="hero-sub">Bersama membangun generasi berdaya dan berkarakter</p>
+                <div class="hero-cta">
+                    <a href="pages/login.html" class="btn-hero btn-hero--primary">Login</a>
+                    <!-- Halaman dropdown: links every page before login (js/main.js initDropdowns) -->
+                    <div class="hero-dropdown" data-dropdown>
+                        <button type="button" class="btn-hero btn-hero--glass" aria-expanded="false" aria-controls="hero-menu" data-dropdown-toggle>
+                            Halaman
+                            <img class="hero-dropdown__icon" src="media/vector/dropdown.png" alt="" width="18" height="18">
+                        </button>
+                        <ul class="hero-dropdown__menu" id="hero-menu">
+                            <li><a href="index.html" aria-current="page">Beranda</a></li>
+                            <li><a href="pages/before/profil-manajemen.html">Profil Manajemen</a></li>
+                            <li><a href="pages/before/program-sekolah.html">Program Sekolah</a></li>
+                        </ul>
                     </div>
                 </div>
             </div>
-
-            <!-- PERK CARDS: change the Font Awesome icon class, title and text. Copy/remove .perk-card blocks as needed -->
-            <div class="perks-grid">
-                <article class="card-soft perk-card">
-                    <div class="icon-circle"><i class="fa-solid fa-bullseye"></i></div>
-                    <h3>Berbasis Kompetensi</h3>
-                    <p>Fokus pada penguasaan kompetensi yang dibutuhkan di dunia kerja.</p>
-                </article>
-                <article class="card-soft perk-card">
-                    <div class="icon-circle"><i class="fa-regular fa-lightbulb"></i></div>
-                    <h3>Project Based Learning</h3>
-                    <p>Belajar melalui proyek nyata untuk melatih kreativitas, kolaborasi, dan problem solving..</p>
-                </article>
-                <article class="card-soft perk-card">
-                    <div class="icon-circle"><i class="fa-solid fa-handshake"></i></div>
-                    <h3>Link &amp; Match industri</h3>
-                    <p>Kerja sama dengan industri untuk memastikan relevansi ilmu dengan kebutuhan pasar..</p>
-                </article>
-                <article class="card-soft perk-card">
-                    <div class="icon-circle"><i class="fa-solid fa-users"></i></div>
-                    <h3>Karakter &amp; Soft Skills</h3>
-                    <p>Membentuk pribadi disiplin, mandiri, komunikatif, dan bertanggung jawab..</p>
-                </article>
-            </div>
         </section>
 
-        <!-- FASILITAS -->
-        <section id="fasilitas" class="container section">
-            <h2 class="section-title">Fasilitas sekolah</h2>
-            <div class="fasilitas-box">
-                <figure>
-                    <div class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/ruang-kelas.jpg" alt="Fasilitas"></div>
-                    <figcaption>Ruangan Berfasilitas AC</figcaption>
+        <!-- TRANSITION: empty, gradient only (hero end color -> white) -->
+        <div class="home-transition" aria-hidden="true"></div>
+
+        <!-- MAIN CONTENT: navbar shows once this section reaches the top of the viewport.
+             Background = media/naga-basuki.png (.naga-bg). Cards fade/slide in on scroll (js/animation.js) -->
+        <div class="home-content">
+            <span class="home-content__sentinel" data-navbar-sentinel aria-hidden="true"></span>
+            <div class="naga-bg" aria-hidden="true"></div>
+
+            <!-- 1. TOP CARDS -->
+            <section class="top-cards" aria-label="Keunggulan sekolah">
+                <div class="home-stage">
+                    <article class="home-card home-card--red" data-seq>
+                        <h2>Kurikulum Modern</h2>
+                        <p>Kurikulum berorientasi industri dan berbasis kompetensi, memadukan fondasi akademik, proyek praktik, dan persiapan dunia kerja digital.</p>
+                    </article>
+                    <article class="home-card home-card--blue" data-seq>
+                        <h2>Fasilitas Lengkap</h2>
+                        <p>Ruangan ber-AC, LAB Multimedia, LAB PPLG &amp; TJKT, dan studio foto untuk menunjang praktik siswa.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 2. FASILITAS: auto carousel (right to left), pauses on hover/focus, click = full image -->
+            <section id="fasilitas" class="fasilitas" aria-labelledby="fasilitas-title">
+                <h2 id="fasilitas-title">Fasilitas Sekolah</h2>
+                <!-- Add a slide: copy one button.fasilitas-slide inside .fasilitas-set (clones are made by JS) -->
+                <div class="fasilitas-marquee" data-marquee>
+                    <div class="fasilitas-track">
+                        <div class="fasilitas-set">
+                            <button type="button" class="fasilitas-slide" data-lightbox-open>
+                                <span class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/ruang-kelas.jpg" alt="Ruangan Berfasilitas AC" loading="lazy"></span>
+                                <span class="fasilitas-slide__caption">Ruangan Berfasilitas AC</span>
+                            </button>
+                            <button type="button" class="fasilitas-slide" data-lightbox-open>
+                                <span class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/lab-multimedia.jpg" alt="LAB Multimedia" loading="lazy"></span>
+                                <span class="fasilitas-slide__caption">LAB Multimedia</span>
+                            </button>
+                            <button type="button" class="fasilitas-slide" data-lightbox-open>
+                                <span class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/lab-rpl-tkj.jpg" alt="LAB PPLG &amp; TJKT" loading="lazy"></span>
+                                <span class="fasilitas-slide__caption">LAB PPLG &amp; TJKT</span>
+                            </button>
+                            <button type="button" class="fasilitas-slide" data-lightbox-open>
+                                <span class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/studio-foto.jpg" alt="Studio Foto" loading="lazy"></span>
+                                <span class="fasilitas-slide__caption">Studio Foto</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Full image pop-up (js/main.js initLightbox) -->
+            <dialog class="lightbox" id="fasilitas-lightbox" aria-label="Foto fasilitas">
+                <button type="button" class="lightbox__close" aria-label="Tutup foto" data-lightbox-close>&times;</button>
+                <figure class="lightbox__figure">
+                    <img src="" alt="">
+                    <figcaption></figcaption>
                 </figure>
-                <figure>
-                    <div class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/lab-multimedia.jpg" alt="Fasilitas"></div>
-                    <figcaption>LAB Multimedia</figcaption>
-                </figure>
-                <figure>
-                    <div class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/lab-rpl-tkj.jpg" alt="Fasilitas"></div>
-                    <figcaption>LAB PPLG & TJKT</figcaption>
-                </figure>
-                <figure>
-                    <div class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/studio-foto.jpg" alt="Fasilitas"></div>
-                    <figcaption>Studio Foto</figcaption>
-                </figure>
+            </dialog>
+
+            <!-- 3. BOTTOM CARDS: gradient white -> footer color -->
+            <div class="bottom-cards">
+                <!-- 3a. green + orange cards -->
+                <section class="bottom-cards__first" aria-label="Keunggulan sekolah">
+                    <div class="home-stage">
+                        <article class="home-card home-card--green" data-seq>
+                            <h2>Tenaga Pendidik Profesional</h2>
+                            <p>Guru dan instruktur berpengalaman yang membimbing siswa dalam teori, praktik, dan pengembangan karakter.</p>
+                        </article>
+                        <article class="home-card home-card--orange" data-seq>
+                            <h2>Project Based Learning</h2>
+                            <p>Belajar melalui proyek nyata untuk melatih kreativitas, kolaborasi, dan problem solving..</p>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- 3b. 2 white cards around the naga tail (3D, js/cool-cards.js). Shown near the footer -->
+                <section class="bottom-cards__last" aria-label="Keunggulan sekolah">
+                    <div class="cool-cards" data-seq data-seq-start="0.72" data-cool-cards>
+                        <div class="cool-cards__axis">
+                            <div class="cool-slot cool-slot--left">
+                                <article class="cool-card" tabindex="0">
+                                    <h2>Link &amp; Match Industri</h2>
+                                    <p>Kerja sama dengan industri untuk memastikan relevansi ilmu dengan kebutuhan pasar..</p>
+                                </article>
+                            </div>
+                            <div class="cool-slot cool-slot--right">
+                                <article class="cool-card" tabindex="0">
+                                    <h2>Karakter &amp; Soft Skills</h2>
+                                    <p>Membentuk pribadi disiplin, mandiri, komunikatif, dan bertanggung jawab..</p>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </section>
+        </div>
     </main>
 
     <!-- FOOTER: same block on every page -->

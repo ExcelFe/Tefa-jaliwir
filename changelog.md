@@ -2,13 +2,13 @@
 
 Plain HTML, CSS and JavaScript. No frameworks, no build step. Rules: [`rules.md`](./rules.md). Update this README with every code change.
 
-**Last updated: 2026-10-21**
+**Last updated: 2026-10-25**
 
 ## Pages and links
 
 | Page | Path | Notes |
 |------|------|-------|
-| Beranda | `index.html` | Hero, highlight card, kurikulum, fasilitas |
+| Beranda | `index.html` | Full-height hero, gradient transition, naga main content (6 cards, fasilitas carousel, 3D cards) |
 | Profil Manajemen | `pages/before/profil-manajemen.html` | 4 groups, "Selengkapnya" buttons |
 | Program Sekolah | `pages/before/program-sekolah.html` | Warm theme, dropdown tabs |
 | Login | `pages/login.html` | Warm theme, logo left / form right, no backend |
@@ -41,8 +41,8 @@ tefa_jlwr/
 ├── README.md
 ├── rules.md
 ├── css/   main.css (all styles) | animation.css (transitions)
-├── js/    main.js (shared) | program-sekolah.js | profil-manajemen.js | login.js | dashboard.js | animation.js (empty)
-├── media/ logo.webp, landingsmkti.jpg, email.png, lock.png
+├── js/    main.js (shared) | animation.js (scroll-sequence) | cool-cards.js (index) | program-sekolah.js | profil-manajemen.js | login.js | dashboard.js
+├── media/ logo.webp, landingsmkti.jpg, naga-basuki.png, vector/dropdown.png, email.png, lock.png
 └── pages/ login.html | before/ profil-manajemen.html, program-sekolah.html | after/ admin/ guru/ guru-piket/ siswa/
 ```
 
@@ -77,7 +77,9 @@ All scripts are in `<head>` with `defer`.
 | `main.js` (dashboard part) | `guru/*`, `siswa/*`, `guru-piket/*`, `admin/*` | Theme switch, sidebar, settings menu (Learn More click on touch/phone), pop-ups |
 | `guru-absen-siswa.js` | Absen Siswa, Absen Guru (piket) | Hadir / Tidak Hadir checkboxes |
 | `admin-piket.js` | Admin Pilih Guru Piket | Today's date, placeholder code, copy button |
-| `animation.js` | Home, Profil, Program, Login | Empty (JS animations go here) |
+| `animation.js` | Home (all pages load it) | Scroll-sequence for `[data-seq]` cards |
+| `cool-cards.js` | Home | 3D cards: only one at the center |
+| `main.js` (home part) | Home | Halaman dropdown, floating navbar, fasilitas carousel + pop-up |
 
 ## Program Sekolah
 
@@ -109,12 +111,17 @@ Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no con
 - **Tab:** add `button.dropdown-trigger` + `.dropdown-panel` (`aria-controls` = panel `id`), set `--trigger-cols` modifier.
 - **Person card:** copy an `article.person`; photos go in `media/<group>/<group>-N.jpg`.
 - **Hero photo:** `--hero-img` in `main.css`.
+- **Fasilitas slide:** copy one `button.fasilitas-slide` in `index.html` (copies for the loop are made by JS).
+- **Home card colors:** `--card-red|blue|green|orange|white` in `main.css`.
+- **Naga size:** `--naga-w` in `.home-content`; zones and cards are fractions of the naga height.
 
 ## Pending
 
 - Photos: `media/manajemen|kaprog|guru|staff|fasilitas/` (missing files show a label).
 - Program logos; real footer description; privacy/terms URLs (`#`).
-- Typos in content: "Perangakat" (PPLG), "Indsutri" (Ko-kulikuler).
+- Typos in content: "Perangakat" (PPLG), "Indsutri" (Ko-kulikuler), ".." at the end of 3 Beranda card texts (kept from the old version).
+- Beranda: body text for Kurikulum Modern, Tenaga Pendidik Profesional, Fasilitas Lengkap was empty before; short text written, check it.
+- Unused after the Beranda rebuild: `.section`, `.icon-circle`, `.ratio-1610` (still defined in `main.css`).
 - Login: no backend; "Forgot Password?" has no page.
 - Dashboards: unstyled backend templates; `/admin/...` and `/guru/...` routes need the backend.
 - Existing borders kept on Home/Profil elements (hero tags, highlight card, fasilitas, person cards, "Selengkapnya"). New and restyled parts have none.
@@ -135,6 +142,23 @@ Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no con
 | No generated icons/images | Yes |
 
 ## Changelog
+
+### 2026-10-25 - Beranda rebuild (codebase_19)
+- `index.html` main rebuilt: hero, transition, main content. Navbar + footer markup unchanged (navbar gets `.navbar--float`).
+- Hero: full viewport (`100svh`), no navbar, per `hero-refs.png`. Login = link to `pages/login.html`. Halaman = dropdown (Beranda, Profil Manajemen, Program Sekolah) with `media/vector/dropdown.png`. 4 corner pills from the reference (decorative, one block to delete).
+- Transition: empty container, gradient `--hero-end` to white.
+- Main content: `media/naga-basuki.png` as background; 3 containers. Navbar shows when the content top reaches the top of the viewport (stays after).
+- Top cards: Kurikulum Modern (red), Fasilitas Lengkap (blue). Bottom: Tenaga Pendidik Profesional (green), Project Based Learning (orange). Cards slide up on scroll (`[data-seq]`, `animation.js`).
+- Fasilitas: right-to-left auto carousel, pauses on hover/focus, click opens full image (`<dialog>`). Same 4 photos.
+- Bottom gradient white to footer color. 2 white cards (Link & Match Industri, Karakter & Soft Skills) angled 3D left/right of the naga tail, shown near the footer. Hover (desktop) / tap (mobile) slides one to the center; only one at a time (`js/cool-cards.js`).
+- CSS: section 6 rewritten (old home blocks removed, `.page-hero` kept as is), new tokens, keyframes/transitions in `animation.css`. Logic in `main.js`.
+- Reference borders on hero pill/Halaman button not used (rule: no border colors). Reference font not used (Anton / Plus Jakarta Sans kept).
+- Checked in Chromium (1440, 820, 390px): no horizontal scroll, no console errors, dropdown, navbar, carousel pause, pop-up and 3D cards tested.
+
+### 2026-10-22 - Login show/hide password toggle
+- Added password visibility toggle button to password field on `pages/login.html`.
+- Uses `eye-off.png` (hidden) and `eye-icon.png` (visible) from `media/vector/`.
+- Logic implemented in `js/login.js` (`initPasswordToggle`); styles in `css/main.css` (`.login-field--password`, `.password-toggle`).
 
 ### 2026-10-21 - Soft Balance palette overhaul (after-login)
 - Overhauled after-login dashboard color palette based on "Soft Balance" palette (`--sb-ivory`: `#f0efea`, `--sb-sky`: `#d3dbf0`, `--sb-gray`: `#b8b5ac`, `--sb-beige`: `#e0d2c7`, `--sb-periwinkle`: `#7a90c9`, `--sb-navy`: `#33415e`).

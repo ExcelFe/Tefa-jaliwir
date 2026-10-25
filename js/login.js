@@ -15,4 +15,39 @@ function initBackButtons() {
     });
 }
 
+/* PASSWORD VISIBILITY TOGGLE (show / hide password) */
+function initPasswordToggle() {
+    const toggleBtn = document.getElementById('password-toggle');
+    const passwordInput = document.getElementById('password');
+    if (!toggleBtn || !passwordInput) return;
+
+    const icon = toggleBtn.querySelector('.password-toggle__icon');
+
+    toggleBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const isHidden = passwordInput.type === 'password';
+
+        if (isHidden) {
+            passwordInput.type = 'text';
+            toggleBtn.setAttribute('aria-label', 'Sembunyikan password');
+            toggleBtn.setAttribute('aria-pressed', 'true');
+            if (icon) {
+                icon.src = '../media/vector/eye-icon.png';
+            }
+        } else {
+            passwordInput.type = 'password';
+            toggleBtn.setAttribute('aria-label', 'Tampilkan password');
+            toggleBtn.setAttribute('aria-pressed', 'false');
+            if (icon) {
+                icon.src = '../media/vector/eye-off.png';
+            }
+        }
+
+        passwordInput.focus();
+    });
+}
+
 initBackButtons();
+initPasswordToggle();

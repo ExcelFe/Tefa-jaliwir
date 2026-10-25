@@ -2,7 +2,7 @@
    MAIN.JS - shared logic for every page (loaded in <head> with "defer")
    Page-only logic lives in its own file:
    program-sekolah.js | profil-manajemen.js | login.js | dashboard.js |
-   guru-absen-siswa.js | admin-piket.js
+   guru-absen-siswa.js | admin-piket.js | cool-cards.js (index 3D cards)
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -53,6 +53,145 @@ function initImageSlots() {
         // Image may have failed before this script ran
         if (img.complete && img.naturalWidth === 0) img.remove();
     });
+}
+
+
+/* ==========================================================================
+   HOME (index.html)
+   Every function returns early on pages without the home markup.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   DROPDOWN  (hero "Halaman")
+   Markup: [data-dropdown] > button[data-dropdown-toggle] + ul (the menu)
+   Closes on outside click, Escape and when focus leaves.
+   -------------------------------------------------------------------------- */
+function initDropdowns() {
+    document.querySelectorAll('[data-dropdown]').forEach((dropdown) => {
+        const toggle = dropdown.querySelector('[data-dropdown-toggle]');
+        const menu = dropdown.querySelector('ul');
+        if (!toggle || !menu) return;
+
+        const setOpen = (isOpen) => {
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            menu.classList.toggle('is-open', isOpen);
+        };
+        const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+
+        toggle.addEventListener('click', () => setOpen(!isOpen()));
+        document.addEventListener('click', (event) => {
+            if (!dropdown.contains(event.target)) setOpen(false);
+        });
+        dropdown.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && isOpen()) {
+                setOpen(false);
+                toggle.focus();
+            }
+        });
+        dropdown.addEventListener('focusout', (event) => {
+            if (!dropdown.contains(event.relatedTarget)) setOpen(false);
+        });
+        // Back/forward cache: restored page starts closed
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) setOpen(false);
+        });
+    });
+}
+
+
+/* --------------------------------------------------------------------------
+   FLOATING NAVBAR  (index only)
+   Hidden over the hero + transition. Shown once the sentinel at the top of
+   the main content has reached the top of the viewport.
+   -------------------------------------------------------------------------- */
+function initHomeNavbar() {
+    const navbar = document.querySelector('.navbar--float');
+    const sentinel = document.querySelector('[data-navbar-sentinel]');
+    if (!navbar || !sentinel) return;
+    if (!('IntersectionObserver' in window)) {
+        navbar.classList.add('is-visible');
+        return;
+    }
+
+    const toggle = navbar.querySelector('.nav-toggle');
+    new IntersectionObserver(([entry]) => {
+        const show = entry.boundingClientRect.top <= 0;
+        navbar.classList.toggle('is-visible', show);
+        // Hidden navbar must not keep the mobile menu open
+        if (!show && toggle && toggle.getAttribute('aria-expanded') === 'true') toggle.click();
+    }).observe(sentinel);
+}
+
+
+/* --------------------------------------------------------------------------
+   FASILITAS CAROUSEL  (index only)
+   Copies the slide set until it is wider than the screen, then CSS moves the
+   track one set to the left in a loop (animation.css).
+   Without JS the slides stay a plain scroll row.
+   -------------------------------------------------------------------------- */
+function initFasilitasCarousel() {
+    const marquee = document.querySelector('[data-marquee]');
+    if (!marquee) return;
+    const track = marquee.querySelector('.fasilitas-track');
+    const original = track.querySelector('.fasilitas-set');
+    const SPEED = 50;                               // px per second
+
+    const build = () => {
+        track.querySelectorAll('[data-clone]').forEach((copy) => copy.remove());
+        const setWidth = original.getBoundingClientRect().width;
+        if (!setWidth) return;
+
+        const copies = Math.ceil(marquee.clientWidth / setWidth) + 1;
+        for (let i = 0; i < copies; i += 1) {
+            const copy = original.cloneNode(true);
+            copy.dataset.clone = '';
+            copy.setAttribute('aria-hidden', 'true');           // screen readers read one set
+            copy.querySelectorAll('button').forEach((button) => { button.tabIndex = -1; });
+            track.appendChild(copy);
+        }
+        track.style.setProperty('--marquee-shift', `-${setWidth}px`);
+        track.style.setProperty('--marquee-duration', `${setWidth / SPEED}s`);
+        marquee.classList.add('is-ready');
+        initImageSlots();                                       // missing photos in the copies
+    };
+
+    build();
+    let timer;
+    window.addEventListener('resize', () => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(build, 200);
+    });
+}
+
+
+/* --------------------------------------------------------------------------
+   FASILITAS POP-UP  (index only)
+   Click a slide -> full image in <dialog>. Closes on X, Escape (built in)
+   and a click outside the photo.
+   -------------------------------------------------------------------------- */
+function initLightbox() {
+    const dialog = document.getElementById('fasilitas-lightbox');
+    const marquee = document.querySelector('[data-marquee]');
+    if (!dialog || !marquee || typeof dialog.showModal !== 'function') return;
+
+    const image = dialog.querySelector('img');
+    const caption = dialog.querySelector('figcaption');
+
+    marquee.addEventListener('click', (event) => {
+        const slide = event.target.closest('[data-lightbox-open]');
+        const photo = slide && slide.querySelector('img');
+        if (!photo) return;
+        image.src = photo.currentSrc || photo.src;
+        image.alt = photo.alt;
+        caption.textContent = photo.alt;
+        dialog.showModal();
+        document.body.classList.add('has-lightbox');
+    });
+    dialog.addEventListener('click', (event) => {
+        // Target is the dialog itself when the click lands outside the photo
+        if (event.target === dialog || event.target.closest('[data-lightbox-close]')) dialog.close();
+    });
+    dialog.addEventListener('close', () => document.body.classList.remove('has-lightbox'));
 }
 
 
@@ -217,6 +356,10 @@ function initModals() {
 
 
 initNavToggle();
+initDropdowns();
+initHomeNavbar();
+initFasilitasCarousel();
+initLightbox();
 initImageSlots();
 initTheme();
 initSidebar();
