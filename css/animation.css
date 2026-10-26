@@ -123,6 +123,15 @@
     opacity: var(--seq, 1);
     transform: translateY(calc((1 - var(--seq, 1)) * var(--seq-dist, 0px)));
 }
+/* Top + bottom (1st) cards: card flip (rotate X) instead of a fade */
+.home-card[data-seq] {
+    opacity: 1;
+    transform:
+        translateY(calc((1 - var(--seq, 1)) * var(--seq-dist, 0px)))
+        perspective(900px)
+        rotateX(calc((1 - var(--seq, 1)) * -90deg));    /* edge-on (-90deg) to flat (0) */
+    backface-visibility: hidden;
+}
 
 /* Fasilitas carousel: right to left. JS sets --marquee-shift (one set width)
    and --marquee-duration. Pauses on hover and keyboard focus. */

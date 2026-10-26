@@ -101,8 +101,8 @@ function initDropdowns() {
 
 /* --------------------------------------------------------------------------
    FLOATING NAVBAR  (index only)
-   Hidden over the hero + transition. Shown once the sentinel at the top of
-   the main content has reached the top of the viewport.
+   Hidden over the hero and the first half of the transition. Shown once the
+   sentinel (50% of the transition) has reached the top of the viewport.
    -------------------------------------------------------------------------- */
 function initHomeNavbar() {
     const navbar = document.querySelector('.navbar--float');

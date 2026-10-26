@@ -2,7 +2,7 @@
 
 Plain HTML, CSS and JavaScript. No frameworks, no build step. Rules: [`rules.md`](./rules.md). Update this README with every code change.
 
-**Last updated: 2026-10-25**
+**Last updated: 2026-10-26**
 
 ## Pages and links
 
@@ -50,7 +50,7 @@ tefa_jlwr/
 
 Sections: 1 Fonts, 2 Tokens, 3 Base, 4 Layout, 5 Shared components (navbar, footer), 6 Home, 7 Profil Manajemen, 8 Program Sekolah, 9 Login, 10 Dashboards, 11 Teacher dashboard (`.dash-*`). Media queries sit under each section, mobile first.
 
-- **Fonts:** `@import` at the top of `main.css`. Headings **Anton**, body **Plus Jakarta Sans**. No font `<link>` tags.
+- **Fonts:** `@import` at the top of `main.css`. Headings **Montserrat Bold (700)**, body **Plus Jakarta Sans**. No font `<link>` tags.
 - **Theme:** `<body class="theme-warm">` switches page background and text to the warm palette (Program Sekolah, Login).
 - **Icons:** Font Awesome `<link>` stays in the head (navbar login arrow, footer, Home, Profil).
 
@@ -77,7 +77,7 @@ All scripts are in `<head>` with `defer`.
 | `main.js` (dashboard part) | `guru/*`, `siswa/*`, `guru-piket/*`, `admin/*` | Theme switch, sidebar, settings menu (Learn More click on touch/phone), pop-ups |
 | `guru-absen-siswa.js` | Absen Siswa, Absen Guru (piket) | Hadir / Tidak Hadir checkboxes |
 | `admin-piket.js` | Admin Pilih Guru Piket | Today's date, placeholder code, copy button |
-| `animation.js` | Home (all pages load it) | Scroll-sequence for `[data-seq]` cards |
+| `animation.js` | Home (all pages load it) | Scroll-sequence (`--seq`) for `[data-seq]` cards: flip (top + bottom 1st cards), slide + fade (3D cards) |
 | `cool-cards.js` | Home | 3D cards: only one at the center |
 | `main.js` (home part) | Home | Halaman dropdown, floating navbar, fasilitas carousel + pop-up |
 
@@ -142,6 +142,14 @@ Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no con
 | No generated icons/images | Yes |
 
 ## Changelog
+
+### 2026-10-26 - Beranda changes (codebase_20)
+- Headline font: Anton to Montserrat Bold. `@import` + `--font-heading` in `main.css`, headings `font-weight: 700`. Applies to every page that uses `--font-heading` (checked: no overflow on Beranda, Profil, Program, Login, dashboards at 1280 and 390px). Hero headline resized (`clamp(1.9rem, 6.4vw, 5.5rem)`, no line wrap) because Montserrat is wider.
+- Top cards + bottom 1st container: fade replaced by a card flip (rotate X, `animation.css`); slide up (translate Y) kept. 3D cards keep slide + fade.
+- 3D cards (bottom 2nd): angle 62deg to 58deg (`--cc-angle`). Card spacing uses `--cc-half`.
+- Cards a little bigger on desktop (>= 1025px): `.home-card` 34% / max 21.5rem, larger text; 3D cards 19rem x 15.5rem. Phone/tablet unchanged (min gap between cards on phones raised to 15.5rem).
+- Navbar: menu centered between logo and Login (desktop). Now shows after 50% of the transition is scrolled (sentinel moved from the main content into `.home-transition`, `.navbar-sentinel`).
+- Fasilitas: visible shadow on carousel cards (old warm shadow was invisible on the dark band); marquee padding raised so the shadow is not clipped.
 
 ### 2026-10-25 - Beranda rebuild (codebase_19)
 - `index.html` main rebuilt: hero, transition, main content. Navbar + footer markup unchanged (navbar gets `.navbar--float`).

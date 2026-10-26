@@ -69,13 +69,15 @@
             </div>
         </section>
 
-        <!-- TRANSITION: empty, gradient only (hero end color -> white) -->
-        <div class="home-transition" aria-hidden="true"></div>
+        <!-- TRANSITION: gradient only (hero end color -> white) -->
+        <div class="home-transition" aria-hidden="true">
+            <!-- Navbar shows when the top of the viewport passes this point (50% of the transition) -->
+            <span class="navbar-sentinel" data-navbar-sentinel></span>
+        </div>
 
-        <!-- MAIN CONTENT: navbar shows once this section reaches the top of the viewport.
-             Background = media/naga-basuki.png (.naga-bg). Cards fade/slide in on scroll (js/animation.js) -->
+        <!-- MAIN CONTENT: background = media/naga-basuki.png (.naga-bg).
+             Cards flip/slide in on scroll (js/animation.js) -->
         <div class="home-content">
-            <span class="home-content__sentinel" data-navbar-sentinel aria-hidden="true"></span>
             <div class="naga-bg" aria-hidden="true"></div>
 
             <!-- 1. TOP CARDS -->

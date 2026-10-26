@@ -5,8 +5,8 @@
 
 /* --------------------------------------------------------------------------
    SCROLL-SEQUENCE  (index.html)
-   Each [data-seq] item slides up (translate Y) and fades in as it scrolls up
-   the screen; scrolling back reverses it. Writes --seq (0 to 1) and
+   Each [data-seq] item slides up (translate Y) as it scrolls up the screen
+   (cards flip in, see animation.css); scrolling back reverses it. Writes --seq (0 to 1) and
    --seq-dist; animation.css uses them.
    Optional per item: data-seq-start (viewport fraction where it starts, 0.9)
                       data-seq-range (viewport fraction it takes, 0.3)

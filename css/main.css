@@ -7,9 +7,9 @@
    ========================================================================== */
 
 /* ==========================================================================
-   1. FONTS  (headings: Anton | body: Plus Jakarta Sans)
+   1. FONTS  (headings: Montserrat Bold | body: Plus Jakarta Sans)
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 
 /* ==========================================================================
@@ -17,7 +17,7 @@
    ========================================================================== */
 :root {
     /* FONTS */
-    --font-heading: "Anton", sans-serif;
+    --font-heading: "Montserrat", sans-serif;
     --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
 
     /* BRAND COLORS */
@@ -146,10 +146,10 @@ button {
 [hidden] {
     display: none !important;
 }
-/* Anton has one weight: keep 400 to avoid faux-bold */
+/* Montserrat is loaded in Bold (700) only */
 h1, h2, h3, h4 {
     font-family: var(--font-heading);
-    font-weight: 400;
+    font-weight: 700;
     line-height: 1.1;
     letter-spacing: 0.02em;
 }
@@ -570,11 +570,11 @@ select {
 }
 @media (min-width: 1025px) {
     .navbar--float .navbar-inner {
-        grid-template-columns: auto 1fr auto;   /* brand | menu beside it | login */
+        grid-template-columns: auto 1fr auto;   /* brand | menu | login */
         column-gap: var(--space-5);
     }
     .navbar--float .nav-links {
-        justify-self: start;
+        justify-self: center;           /* centered between logo and Login */
     }
 }
 
@@ -632,13 +632,14 @@ select {
 }
 .home-hero h1 {
     margin-top: var(--space-4);
-    font-size: clamp(3.25rem, 11vw, 7.25rem);
-    line-height: 1;
+    font-size: clamp(1.9rem, 6.4vw, 5.5rem);        /* Montserrat is wide: each line must fit */
+    line-height: 1.1;
     text-transform: uppercase;
     text-shadow: 0 4px 24px rgba(10, 10, 40, 0.35);
 }
 .home-hero h1 span {
     display: block;                     /* 2 lines: SMK TI Bali / Global Badung */
+    white-space: nowrap;
 }
 .hero-sub {
     margin-top: var(--space-3);
@@ -730,6 +731,7 @@ select {
 
 /* ---------- TRANSITION (empty: hero end color -> white) ---------- */
 .home-transition {
+    position: relative;
     height: clamp(24rem, 90svh, 48rem);
     background: linear-gradient(180deg,
         var(--hero-end) 0%,
@@ -737,6 +739,15 @@ select {
         #7b7b93 60%,
         #cfcfd8 82%,
         var(--white) 100%);
+}
+
+.navbar-sentinel {                      /* js/main.js shows the navbar when this passes the top */
+    position: absolute;
+    top: 50%;                           /* navbar shows after half of the transition */
+    left: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
 }
 
 /* ---------- MAIN CONTENT ----------
@@ -750,14 +761,6 @@ select {
     position: relative;
     overflow-x: clip;
     background: var(--white);
-}
-.home-content__sentinel {               /* js/main.js shows the navbar when this passes the top */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1px;
-    height: 1px;
-    pointer-events: none;
 }
 .naga-bg {
     position: absolute;
@@ -792,7 +795,7 @@ select {
     width: clamp(15rem, 31%, 19rem);
     min-height: 11rem;
     padding: var(--space-4);
-    color: var(--ink);
+    color: var(--white);
     background: color-mix(in srgb, var(--card-bg) 94%, transparent);
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-card);
@@ -814,12 +817,25 @@ select {
     position: relative;
     height: calc(var(--naga-top) + var(--naga-h) * 0.34);
 }
+@media (min-width: 1025px) {            /* a little bigger on desktop */
+    .home-card {
+        width: clamp(15rem, 34%, 21.5rem);
+        min-height: 12.5rem;
+        padding: var(--space-4) 1.75rem;
+    }
+    .home-card h2 {
+        font-size: 1.75rem;
+    }
+    .home-card p {
+        font-size: 1rem;
+    }
+}
 .home-card--red {
     top: calc(var(--naga-top) + var(--naga-h) * 0.115);
     left: 12%;
 }
 .home-card--blue {                      /* max(): never overlaps the red card on phones */
-    top: max(calc(var(--naga-top) + var(--naga-h) * 0.226), calc(var(--naga-top) + var(--naga-h) * 0.115 + 14rem));
+    top: max(calc(var(--naga-top) + var(--naga-h) * 0.226), calc(var(--naga-top) + var(--naga-h) * 0.115 + 15.5rem));
     right: 12%;
 }
 
@@ -859,7 +875,7 @@ select {
 }
 .fasilitas-marquee {
     overflow-x: auto;                   /* no JS: swipe / scroll */
-    padding-block: var(--space-2);
+    padding-block: var(--space-4);      /* room so the card shadow is not clipped */
 }
 .fasilitas-marquee.is-ready {
     overflow: hidden;                   /* JS: auto carousel (animation.css) */
@@ -883,7 +899,7 @@ select {
     background: var(--primary-soft);
     border: 0;
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);     /* visible on the dark band */
     cursor: zoom-in;
 }
 .fasilitas-slide .img-slot {
@@ -965,7 +981,7 @@ body.has-lightbox {
     left: 10%;
 }
 .home-card--orange {
-    top: max(calc(var(--naga-h) * 0.178), calc(var(--naga-h) * 0.078 + 14rem));
+    top: max(calc(var(--naga-h) * 0.178), calc(var(--naga-h) * 0.078 + 15.5rem));
     right: 10%;
 }
 .bottom-cards__last {
@@ -979,9 +995,10 @@ body.has-lightbox {
 .cool-cards {
     --cc-w: clamp(13rem, 22vw, 17rem);          /* card size */
     --cc-h: 14rem;
-    --cc-angle: 62deg;
+    --cc-angle: 58deg;
+    --cc-half: calc(var(--cc-w) * 0.265);       /* half of the angled card width seen (cos 58deg / 2) */
     --tail-x: calc(50% - var(--naga-w) * 0.024);    /* tail tip x on the naga image */
-    --c0: calc(var(--naga-w) * 0.058 + var(--cc-w) * 0.235);   /* axis -> resting card center */
+    --c0: calc(var(--naga-w) * 0.058 + var(--cc-half));   /* axis -> resting card center */
     position: absolute;
     z-index: 3;
     inset: 0;
@@ -999,12 +1016,12 @@ body.has-lightbox {
 .cool-slot {
     position: absolute;
     top: calc(var(--cc-h) / -2);
-    width: calc(var(--cc-w) * 0.47);            /* width of the angled card as seen */
+    width: calc(var(--cc-half) * 2);            /* width of the angled card as seen */
     height: var(--cc-h);
     transform-style: preserve-3d;
 }
-.cool-slot--left  { left: calc(var(--c0) * -1 - var(--cc-w) * 0.235); }
-.cool-slot--right { left: calc(var(--c0) - var(--cc-w) * 0.235); }
+.cool-slot--left  { left: calc(var(--c0) * -1 - var(--cc-half)); }
+.cool-slot--right { left: calc(var(--c0) - var(--cc-half)); }
 .cool-slot.is-center {
     z-index: 5;
 }
@@ -1054,6 +1071,21 @@ body.has-lightbox {
 .cool-slot--right.is-center .cool-card {
     transform: translateX(calc(var(--c0) * -1)) translateZ(110px);
     filter: none;
+}
+@media (min-width: 1025px) {            /* a little bigger on desktop */
+    .cool-cards {
+        --cc-w: 19rem;
+        --cc-h: 15.5rem;
+    }
+    .cool-card {
+        padding: var(--space-4);
+    }
+    .cool-card h2 {
+        font-size: 1.375rem;
+    }
+    .cool-card p {
+        font-size: 0.9375rem;
+    }
 }
 
 
