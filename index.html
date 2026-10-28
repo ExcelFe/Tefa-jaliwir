@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - SMK TI Bali Global Badung</title>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script defer src="js/main.js"></script>
+    <script defer src="js/animation.js"></script>
+    <script defer src="js/cool-cards.js"></script>
+    <!-- No JS: the navbar is hidden by CSS until main.js shows it, so show it -->
+    <noscript><style>.navbar--float { opacity: 1; visibility: visible; transform: none; }</style></noscript>
+</head>
+<body>
+    <!-- NAVBAR: same block on every page (hamburger on tablet/phone, js/main.js) -->
+    <header class="navbar navbar--float">
+        <div class="container navbar-inner">
+            <a href="index.html" class="brand">
+                <div class="img-slot logo-slot"><img src="media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
+                <span>SMK TI<br><span class="brand-sub">Bali Global Badung</span></span>
+            </a>
+            <button type="button" class="nav-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="nav-panel">
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <div class="nav-panel" id="nav-panel">
+                <div class="nav-panel-inner">
+                    <nav class="nav-links" aria-label="Navigasi utama">
+                    <a href="index.html" class="is-active" aria-current="page">Beranda</a>
+                    <a href="pages/before/profil-manajemen.html">Profil Manajemen</a>
+                    <a href="pages/before/program-sekolah.html">Program Sekolah</a>
+                    </nav>
+                    <a href="pages/login.html" class="btn-login">Login <i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="home">
+        <!-- HERO: full viewport, no navbar. Photo = --hero-img in css/main.css -->
+        <section class="home-hero" id="beranda">
+            <!-- Decorative pills (hero-refs.png corners). Delete this block to remove them -->
+            <span class="hero-pill hero-pill--red" aria-hidden="true"></span>
+            <span class="hero-pill hero-pill--green" aria-hidden="true"></span>
+            <span class="hero-pill hero-pill--blue" aria-hidden="true"></span>
+            <span class="hero-pill hero-pill--gold" aria-hidden="true"></span>
+
+            <div class="hero-inner">
+                <div class="hero-tags"><span>Pendidikan Berkualitas</span><span>Karakter Kuat</span><span>Masa Depan Cerah</span></div>
+                <h1><span>SMK TI Bali</span> <span>Global Badung</span></h1>
+                <p class="hero-sub">Bersama membangun generasi berdaya dan berkarakter</p>
+                <div class="hero-cta">
+                    <a href="pages/login.html" class="btn-hero btn-hero--primary">Login</a>
+                    <!-- Halaman dropdown: links every page before login (js/main.js initDropdowns) -->
+                    <div class="hero-dropdown" data-dropdown>
+                        <button type="button" class="btn-hero btn-hero--glass" aria-expanded="false" aria-controls="hero-menu" data-dropdown-toggle>
+                            Halaman
+                            <img class="hero-dropdown__icon" src="media/vector/dropdown.png" alt="" width="18" height="18">
+                        </button>
+                        <ul class="hero-dropdown__menu" id="hero-menu">
+                            <li><a href="index.html" aria-current="page">Beranda</a></li>
+                            <li><a href="pages/before/profil-manajemen.html">Profil Manajemen</a></li>
+                            <li><a href="pages/before/program-sekolah.html">Program Sekolah</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRANSITION: gradient only (hero end color -> white) -->
+        <div class="home-transition" aria-hidden="true">
+            <!-- Navbar shows when the top of the viewport passes this point (50% of the transition) -->
+            <span class="navbar-sentinel" data-navbar-sentinel></span>
+        </div>
+
+        <!-- MAIN CONTENT: background = media/naga-basuki.png (.naga-bg).
+             Cards flip/slide in on scroll (js/animation.js) -->
+        <div class="home-content">
+            <div class="naga-bg" aria-hidden="true"></div>
+
+            <!-- 1. TOP CARDS -->
+            <section class="top-cards" aria-label="Keunggulan sekolah">
+                <div class="home-stage">
+                    <article class="home-card home-card--red" data-seq>
+                        <h2>Kurikulum Modern</h2>
+                        <p>Kurikulum berorientasi industri dan berbasis kompetensi, memadukan fondasi akademik, proyek praktik, dan persiapan dunia kerja digital.</p>
+                    </article>
+                    <article class="home-card home-card--blue" data-seq>
+                        <h2>Fasilitas Lengkap</h2>
+                        <p>Ruangan ber-AC, LAB Multimedia, LAB PPLG &amp; TJKT, dan studio foto untuk menunjang praktik siswa.</p>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 2. FASILITAS: auto carousel (right to left), pauses on hover/focus, click = full image -->
+            <section id="fasilitas" class="fasilitas" aria-labelledby="fasilitas-title">
+                <h2 id="fasilitas-title">Fasilitas Sekolah</h2>
+                <!-- Add a slide: copy one button.fasilitas-slide inside .fasilitas-set (clones are made by JS) -->
+                <div class="fasilitas-marquee" data-marquee>
+                    <div class="fasilitas-track">
+                        <div class="fasilitas-set">
+                            <button type="button" class="fasilitas-slide" data-lightbox-open>
+                                <span class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/ruang-kelas.jpg" alt="Ruangan Berfasilitas AC" loading="lazy"></span>
+                                <span class="fasilitas-slide__caption">Ruangan Berfasilitas AC</span>
+                            </button>
+                            <button type="button" class="fasilitas-slide" data-lightbox-open>
+                                <span class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/lab-multimedia.jpg" alt="LAB Multimedia" loading="lazy"></span>
+                                <span class="fasilitas-slide__caption">LAB Multimedia</span>
+                            </button>
+                            <button type="button" class="fasilitas-slide" data-lightbox-open>
+                                <span class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/lab-rpl-tkj.jpg" alt="LAB PPLG &amp; TJKT" loading="lazy"></span>
+                                <span class="fasilitas-slide__caption">LAB PPLG &amp; TJKT</span>
+                            </button>
+                            <button type="button" class="fasilitas-slide" data-lightbox-open>
+                                <span class="img-slot ratio-1610" data-label="Foto fasilitas"><img src="media/studio-foto.jpg" alt="Studio Foto" loading="lazy"></span>
+                                <span class="fasilitas-slide__caption">Studio Foto</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Full image pop-up (js/main.js initLightbox) -->
+            <dialog class="lightbox" id="fasilitas-lightbox" aria-label="Foto fasilitas">
+                <button type="button" class="lightbox__close" aria-label="Tutup foto" data-lightbox-close>&times;</button>
+                <figure class="lightbox__figure">
+                    <img src="" alt="">
+                    <figcaption></figcaption>
+                </figure>
+            </dialog>
+
+            <!-- 3. BOTTOM CARDS: gradient white -> footer color -->
+            <div class="bottom-cards">
+                <!-- 3a. green + orange cards -->
+                <section class="bottom-cards__first" aria-label="Keunggulan sekolah">
+                    <div class="home-stage">
+                        <article class="home-card home-card--green" data-seq>
+                            <h2>Tenaga Pendidik Profesional</h2>
+                            <p>Guru dan instruktur berpengalaman yang membimbing siswa dalam teori, praktik, dan pengembangan karakter.</p>
+                        </article>
+                        <article class="home-card home-card--orange" data-seq>
+                            <h2>Project Based Learning</h2>
+                            <p>Belajar melalui proyek nyata untuk melatih kreativitas, kolaborasi, dan problem solving..</p>
+                        </article>
+                    </div>
+                </section>
+
+                <!-- 3b. 2 white cards around the naga tail (3D, js/cool-cards.js). Shown near the footer -->
+                <section class="bottom-cards__last" aria-label="Keunggulan sekolah">
+                    <div class="cool-cards" data-seq data-seq-start="0.72" data-cool-cards>
+                        <div class="cool-cards__axis">
+                            <div class="cool-slot cool-slot--left">
+                                <article class="cool-card" tabindex="0">
+                                    <h2>Link &amp; Match Industri</h2>
+                                    <p>Kerja sama dengan industri untuk memastikan relevansi ilmu dengan kebutuhan pasar..</p>
+                                </article>
+                            </div>
+                            <div class="cool-slot cool-slot--right">
+                                <article class="cool-card" tabindex="0">
+                                    <h2>Karakter &amp; Soft Skills</h2>
+                                    <p>Membentuk pribadi disiplin, mandiri, komunikatif, dan bertanggung jawab..</p>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER: same block on every page -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="brand">
+                    <div class="img-slot logo-slot lg"><img src="media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
+                    <span>SMK TI<br><span class="brand-sub">Bali Global Badung</span></span>
+                </div>
+                <p class="footer-desc">Sekolah kejuruan berbasis teknologi informasi yang mencetak lulusan kompeten, berkarakter, dan siap bersaing di era digital.</p>
+                <!-- Social links: change href and the Font Awesome icon class -->
+                <div class="sosmed">
+                    <a href="https://www.instagram.com/globalitibadung_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/globalitibadung" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@globalitibadung_" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://youtube.com/@smktibaliglobalbadung" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3>Navigasi</h3>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="pages/before/profil-manajemen.html">Profil Manajemen</a></li>
+                    <li><a href="pages/before/program-sekolah.html">Program Sekolah</a></li>
+                    <li><a href="index.html#fasilitas">Fasilitas</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Program Studi</h3>
+                <ul>
+                    <li><a href="pages/before/program-sekolah.html#tjkt">TJKT</a></li>
+                    <li><a href="pages/before/program-sekolah.html#pplg">PPLG</a></li>
+                    <li><a href="pages/before/program-sekolah.html#dkv">DKV</a></li>
+                    <li><a href="pages/before/program-sekolah.html#bd">BD</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Kontak</h3>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i><span>Jl. Tibungsari No. 1, Desa Dalung, Kuta Utara, Badung, Bali</span></li>
+                    <li><i class="fa-solid fa-phone"></i><span>+62 361-419097</span></li>
+                    <li><i class="fa-brands fa-whatsapp"></i><span>+62 822-61-9000-70</span></li>
+                    <li><i class="fa-solid fa-envelope"></i><span>info@smktibaliglobalbadung.sch.id</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 SMK TI Bali Global Badung. All rights reserved.</p>
+                <nav><a href="#">Kebijakan privasi</a><a href="#">Syarat &amp; Ketentuan</a></nav>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

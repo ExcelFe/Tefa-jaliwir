@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Sekolah - SMK TI Bali Global Badung</title>
+
+    <link rel="stylesheet" href="../../css/main.css">
+    <link rel="stylesheet" href="../../css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script defer src="../../js/main.js"></script>
+    <script defer src="../../js/program-sekolah.js"></script>
+    <script defer src="../../js/animation.js"></script>
+    <!-- No JS: the hero sub-text/CTA and the card labels are hidden until JS
+         reveals them, so show everything right away -->
+    <noscript><style>
+        .hero-reveal, .keahlian-card__abbr, .kelas-card__label, .ekstra-card__label, .koku-list {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: none !important;
+        }
+        .hero-pin { height: 100svh !important; }
+        .hero-sticky { position: relative !important; }
+    </style></noscript>
+</head>
+<body class="theme-warm">
+    <!-- NAVBAR: same block on every page (hamburger on tablet/phone, js/main.js) -->
+    <header class="navbar">
+        <div class="container navbar-inner">
+            <a href="../../index.html" class="brand">
+                <div class="img-slot logo-slot"><img src="../../media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
+                <span>SMK TI<br><span class="brand-sub">Bali Global Badung</span></span>
+            </a>
+            <button type="button" class="nav-toggle" aria-label="Buka menu" aria-expanded="false" aria-controls="nav-panel">
+                <span class="nav-toggle-bar"></span>
+            </button>
+            <div class="nav-panel" id="nav-panel">
+                <div class="nav-panel-inner">
+                    <nav class="nav-links" aria-label="Navigasi utama">
+                    <a href="../../index.html">Beranda</a>
+                    <a href="profil-manajemen.html">Profil Manajemen</a>
+                    <a href="program-sekolah.html" class="is-active" aria-current="page">Program Sekolah</a>
+                    </nav>
+                    <a href="../login.html" class="btn-login">Login <i class="fa-solid fa-arrow-right-to-bracket" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="program-main">
+        <!-- HERO: default state = headline only. Scrolling pins + zooms the photo a
+             touch and reveals the sub-text + CTA (js/animation.js initHeroZoom),
+             then releases into normal scroll. Reuses .home-hero (section 6, main.css). -->
+        <section class="hero-pin" data-hero-zoom>
+            <div class="hero-sticky">
+                <div class="home-hero program-hero">
+                    <span class="hero-pill hero-pill--red" aria-hidden="true"></span>
+                    <span class="hero-pill hero-pill--green" aria-hidden="true"></span>
+                    <span class="hero-pill hero-pill--blue" aria-hidden="true"></span>
+                    <span class="hero-pill hero-pill--gold" aria-hidden="true"></span>
+
+                    <div class="hero-inner">
+                        <div class="hero-chip"><h1>PROGRAM SEKOLAH</h1></div>
+                        <p class="hero-sub hero-reveal">Bersama membangun generasi berdaya dan berkarakter</p>
+                        <div class="hero-cta hero-reveal">
+                            <a href="../login.html" class="btn-hero btn-hero--primary">Login</a>
+                            <!-- Halaman dropdown: links every page before login (js/main.js initDropdowns) -->
+                            <div class="hero-dropdown" data-dropdown>
+                                <button type="button" class="btn-hero btn-hero--glass" aria-expanded="false" aria-controls="program-hero-menu" data-dropdown-toggle>
+                                    Halaman
+                                    <img class="hero-dropdown__icon" src="../../media/vector/dropdown.png" alt="" width="18" height="18">
+                                </button>
+                                <ul class="hero-dropdown__menu" id="program-hero-menu">
+                                    <li><a href="../../index.html">Beranda</a></li>
+                                    <li><a href="profil-manajemen.html">Profil Manajemen</a></li>
+                                    <li><a href="program-sekolah.html" aria-current="page">Program Sekolah</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TRANSITION TOP: empty, hero color -> white -->
+        <div class="program-transition-top" aria-hidden="true"></div>
+
+        <div class="container program">
+            <!-- PROGRAM KEAHLIAN: 4 flip cards. Compact on enter, full once scrolled
+                 further (js/animation.js initRevealGrids). Click flips a card; click
+                 the flipped card again opens the enlarged pop-up (js/program-sekolah.js). -->
+            <section class="program-block" aria-label="Program Keahlian">
+                <h1 class="headline" data-seq>PROGRAM KEAHLIAN</h1>
+                <div class="keahlian-grid" data-seq data-reveal>
+                    <div class="keahlian-card keahlian-card--pplg" id="pplg" tabindex="0" role="button" aria-pressed="false" aria-label="Pengembangan Perangakat Lunak dan Gim">
+                        <div class="keahlian-card__flipper">
+                            <div class="keahlian-card__face keahlian-card__face--front">
+                                <span class="keahlian-card__abbr" aria-hidden="true">PPLG</span>
+                            </div>
+                            <div class="keahlian-card__face keahlian-card__face--back">
+                                <h3>Pengembangan Perangakat Lunak dan Gim</h3>
+                                <p>Lorem Ipsum Dolor Sit Amet</p>
+                                <img class="keahlian-card__zoom" src="../../media/vector/enlarge-icon.png" alt="" aria-hidden="true" width="18" height="18">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="keahlian-card keahlian-card--dkv" id="dkv" tabindex="0" role="button" aria-pressed="false" aria-label="Desain Komunikasi Visual">
+                        <div class="keahlian-card__flipper">
+                            <div class="keahlian-card__face keahlian-card__face--front">
+                                <span class="keahlian-card__abbr" aria-hidden="true">DKV</span>
+                            </div>
+                            <div class="keahlian-card__face keahlian-card__face--back">
+                                <h3>Desain Komunikasi Visual</h3>
+                                <p>Lorem Ipsum Dolor Sit Amet</p>
+                                <img class="keahlian-card__zoom" src="../../media/vector/enlarge-icon.png" alt="" aria-hidden="true" width="18" height="18">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="keahlian-card keahlian-card--bd" id="bd" tabindex="0" role="button" aria-pressed="false" aria-label="Bisnis Digital">
+                        <div class="keahlian-card__flipper">
+                            <div class="keahlian-card__face keahlian-card__face--front">
+                                <span class="keahlian-card__abbr" aria-hidden="true">BD</span>
+                            </div>
+                            <div class="keahlian-card__face keahlian-card__face--back">
+                                <h3>Bisnis Digital</h3>
+                                <p>Lorem Ipsum Dolor Sit Amet</p>
+                                <img class="keahlian-card__zoom" src="../../media/vector/enlarge-icon.png" alt="" aria-hidden="true" width="18" height="18">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="keahlian-card keahlian-card--tjkt" id="tjkt" tabindex="0" role="button" aria-pressed="false" aria-label="Teknik Jaringan Komputer dan Telekomunikasi">
+                        <div class="keahlian-card__flipper">
+                            <div class="keahlian-card__face keahlian-card__face--front">
+                                <span class="keahlian-card__abbr" aria-hidden="true">TJKT</span>
+                            </div>
+                            <div class="keahlian-card__face keahlian-card__face--back">
+                                <h3>Teknik Jaringan Komputer dan Telekomunikasi</h3>
+                                <p>Lorem Ipsum Dolor Sit Amet</p>
+                                <img class="keahlian-card__zoom" src="../../media/vector/enlarge-icon.png" alt="" aria-hidden="true" width="18" height="18">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INTRA-KULIKULER: 3 cards (10, 11, 12). Compact -> full, same as
+                 Program Keahlian. Click opens a pop-up with the subject list. -->
+            <section class="program-block" aria-label="Intra-Kulikuler">
+                <h1 class="headline" data-seq>INTRA-KULIKULER</h1>
+                <div class="kelas-grid" data-seq data-reveal>
+                    <div class="kelas-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Kelas 10" data-list-card="ik-list-10" data-list-group="Intra-Kulikuler" data-list-title="Kelas 10">
+                        <span class="kelas-card__label" aria-hidden="true">10</span>
+                    </div>
+                    <div class="kelas-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Kelas 11" data-list-card="ik-list-11" data-list-group="Intra-Kulikuler" data-list-title="Kelas 11">
+                        <span class="kelas-card__label" aria-hidden="true">11</span>
+                    </div>
+                    <div class="kelas-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Kelas 12" data-list-card="ik-list-12" data-list-group="Intra-Kulikuler" data-list-title="Kelas 12">
+                        <span class="kelas-card__label" aria-hidden="true">12</span>
+                    </div>
+                </div>
+                <!-- Pop-up content (js/program-sekolah.js clones these into #card-modal) -->
+                <template id="ik-list-10">
+                    <ul class="list-stack">
+                        <li class="list-item">Bahasa Indonesia</li>
+                        <li class="list-item">Bahasa Bali</li>
+                        <li class="list-item">Bahasa Inggris</li>
+                        <li class="list-item">Bahasa Jepang</li>
+                        <li class="list-item">PJOK</li>
+                        <li class="list-item">Agama</li>
+                        <li class="list-item">Seni Budaya</li>
+                        <li class="list-item">IPAS</li>
+                        <li class="list-item">KKA</li>
+                        <li class="list-item">Informatika</li>
+                        <li class="list-item">Sejarah</li>
+                        <li class="list-item">Pendidikan Pancasila</li>
+                    </ul>
+                </template>
+                <template id="ik-list-11">
+                    <ul class="list-stack">
+                        <li class="list-item">Bahasa Indonesia</li>
+                        <li class="list-item">Bahasa Bali</li>
+                        <li class="list-item">Bahasa Inggris</li>
+                        <li class="list-item">Bahasa Jepang</li>
+                        <li class="list-item">PJOK</li>
+                        <li class="list-item">Agama</li>
+                        <li class="list-item">Seni Budaya</li>
+                        <li class="list-item">IPAS</li>
+                        <li class="list-item">KKA</li>
+                        <li class="list-item">Informatika</li>
+                        <li class="list-item">Sejarah</li>
+                        <li class="list-item">Pendidikan Pancasila</li>
+                    </ul>
+                </template>
+                <template id="ik-list-12">
+                    <ul class="list-stack">
+                        <li class="list-item">Bahasa Indonesia</li>
+                        <li class="list-item">Bahasa Bali</li>
+                        <li class="list-item">Bahasa Inggris</li>
+                        <li class="list-item">Bahasa Jepang</li>
+                        <li class="list-item">PJOK</li>
+                        <li class="list-item">Agama</li>
+                        <li class="list-item">Seni Budaya</li>
+                        <li class="list-item">IPAS</li>
+                        <li class="list-item">KKA</li>
+                        <li class="list-item">Informatika</li>
+                        <li class="list-item">Sejarah</li>
+                        <li class="list-item">Pendidikan Pancasila</li>
+                    </ul>
+                </template>
+            </section>
+
+            <!-- KO-KULIKULER: static panel, enters from the right (.seq-x). The row
+                 list fades in only once the panel is fully in view (js/animation.js
+                 initKokuReveal). -->
+            <section class="program-block" aria-label="Ko-Kulikuler">
+                <h1 class="headline seq-x" data-seq>KO-KULIKULER</h1>
+                <div class="koku-panel seq-x" data-seq>
+                    <ul class="koku-list" data-koku-list>
+                        <li class="koku-row">Projek Penguatan Profil Pelajar Pancasila</li>
+                        <li class="koku-row">Kunjungan Indsutri</li>
+                        <li class="koku-row">Outing Class</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- EKSTRA-KULIKULER: 4 cards. Same compact/full + pop-up pattern as
+                 Intra-Kulikuler. -->
+            <section class="program-block" aria-label="Ekstra-Kulikuler">
+                <h1 class="headline" data-seq>EKSTRA-KULIKULER</h1>
+                <div class="ekstra-grid" data-seq data-reveal>
+                    <div class="ekstra-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Olahraga" data-list-card="ek-list-olahraga" data-list-group="Ekstra-Kulikuler" data-list-title="Olahraga">
+                        <span class="ekstra-card__label" aria-hidden="true">Olahraga</span>
+                    </div>
+                    <div class="ekstra-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Kesenian" data-list-card="ek-list-kesenian" data-list-group="Ekstra-Kulikuler" data-list-title="Kesenian">
+                        <span class="ekstra-card__label" aria-hidden="true">Kesenian</span>
+                    </div>
+                    <div class="ekstra-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Teknologi" data-list-card="ek-list-teknologi" data-list-group="Ekstra-Kulikuler" data-list-title="Teknologi">
+                        <span class="ekstra-card__label" aria-hidden="true">Teknologi</span>
+                    </div>
+                    <div class="ekstra-card" tabindex="0" role="button" aria-haspopup="dialog" aria-label="Akademik" data-list-card="ek-list-akademik" data-list-group="Ekstra-Kulikuler" data-list-title="Akademik">
+                        <span class="ekstra-card__label" aria-hidden="true">Akademik</span>
+                    </div>
+                </div>
+                <!-- Pop-up content (js/program-sekolah.js clones these into #card-modal) -->
+                <template id="ek-list-olahraga">
+                    <ul class="list-stack">
+                        <li class="list-item">Bulu Tangkis</li>
+                        <li class="list-item">Volley</li>
+                        <li class="list-item">Futsal</li>
+                        <li class="list-item">Basket</li>
+                        <li class="list-item">MuayThai</li>
+                        <li class="list-item">GateBall</li>
+                        <li class="list-item">Paskibra</li>
+                        <li class="list-item">Pramuka</li>
+                    </ul>
+                </template>
+                <template id="ek-list-kesenian">
+                    <ul class="list-stack">
+                        <li class="list-item">Tari</li>
+                        <li class="list-item">Tabuh</li>
+                        <li class="list-item">Theater</li>
+                    </ul>
+                </template>
+                <template id="ek-list-teknologi">
+                    <ul class="list-stack">
+                        <li class="list-item">Jurnalistik dan Broadcasting</li>
+                        <li class="list-item">Web Design</li>
+                        <li class="list-item">Robotika</li>
+                        <li class="list-item">Esport</li>
+                    </ul>
+                </template>
+                <template id="ek-list-akademik">
+                    <ul class="list-stack">
+                        <li class="list-item">Bahasa Jepang</li>
+                        <li class="list-item">English Club</li>
+                    </ul>
+                </template>
+            </section>
+        </div>
+
+        <!-- TRANSITION BOTTOM: empty, white -> footer color. Footer sits right below. -->
+        <div class="program-transition-bot" aria-hidden="true"></div>
+
+        <!-- SHARED POP-UP: Program Keahlian enlarge, Intra-/Ekstra-kulikuler lists -->
+        <div class="card-modal" id="card-modal" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+            <div class="card-modal__box">
+                <button type="button" class="card-modal__close" data-card-modal-close aria-label="Tutup">&times;</button>
+                <p class="card-modal__eyebrow"></p>
+                <h2 class="card-modal__title" id="card-modal-title"></h2>
+                <div class="card-modal__body"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER: same block on every page -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <div class="brand">
+                    <div class="img-slot logo-slot lg"><img src="../../media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
+                    <span>SMK TI<br><span class="brand-sub">Bali Global Badung</span></span>
+                </div>
+                <p class="footer-desc">Deskripsi singkat sekolah. Ganti teks ini dengan profil singkat SMK TI Bali Global Badung.</p>
+                <!-- Social links: change href and the Font Awesome icon class -->
+                <div class="sosmed">
+                    <a href="https://www.instagram.com/globalitibadung_" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/globalitibadung" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.tiktok.com/@globalitibadung_" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://youtube.com/@smktibaliglobalbadung" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3>Navigasi</h3>
+                <ul>
+                    <li><a href="../../index.html">Beranda</a></li>
+                    <li><a href="profil-manajemen.html">Profil Manajemen</a></li>
+                    <li><a href="program-sekolah.html">Program Sekolah</a></li>
+                    <li><a href="../../index.html#fasilitas">Fasilitas</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Program Studi</h3>
+                <ul>
+                    <li><a href="program-sekolah.html#tjkt">TJKT</a></li>
+                    <li><a href="program-sekolah.html#pplg">PPLG</a></li>
+                    <li><a href="program-sekolah.html#dkv">DKV</a></li>
+                    <li><a href="program-sekolah.html#bd">BD</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Kontak</h3>
+                <ul class="footer-contact">
+                    <li><i class="fa-solid fa-location-dot"></i><span>Jl. Tibungsari No. 1, Desa Dalung, Kuta Utara, Badung, Bali</span></li>
+                    <li><i class="fa-solid fa-phone"></i><span>+62 361-419097</span></li>
+                    <li><i class="fa-brands fa-whatsapp"></i><span>+62 822-61-9000-70</span></li>
+                    <li><i class="fa-solid fa-envelope"></i><span>info@smktibaliglobalbadung.sch.id</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2026 SMK TI Bali Global Badung. All rights reserved.</p>
+                <nav><a href="#">Kebijakan privasi</a><a href="#">Syarat &amp; Ketentuan</a></nav>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
