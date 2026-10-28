@@ -1,0 +1,3128 @@
+/* ==========================================================================
+   MAIN.CSS - SMK TI Bali Global Badung
+   Basic styles for every page. Transitions/keyframes: animation.css
+   Sections: 1 Fonts | 2 Tokens | 3 Base | 4 Layout | 5 Shared components |
+             6 Home | 7 Profil Manajemen | 8 Program Sekolah | 9 Login |
+             10 Dashboards (after login) | 11 Teacher dashboard
+   ========================================================================== */
+
+/* ==========================================================================
+   1. FONTS  (headings: Montserrat Bold | body: Plus Jakarta Sans)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+
+/* ==========================================================================
+   2. TOKENS  (change colors, fonts and sizes here)
+   ========================================================================== */
+:root {
+    /* FONTS */
+    --font-heading: "Montserrat", sans-serif;
+    --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+
+    /* BRAND COLORS */
+    --primary: #1d4ed8;
+    --primary-dark: #1e40af;
+    --primary-soft: #eff6ff;
+    --secondary: #60a5fa;
+    --navy: #1e2a8a;
+    --accent: #2ee6d6;
+
+    /* NEUTRALS */
+    --white: #fff;
+    --ink: #0f172a;
+    --text: #475569;
+    --muted: #94a3b8;
+    --line: #e2e8f0;
+    --footer: #0f172a;
+
+    /* WARM PALETTE (Program Sekolah + Login) */
+    --warm-50: #fff7ea;                 /* page background */
+    --warm-100: #fdebcb;                /* rows, tabs, fields */
+    --warm-200: #f5dcb0;                /* hover, card media */
+    --warm-ink: #1e1919;                /* near-black text */
+    --warm-muted: color-mix(in srgb, var(--warm-ink) 78%, var(--warm-50));
+    --warm-rgb: 120, 90, 40;            /* warm shadow color */
+
+    /* SOFT BALANCE PALETTE (After-Login Dashboards: admin, guru, guru-piket, siswa) */
+    --sb-ivory: #f0efea;
+    --sb-sky: #d3dbf0;
+    --sb-gray: #b8b5ac;
+    --sb-beige: #e0d2c7;
+    --sb-periwinkle: #7a90c9;
+    --sb-navy: #33415e;
+
+    /* STATUS (teacher dashboard: present / absent, schedule square) */
+    --status-ok: #16a34a;               /* green */
+    --status-bad: #dc2626;              /* red */
+
+    /* PAGE THEME (default = white; .theme-warm overrides) */
+    --page-bg: var(--white);
+    --page-ink: #1e293b;
+
+    /* SHAPE + SHADOW */
+    --radius: 16px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --radius-pill: 999px;
+    --shadow-card: 4px 6px 12px rgba(var(--warm-rgb), 0.25);
+    --shadow-nav: 0 2px 14px rgba(var(--warm-rgb), 0.14);
+
+    /* SPACING */
+    --space-1: 0.5rem;
+    --space-2: 0.75rem;
+    --space-3: 1rem;
+    --space-4: 1.5rem;
+    --space-5: 2.5rem;
+    --space-6: clamp(3rem, 8vw, 6rem);  /* gap between page sections */
+
+    /* PAGE WIDTH */
+    --maxw: 1152px;
+    --gutter: clamp(1rem, 3vw, 1.5rem); /* left/right page padding */
+    --nav-h: 64px;                      /* fixed navbar height */
+
+    /* HERO IMAGE (path is relative to this file) */
+    --hero-img: url("../media/landingsmkti.jpg");
+
+    /* HOME PAGE (index.html) */
+    --hero-end: #191926;                /* hero bottom = transition start */
+    --home-band: #2c3458;               /* fasilitas band */
+    --card-red: #fc5151;
+    --card-blue: #3c7af7;
+    --card-green: #50d254;
+    --card-orange: #e4ac34;
+    --card-white: #eeefef;
+
+    /* PROFIL MANAJEMEN (band colors; navy = --home-band) */
+    --pm-red: #961e20;
+    --pm-brown: #986016;
+    --pm-green: #2c5845;
+}
+
+
+/* ==========================================================================
+   3. BASE
+   ========================================================================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--nav-h) + 1rem);  /* anchors stay below the fixed navbar */
+}
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;             /* footer stays at the bottom */
+    overflow-x: hidden;
+    font-family: var(--font-body);
+    line-height: 1.6;
+    color: var(--page-ink);
+    background: var(--page-bg);
+    -webkit-font-smoothing: antialiased;
+}
+main {
+    flex: 1 0 auto;
+}
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+ul {
+    list-style: none;
+}
+a {
+    color: var(--white);
+    text-decoration: none;
+}
+button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+[hidden] {
+    display: none !important;
+}
+/* Montserrat is loaded in Bold (700) only */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+}
+:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+/* The global user-select:none blocks typing on iOS: form fields opt back in */
+input,
+textarea,
+select {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
+
+/* ==========================================================================
+   4. LAYOUT
+   ========================================================================== */
+.container {
+    width: 100%;
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+}
+.section {
+    margin-top: 108px;
+}
+
+
+/* ==========================================================================
+   5. SHARED COMPONENTS
+   ========================================================================== */
+
+/* ---------- IMAGE SLOT (shows data-label text until the image exists) ---------- */
+.img-slot {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    font-size: 0.75rem;
+    text-align: center;
+    color: var(--secondary);
+}
+.img-slot::before {
+    content: attr(data-label);
+}
+.img-slot > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.ratio-34 { aspect-ratio: 3 / 4; }
+.ratio-1610 { aspect-ratio: 16 / 10; }
+.logo-slot {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+}
+.logo-slot.lg {
+    width: 48px;
+    height: 48px;
+}
+
+/* ---------- BRAND (logo + school name) ---------- */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--ink);
+}
+.brand-sub {
+    font-weight: 500;
+    color: var(--text);
+}
+
+/* ---------- LOGIN BUTTON (navbar) ---------- */
+.btn-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary);
+    border-radius: var(--radius-pill);
+}
+.btn-login:hover {
+    background: var(--primary-dark);
+}
+
+/* ---------- NAVBAR ----------
+   Mobile/tablet: brand + hamburger, menu collapses below (js/main.js).
+   PC/laptop (>= 1025px): 3-column grid, menu centred on the page. */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--shadow-nav);
+}
+.navbar-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--nav-h);
+}
+/* Hamburger: bars drawn with CSS (become an X when open) */
+.nav-toggle {
+    position: relative;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--primary-soft);
+}
+.nav-toggle-bar,
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+    position: absolute;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ink);
+}
+.nav-toggle-bar {
+    top: 50%;
+    left: 50%;
+    margin: -1px 0 0 -10px;
+}
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+    content: "";
+    left: 0;
+}
+.nav-toggle-bar::before { top: -6px; }
+.nav-toggle-bar::after { top: 6px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar {
+    background: transparent;
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+/* Collapsible panel: row 0fr -> 1fr animates the height without JS measuring.
+   visibility:hidden keeps closed links out of Tab order and screen readers. */
+.nav-panel {
+    flex-basis: 100%;
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+}
+.nav-panel.is-open {
+    grid-template-rows: 1fr;
+    visibility: visible;
+}
+.nav-panel-inner {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;                      /* lets the row shrink to 0 */
+    overflow: hidden;
+}
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: var(--space-2);
+}
+.nav-links a {
+    display: block;
+    padding: 12px 14px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text);
+    border-radius: 8px;
+}
+.nav-links a:hover {
+    color: var(--primary);
+    background: #f1f5f9;
+}
+.nav-links a.is-active {
+    color: var(--primary);
+    background: var(--primary-soft);
+}
+.nav-panel .btn-login {
+    margin-block: var(--space-2) var(--space-3);
+    padding-block: 12px;
+}
+
+@media (min-width: 1025px) {
+    .navbar-inner {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;    /* brand | menu | login */
+        height: var(--nav-h);
+    }
+    .nav-toggle {
+        display: none;
+    }
+    .nav-panel,
+    .nav-panel-inner {
+        display: contents;                      /* menu + login become grid items */
+        visibility: visible;
+    }
+    .nav-links {
+        flex-direction: row;
+        padding-top: 0;
+    }
+    .nav-links a {
+        padding: 8px 12px;
+        font-size: 0.875rem;
+    }
+    .nav-panel .btn-login {
+        justify-self: end;
+        margin: 0;
+        padding-block: 8px;
+    }
+}
+
+/* ---------- CARD (white, warm shadow) ---------- */
+.card-soft {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+}
+
+/* ---------- ICON CIRCLE ---------- */
+.icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+    color: var(--primary);
+    background: #bcdcf2;
+    border-radius: 50%;
+}
+
+/* ---------- FOOTER (brand + 3 link columns + copyright) ---------- */
+.footer {
+    margin-top: 80px;
+    color: #cbd5e1;
+    background: var(--footer);
+}
+.footer-grid {
+    display: grid;
+    gap: 40px;
+    padding-block: 48px;
+}
+.footer .brand {
+    color: var(--white);
+}
+.footer .brand-sub {
+    color: #cbd5e1;
+}
+.footer-desc {
+    max-width: 320px;
+    margin-top: var(--space-3);
+    font-size: 0.875rem;
+    color: var(--muted);
+}
+.sosmed {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+}
+.sosmed a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+}
+.sosmed a:hover {
+    color: var(--white);
+    background: var(--primary);
+}
+.footer h3 {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    color: var(--white);
+}
+.footer li {
+    margin-bottom: 8px;
+    font-size: 0.875rem;
+}
+.footer li a:hover {
+    color: var(--white);
+}
+.footer-contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+.footer-contact i {
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 1rem;
+    color: var(--accent);
+}
+.footer-bottom {
+    /* background: rgba(0, 0, 0, 0.25);    darker band instead of a border */
+    background: var(--footer);
+}
+.footer-bottom .container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: space-between;
+    padding-block: 20px;
+    font-size: 0.75rem;
+    color: var(--muted);
+}
+.footer-bottom nav {
+    display: flex;
+    gap: 20px;
+}
+.footer-bottom a:hover {
+    color: var(--white);
+}
+
+@media (min-width: 640px) {
+    .footer-bottom .container {
+        flex-direction: row;
+    }
+}
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    }
+}
+
+
+/* ==========================================================================
+   6. HOME  (index.html)
+   Order: page hero (inner pages) | floating navbar | hero | transition |
+          main content (naga, cards, fasilitas, 3D cards)
+   ========================================================================== */
+
+/* ---------- PAGE HERO (Profil Manajemen, Program Sekolah) ---------- */
+.page-hero {
+    position: relative;
+    display: flex;                      /* centres the headline vertically */
+    align-items: center;
+    min-height: calc(var(--nav-h) + 12.5rem);
+    /* equal space above (below the fixed navbar) and under the headline */
+    padding: calc(var(--nav-h) + 4rem) 0 4rem;
+    color: var(--white);
+    background:
+        linear-gradient(90deg, rgba(30, 27, 130, 0.92) 0%, rgba(52, 64, 176, 0.72) 45%, rgba(40, 80, 170, 0.18) 100%),
+        var(--hero-img) center / cover no-repeat;
+}
+.page-hero .container {                 /* headline centred horizontally */
+    text-align: center;
+}
+.page-hero h1 {
+    font-size: 2.5rem;
+}
+.page-hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+}
+@media (min-width: 640px) {
+    .page-hero h1 { font-size: 3.25rem; }
+}
+
+/* ---------- FLOATING NAVBAR (index only) ----------
+   Hidden over the hero + transition. js/main.js adds .is-visible
+   once the main content reaches the top of the viewport. */
+.navbar--float {
+    top: var(--space-3);
+    background: none;
+    backdrop-filter: none;
+    box-shadow: none;
+    pointer-events: none;               /* only the rounded bar takes clicks */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-1.5rem);
+}
+.navbar--float.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+.navbar--float .navbar-inner {
+    width: calc(100% - 2 * var(--gutter));
+    max-width: 64rem;
+    padding-inline: var(--space-3);
+    pointer-events: auto;
+    background: color-mix(in srgb, var(--primary-soft) 94%, transparent);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 8px 24px rgba(30, 42, 138, 0.18);
+}
+@media (min-width: 1025px) {
+    .navbar--float .navbar-inner {
+        grid-template-columns: auto 1fr auto;   /* brand | menu | login */
+        column-gap: var(--space-5);
+    }
+    .navbar--float .nav-links {
+        justify-self: center;           /* centered between logo and Login */
+    }
+}
+
+/* ---------- HERO (full viewport, no navbar) ---------- */
+.home-hero {
+    position: relative;
+    z-index: 2;                         /* dropdown menu stays above the transition */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100svh;                 /* full viewport on desktop and mobile */
+    padding: var(--space-5) var(--gutter);
+    color: var(--white);
+    background: var(--hero-end);
+}
+.home-hero::before,
+.pm-hero__bg {                          /* photo + color layers (clipped to the hero) */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg,
+            rgba(58, 59, 126, 0.9) 0%,
+            rgba(58, 59, 126, 0.55) 28%,
+            rgba(46, 76, 140, 0.38) 55%,
+            rgba(25, 25, 38, 0.82) 82%,
+            var(--hero-end) 100%),
+        var(--hero-img) center / cover no-repeat;
+}
+.hero-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 64rem;
+    text-align: center;
+}
+.hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 14px;
+    padding: 8px 22px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-pill);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 16px rgba(10, 10, 40, 0.18);
+}
+.hero-tags span + span::before {
+    content: "\2022";
+    margin-right: 14px;
+    opacity: 0.8;
+}
+.home-hero h1 {
+    margin-top: var(--space-4);
+    font-size: clamp(1.9rem, 6.4vw, 5.5rem);        /* Montserrat is wide: each line must fit */
+    line-height: 1.1;
+    text-transform: uppercase;
+    text-shadow: 0 4px 24px rgba(10, 10, 40, 0.35);
+}
+.home-hero h1 span {
+    display: block;                     /* 2 lines: SMK TI Bali / Global Badung */
+    white-space: nowrap;
+}
+.hero-sub {
+    margin-top: var(--space-3);
+    font-size: clamp(1rem, 2.2vw, 1.375rem);
+    font-weight: 600;
+    text-shadow: 0 2px 12px rgba(10, 10, 40, 0.4);
+}
+.hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: var(--space-3) var(--space-4);
+    margin-top: var(--space-5);
+}
+.btn-hero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    min-width: 10.5rem;
+    height: 3rem;
+    padding: 0 1.75rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--white);
+    border: 0;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 4px 16px rgba(10, 10, 40, 0.22);
+}
+.btn-hero--primary {
+    background: linear-gradient(90deg, var(--secondary), var(--primary));
+}
+.btn-hero--glass {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+}
+.hero-dropdown {
+    position: relative;
+}
+.hero-dropdown__icon {
+    width: 1.125rem;
+    height: 1.125rem;
+}
+.hero-dropdown__menu {
+    position: absolute;
+    z-index: 5;
+    top: calc(100% + 0.625rem);
+    left: 50%;
+    min-width: 100%;
+    width: max-content;
+    padding: var(--space-1);
+    background: color-mix(in srgb, var(--hero-end) 82%, transparent);
+    backdrop-filter: blur(14px);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    visibility: hidden;                 /* closed links leave the Tab order */
+    transform: translate(-50%, -0.5rem);
+}
+.hero-dropdown__menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+.hero-dropdown__menu a {
+    display: block;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: var(--radius-md);
+}
+.hero-dropdown__menu a:hover,
+.hero-dropdown__menu a[aria-current="page"] {
+    background: rgba(255, 255, 255, 0.16);
+}
+/* Decorative corner pills (hero-refs.png) */
+.hero-pill {
+    position: absolute;
+    width: 2.75rem;
+    height: 1.0625rem;
+    border-radius: var(--radius-pill);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+.hero-pill--red   { top: 5.4%;  left: 4.6%;  background: linear-gradient(90deg, #eb474a, #a94648); }
+.hero-pill--green { top: 5.4%;  right: 5.8%; background: linear-gradient(90deg, #99ef6c, #48a939); }
+.hero-pill--blue  { top: 77.6%; left: 4.6%;  background: linear-gradient(90deg, #3fbff4, #4240be); }
+.hero-pill--gold  { top: 77.6%; right: 5.8%; background: linear-gradient(90deg, #f3c66f, #b98a36); }
+
+/* ---------- TRANSITION (empty: hero end color -> white) ---------- */
+.home-transition {
+    position: relative;
+    height: clamp(24rem, 90svh, 48rem);
+    background: linear-gradient(180deg,
+        var(--hero-end) 0%,
+        #1b1b28 8%,
+        #7b7b93 60%,
+        #cfcfd8 82%,
+        var(--white) 100%);
+}
+
+.navbar-sentinel {                      /* js/main.js shows the navbar when this passes the top */
+    position: absolute;
+    top: 50%;                           /* navbar shows after half of the transition */
+    left: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+}
+
+/* ---------- MAIN CONTENT ----------
+   Zones are fractions of --naga-h (height of the naga image), so cards stay
+   next to the same part of the naga on every screen:
+   top cards .34 | fasilitas .17 | bottom cards .27 + .22 */
+.home-content {
+    --naga-w: clamp(1100px, 170vw, 1500px);     /* naga image width */
+    --naga-h: calc(var(--naga-w) * 1.7804);     /* image ratio 2696 x 4800 */
+    --naga-top: 6rem;                           /* space for the floating navbar */
+    position: relative;
+    overflow-x: clip;
+    background: var(--white);
+}
+.naga-bg {
+    position: absolute;
+    z-index: 1;
+    top: var(--naga-top);
+    left: 50%;
+    width: var(--naga-w);
+    height: var(--naga-h);
+    transform: translateX(-50%);
+    background: url("../media/naga-basuki.png") center / contain no-repeat;
+    pointer-events: none;
+}
+.home + .footer,
+.pm + .footer {                         /* gradient flows straight into the footer */
+    margin-top: 0;
+}
+
+/* Cards (red, blue, green, orange) */
+.home-stage {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 60rem;
+    height: 100%;
+    margin-inline: auto;
+}
+.home-card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-1);
+    width: clamp(15rem, 31%, 19rem);
+    min-height: 11rem;
+    padding: var(--space-4);
+    color: var(--white);
+    background: color-mix(in srgb, var(--card-bg) 94%, transparent);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+}
+.home-card h2 {
+    font-size: clamp(1.375rem, 2.4vw, 1.75rem);
+}
+.home-card p {
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+.home-card--red    { --card-bg: var(--card-red); }
+.home-card--blue   { --card-bg: var(--card-blue); }
+.home-card--green  { --card-bg: var(--card-green); }
+.home-card--orange { --card-bg: var(--card-orange); }
+
+/* 1. Top cards */
+.top-cards {
+    position: relative;
+    height: calc(var(--naga-top) + var(--naga-h) * 0.34);
+}
+@media (min-width: 1025px) {            /* a little bigger on desktop */
+    .home-card {
+        width: clamp(15rem, 34%, 21.5rem);
+        min-height: 12.5rem;
+        padding: var(--space-4) 1.75rem;
+    }
+    .home-card h2 {
+        font-size: 1.75rem;
+    }
+    .home-card p {
+        font-size: 1rem;
+    }
+}
+.home-card--red {
+    top: calc(var(--naga-top) + var(--naga-h) * 0.115);
+    left: 12%;
+}
+.home-card--blue {                      /* max(): never overlaps the red card on phones */
+    top: max(calc(var(--naga-top) + var(--naga-h) * 0.226), calc(var(--naga-top) + var(--naga-h) * 0.115 + 15.5rem));
+    right: 12%;
+}
+
+/* 2. Fasilitas band (covers the naga) */
+.fasilitas {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-4);
+    min-height: calc(var(--naga-h) * 0.17);
+    padding-block: var(--space-5);
+    color: var(--white);
+    background: var(--home-band);
+}
+.fasilitas h2 {
+    text-align: center;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+}
+.fasilitas::before,                     /* soft shade on the naga above / below the band */
+.fasilitas::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2.75rem;
+    pointer-events: none;
+}
+.fasilitas::before {
+    bottom: 100%;
+    background: linear-gradient(0deg, rgba(44, 52, 88, 0.55), transparent);
+}
+.fasilitas::after {
+    top: 100%;
+    background: linear-gradient(180deg, rgba(44, 52, 88, 0.55), transparent);
+}
+.fasilitas-marquee {
+    overflow-x: auto;                   /* no JS: swipe / scroll */
+    padding-block: var(--space-4);      /* room so the card shadow is not clipped */
+}
+.fasilitas-marquee.is-ready {
+    overflow: hidden;                   /* JS: auto carousel (animation.css) */
+}
+.fasilitas-track {
+    display: flex;
+    width: max-content;
+}
+.fasilitas-set {
+    display: flex;
+    flex: none;
+    gap: var(--space-4);
+    padding-right: var(--space-4);      /* gap between sets = loop is seamless */
+}
+.fasilitas-slide {
+    flex: none;
+    width: clamp(15rem, 26vw, 21rem);
+    padding: 0;
+    overflow: hidden;
+    text-align: left;
+    background: var(--primary-soft);
+    border: 0;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.35);     /* visible on the dark band */
+    cursor: zoom-in;
+}
+.fasilitas-slide .img-slot {
+    width: 100%;
+}
+.fasilitas-slide__caption {
+    display: block;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--primary-dark);
+}
+
+/* Full image pop-up */
+body.has-lightbox {
+    overflow: hidden;
+}
+.lightbox {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    padding: var(--space-4);
+    color: var(--white);
+    background: transparent;
+    border: 0;
+}
+.lightbox[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.lightbox::backdrop {
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(4px);
+}
+.lightbox__figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    max-width: min(92vw, 64rem);
+}
+.lightbox__figure img {
+    width: auto;
+    max-height: 78vh;
+    object-fit: contain;
+    border-radius: var(--radius-lg);
+}
+.lightbox__figure figcaption {
+    font-weight: 600;
+    text-align: center;
+}
+.lightbox__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.16);
+    border: 0;
+    border-radius: 50%;
+}
+
+/* 3. Bottom cards: gradient white -> footer color */
+.bottom-cards {
+    background: linear-gradient(180deg, var(--white) 0%, var(--white) 20%, var(--footer) 92%);
+}
+.bottom-cards__first {
+    position: relative;
+    height: calc(var(--naga-h) * 0.27);
+}
+.home-card--green {
+    top: calc(var(--naga-h) * 0.078);
+    left: 10%;
+}
+.home-card--orange {
+    top: max(calc(var(--naga-h) * 0.178), calc(var(--naga-h) * 0.078 + 15.5rem));
+    right: 10%;
+}
+.bottom-cards__last {
+    position: relative;
+    height: calc(var(--naga-h) * 0.22 + 4rem);
+}
+
+/* 3D cards around the naga tail (logic: js/cool-cards.js)
+   Axis = the tail. Each slot is a fixed hover area; the card inside is angled
+   and moves to the axis (center) when its slot is active. */
+.cool-cards {
+    --cc-w: clamp(13rem, 22vw, 17rem);          /* card size */
+    --cc-h: 14rem;
+    --cc-angle: 58deg;
+    --cc-half: calc(var(--cc-w) * 0.265);       /* half of the angled card width seen (cos 58deg / 2) */
+    --tail-x: calc(50% - var(--naga-w) * 0.024);    /* tail tip x on the naga image */
+    --c0: calc(var(--naga-w) * 0.058 + var(--cc-half));   /* axis -> resting card center */
+    position: absolute;
+    z-index: 3;
+    inset: 0;
+    perspective: 900px;
+    perspective-origin: var(--tail-x) 50%;
+}
+.cool-cards__axis {
+    position: absolute;
+    top: calc(var(--naga-h) * 0.12);
+    left: var(--tail-x);
+    width: 0;
+    height: 0;
+    transform-style: preserve-3d;
+}
+.cool-slot {
+    position: absolute;
+    top: calc(var(--cc-h) / -2);
+    width: calc(var(--cc-half) * 2);            /* width of the angled card as seen */
+    height: var(--cc-h);
+    transform-style: preserve-3d;
+}
+.cool-slot--left  { left: calc(var(--c0) * -1 - var(--cc-half)); }
+.cool-slot--right { left: calc(var(--c0) - var(--cc-half)); }
+.cool-slot.is-center {
+    z-index: 5;
+}
+.cool-card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-1);
+    width: var(--cc-w);
+    height: var(--cc-h);
+    margin-left: calc(var(--cc-w) / -2);
+    padding: var(--space-3);
+    color: var(--ink);
+    background: var(--card-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+    filter: brightness(0.9);
+    cursor: pointer;
+}
+.cool-card h2 {
+    font-size: 1.25rem;
+}
+.cool-card p {
+    font-size: 0.8125rem;
+    line-height: 1.45;
+}
+.cool-slot--left .cool-card {
+    transform: translateZ(-40px) rotateY(calc(var(--cc-angle) * -1));
+}
+.cool-slot--right .cool-card {
+    transform: translateZ(-40px) rotateY(var(--cc-angle));
+}
+/* While one card is at the center, the other sinks back so they never overlap */
+.cool-cards.has-center .cool-slot--left:not(.is-center) .cool-card {
+    transform: translateZ(-160px) rotateY(calc(var(--cc-angle) * -1));
+}
+.cool-cards.has-center .cool-slot--right:not(.is-center) .cool-card {
+    transform: translateZ(-160px) rotateY(var(--cc-angle));
+}
+.cool-slot--left.is-center .cool-card {
+    transform: translateX(var(--c0)) translateZ(110px);
+    filter: none;
+}
+.cool-slot--right.is-center .cool-card {
+    transform: translateX(calc(var(--c0) * -1)) translateZ(110px);
+    filter: none;
+}
+@media (min-width: 1025px) {            /* a little bigger on desktop */
+    .cool-cards {
+        --cc-w: 19rem;
+        --cc-h: 15.5rem;
+    }
+    .cool-card {
+        padding: var(--space-4);
+    }
+    .cool-card h2 {
+        font-size: 1.375rem;
+    }
+    .cool-card p {
+        font-size: 0.9375rem;
+    }
+}
+
+
+/* ==========================================================================
+   7. PROFIL MANAJEMEN  (pages/before/profil-manajemen.html)
+   Order: hero (2 states) | groups | bottom transition | pop-ups
+   Navbar, top transition, hero buttons and pills are shared with Home (section 6).
+   ========================================================================== */
+
+/* ---------- HERO ----------
+   .pm-hero = tall scroll track, .pm-hero__pin stays on screen while it scrolls.
+   js/animation.js writes --hero-p (zoom) and --hero-r (reveal), styles in animation.css. */
+.pm-hero {
+    --hero-run: 90svh;                  /* scroll distance spent on the zoom */
+    position: relative;
+    z-index: 2;                         /* dropdown menu stays above the transition */
+    height: calc(100svh + var(--hero-run));
+    color: var(--white);
+    background: var(--hero-end);
+}
+.pm-hero__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    height: 100svh;
+    overflow-x: clip;                   /* the zoomed headline never adds a horizontal scroll */
+}
+.pm-hero__bgwrap {                      /* clips the zoomed photo */
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+.pm-hero__bg {                          /* photo + gradient: shared rule with .home-hero::before */
+    position: absolute;
+    inset: 0;
+}
+.pm-hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;   /* headline stays centred in both states */
+    justify-items: center;
+    height: 100%;
+    padding: var(--space-5) var(--gutter);
+    text-align: center;
+}
+.pm-hero__title {
+    grid-row: 2;
+    max-width: 100%;
+    padding: 0.3em 0.75em;
+    font-size: clamp(1.75rem, 6vw, 4.5rem);
+    line-height: 1.15;
+    text-transform: uppercase;
+    text-wrap: balance;
+    text-shadow: 0 4px 24px rgba(10, 10, 40, 0.35);
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-xl);
+}
+.pm-hero__reveal {                      /* H3 + Login + Halaman: zoomed state only */
+    grid-row: 3;
+    align-self: start;
+    padding-top: var(--space-4);
+    visibility: hidden;                 /* default state: not clickable, not focusable */
+}
+.pm-hero[data-hero-state="zoomed"] .pm-hero__reveal {
+    visibility: visible;
+}
+.pm-hero__sub {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2.2vw, 1.375rem);
+    font-weight: 600;
+    letter-spacing: 0;
+    line-height: 1.4;
+    text-shadow: 0 2px 12px rgba(10, 10, 40, 0.4);
+}
+.pm-hero__reveal .hero-cta {
+    margin-top: var(--space-4);
+}
+
+/* ---------- GROUPS ----------
+   Full-width frame: tinted strip, colored band with photos, tinted strip
+   (the bottom strip holds the "Cek Profil" button). Photos are capped by .container. */
+[data-group="red"]   { --pm-band: var(--pm-red); }
+[data-group="brown"] { --pm-band: var(--pm-brown); }
+[data-group="navy"]  { --pm-band: var(--home-band); --pm-tint-pct: 35%; }
+[data-group="green"] { --pm-band: var(--pm-green); }
+
+.pm-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding-block: var(--space-5);
+    background: var(--white);
+    margin-top: 20vh;
+    margin-bottom: 20vh;
+}
+.pm-group {
+    --cols: 5;                          /* photos per row */
+    --pm-gap: clamp(0.75rem, 3.4vw, 3rem);
+    --pm-row-gap: clamp(0.75rem, 2vw, 1.75rem);
+    overflow-x: clip;                   /* the side slide never adds a horizontal scroll */
+    padding-top: clamp(2.2rem, 2.8vw, 3.2rem);
+    margin-top: 40px;
+    background: color-mix(in srgb, var(--pm-band) var(--pm-tint-pct, 41%), var(--white));
+}
+.pm-group__band {
+    padding-block: clamp(2rem, 3.8vw, 3.5rem);
+    background: var(--pm-band);
+}
+.pm-group__foot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: clamp(2.75rem, 3.4vw, 3.5rem);
+}
+.pm-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;            /* a short last row stays centred */
+    gap: var(--pm-row-gap) var(--pm-gap);
+}
+.pm-grid .pm-person {
+    width: calc((100% - (var(--cols) - 1) * var(--pm-gap)) / var(--cols));
+}
+/* Guru + Staff show the first 10 photos, the pop-up shows all */
+.pm-grid--preview > .pm-person:nth-child(n + 11) {
+    display: none;
+}
+.pm-card {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    border-radius: var(--radius-md);
+}
+.pm-card:focus-visible {
+    outline-color: var(--white);        /* blue ring is hard to see on the colored bands */
+}
+.pm-card .img-slot {
+    aspect-ratio: 2 / 3;
+    border-radius: inherit;
+    background: #d9d9d9;
+}
+.pm-card .img-slot > img,
+.pm-pop__pic > img {
+    object-position: 50% 20%;           /* faces are in the upper part */
+}
+.pm-more {                              /* "Cek Profil Guru" / "Tutup Profil" */
+    padding: 0.5rem 1.5rem;
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 1.6vw, 1.375rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: none;
+    border: 0;
+    text-shadow: 0 1px 8px color-mix(in srgb, var(--pm-band) 70%, transparent);   /* keeps white readable on the light strip */
+}
+
+@media (max-width: 767px) {
+    .pm-group { --cols: 3; }
+    .pm-group[data-group="brown"] { --cols: 2; }
+}
+@media (max-width: 359px) {
+    .pm-group { --cols: 2; }
+}
+
+/* ---------- BOTTOM TRANSITION (page color -> footer color) ---------- */
+.pm-transition-bot {
+    height: clamp(20rem, 30vw, 25rem);
+    background: linear-gradient(180deg,
+        var(--white) 0%,
+        #cbccd0 16%,
+        #979aa1 33%,
+        #70747f 50%,
+        #505663 66%,
+        #303747 83%,
+        var(--footer) 100%);
+}
+
+/* ---------- POP-UPS (<dialog>, js/profil-manajemen.js) ---------- */
+.pm-dialog {
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    overflow: visible;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+}
+.pm-dialog::backdrop {
+    background: rgba(15, 23, 42, 0.72);
+    backdrop-filter: blur(4px);
+}
+
+/* All photos of a group: tinted frame, colored panel (5 columns, rows grow), close text */
+.pm-list {
+    --pm-row-gap: clamp(0.75rem, 2vw, 1.5rem);
+    width: min(94vw, 62rem);
+}
+.pm-list__frame {
+    display: flex;
+    flex-direction: column;
+    max-height: min(92vh, 52rem);
+    padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(0.75rem, 1.5vw, 1.25rem) 0;
+    background: color-mix(in srgb, var(--pm-band) var(--pm-tint-pct, 41%), var(--white));
+    border-radius: var(--radius-xl);
+}
+.pm-list__panel {
+    flex: 1 1 auto;
+    min-height: 0;                      /* lets the panel scroll */
+    padding: clamp(1rem, 3vw, 2rem);
+    overflow-y: auto;
+    background: var(--pm-band);
+    border-radius: var(--radius-lg);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
+}
+.pm-list__panel:focus-visible {
+    outline-color: var(--white);        /* scroll area keeps keyboard scrolling, ring stays neutral */
+}
+.pm-grid--pop {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--pm-row-gap) clamp(0.5rem, 2.5vw, 2rem);
+}
+.pm-grid--pop .pm-person {
+    width: auto;
+}
+
+/* One person: photo left, description right */
+.pm-person-dialog {
+    width: min(92vw, 46rem);
+}
+.pm-pop {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    max-height: 92vh;
+    overflow-y: auto;
+    background: color-mix(in srgb, var(--pm-band) 12%, var(--white));
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+}
+.pm-pop__pic {
+    min-height: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 0;
+    background: #ececec;
+}
+.pm-pop__body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 1.75rem 1.75rem;
+}
+.pm-pop__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.375rem;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    border-radius: 50%;
+}
+.pm-pop__close:hover {
+    background: rgba(15, 23, 42, 0.1);
+}
+.pm-pop__desc h3 {
+    font-size: 1.375rem;
+    line-height: 1.25;
+    color: var(--ink);
+}
+.pm-pop__desc p {
+    display: flex;
+    gap: 0.625rem;
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+    color: var(--text);
+}
+.pm-pop__desc i {
+    flex-shrink: 0;
+    width: 1rem;
+    margin-top: 0.2rem;
+    color: var(--pm-band);
+}
+
+@media (max-width: 639px) {
+    .pm-grid--pop { grid-template-columns: repeat(3, 1fr); }
+    .pm-person-dialog { width: min(92vw, 24rem); }
+    .pm-pop {
+        position: relative;             /* close button sits on the photo */
+        grid-template-columns: 1fr;
+    }
+    .pm-pop__body { position: static; }
+    .pm-pop__close { background: rgba(255, 255, 255, 0.85); }
+    .pm-pop__pic {
+        min-height: 0;
+        aspect-ratio: 1 / 1;
+    }
+    .pm-pop__body { padding: 1.5rem 1.25rem 1.5rem; }
+}
+
+
+/* ==========================================================================
+   8. PROGRAM SEKOLAH  (pages/before/program-sekolah.html)
+   Each block = headline first, content below it.
+   ========================================================================== */
+.program {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding-block: clamp(2.5rem, 6vw, 4.5rem) var(--space-6);
+}
+.program-block {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+}
+.headline {
+    font-size: clamp(2.5rem, 7vw, 4.75rem);
+    line-height: 1.02;
+    color: var(--navy);
+}
+
+/* ---------- PROGRAM KEAHLIAN: card grid ---------- */
+.program-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);      /* phones: 1 column */
+    gap: var(--space-4);
+    margin-bottom: 4rem;
+}
+/* Card = 3 areas: media (left, full height) | title (top right) | text (bottom right) */
+.program-card {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "media title"
+        "media text";
+    overflow: hidden;                   /* clips media to the rounded corners */
+}
+.program-card-media {
+    grid-area: media;
+    display: grid;
+    place-items: center;
+    min-height: 7rem;
+    color: var(--navy);
+}
+.program-card-media span {              /* abbreviation placeholder */
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: 0.06em;
+}
+.program-card-media img {               /* for the real program logo */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.program-card h3 {
+    grid-area: title;
+    padding: var(--space-4) var(--space-4) var(--space-1);
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+.program-card p {
+    grid-area: text;
+    padding: 0 var(--space-4) var(--space-4);
+    color: var(--warm-muted);
+}
+
+/* ---------- LIST ROWS (Intra, Ko, Ekstra) ---------- */
+.list-stack {
+    display: grid;
+    gap: var(--space-1);
+}
+.list-item {
+    padding: 0.85rem 1.25rem;
+    font-weight: 500;
+    background: var(--secondary);
+    border-radius: var(--radius-md);
+    color: var(--white);
+}
+.list-item:hover {
+    background: var(--primary);
+    color: var(--white);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* ---------- DROPDOWN GROUP ----------
+   Tabs in one row, the open list sits below them (pushes content down).
+   One panel open at a time (js/program-sekolah.js). */
+.dropdown-triggers {
+    display: grid;
+    grid-template-columns: repeat(var(--trigger-cols, 3), minmax(0, 1fr));
+    gap: var(--space-2);
+}
+.dropdown-triggers--3 { --trigger-cols: 3; }
+.dropdown-triggers--4 { --trigger-cols: 4; }
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--secondary);
+    border: 0;
+    border-radius: var(--radius-pill);
+}
+.dropdown-trigger:hover {
+    background: var(--primary);
+}
+.dropdown-trigger[aria-expanded="true"] {
+    color: var(--white);
+    background: var(--primary);
+}
+/* "+" drawn with CSS; becomes "-" when open */
+.dropdown-icon {
+    position: relative;
+    flex: none;
+    width: 14px;
+    height: 14px;
+}
+.dropdown-icon::before,
+.dropdown-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    margin-top: -1px;
+    border-radius: 2px;
+    background: currentColor;
+}
+.dropdown-icon::after {
+    transform: rotate(90deg);
+}
+.dropdown-trigger[aria-expanded="true"] .dropdown-icon::after {
+    transform: rotate(0deg);
+}
+/* Panel: same 0fr -> 1fr height trick as the navbar panel */
+.dropdown-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    visibility: hidden;
+}
+.dropdown-panel.is-open {
+    grid-template-rows: 1fr;
+    visibility: visible;
+}
+.dropdown-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+.dropdown-inner > ul {
+    padding-top: var(--space-3);        /* inside the clipped box: a closed panel takes no space */
+}
+
+/* 2 x 2 grid on tablet, laptop and PC */
+@media (min-width: 600px) {
+    .program-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+    .dropdown-triggers--4 { --trigger-cols: 2; }
+}
+/* Phones: compact tabs so Kelas 10 / 11 / 12 stay on one row */
+@media (max-width: 480px) {
+    .dropdown-triggers { gap: var(--space-1); }
+    .dropdown-trigger {
+        gap: 0.4rem;
+        padding: 0.75rem 0.4rem;
+        font-size: 0.95rem;
+    }
+    .dropdown-icon {
+        width: 12px;
+        height: 12px;
+    }
+    .list-item { padding: 0.8rem 1rem; }
+}
+@media (max-width: 360px) {
+    .dropdown-triggers--3 .dropdown-icon { display: none; }
+    .dropdown-triggers--4 { --trigger-cols: 1; }
+}
+
+
+/* ==========================================================================
+   9. LOGIN  (pages/login.html)
+   Card = 2 columns: school logo + name (left) | form (right).
+   Phones: stacked. Gradients mix both palettes (navy, blue, cyan, warm).
+   ========================================================================== */
+.page-login {
+    background:
+        radial-gradient(48rem 32rem at 8% 0%, var(--secondary), transparent 62%),
+        radial-gradient(40rem 30rem at 100% 100%, var(--secondary), transparent 62%),
+        radial-gradient(26rem 20rem at 92% 6%, var(--primary-soft), transparent 62%),
+        linear-gradient(135deg, var(--secondary) 0%, var(--primary-soft) 55%, var(--secondary) 100%);
+}
+.login-main {
+    display: grid;
+    place-items: center;                /* centres the card */
+    padding: var(--gutter);
+}
+.login-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: min(100%, 56rem);
+    overflow: hidden;                   /* clips both panels to the rounded corners */
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 24px 60px rgba(30, 42, 138, 0.25), var(--shadow-card);
+}
+
+/* LEFT: logo + school name */
+.login-brand {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--space-4);
+    text-align: center;
+    color: var(--white);
+    background:
+        radial-gradient(circle at 0% 100%, rgba(245, 220, 176, 0.4), transparent 55%),
+        radial-gradient(circle at 100% 0%, rgba(46, 230, 214, 0.35), transparent 50%),
+        linear-gradient(160deg, var(--primary-dark) 0%, var(--primary) 60%, var(--secondary) 100%);
+}
+.login-logo {
+    width: 6rem;
+    height: 6rem;
+    padding: 0.75rem;
+    background: var(--white);
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.3);
+}
+.login-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.login-school {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+}
+.login-school span {
+    display: block;
+    color: var(--accent);             /* warm highlight on the second line */
+}
+
+/* RIGHT: back button, headline, form */
+.login-panel {
+    display: grid;
+    align-content: center;
+    gap: var(--space-4);
+    padding: clamp(1.5rem, 5vw, 3rem);
+    background: linear-gradient(180deg, var(--white) 0%, var(--warm-50) 100%);
+}
+.back-btn {
+    display: grid;
+    place-items: center;
+    justify-self: start;
+    width: 3rem;
+    height: 2.5rem;
+    color: var(--warm-ink);
+    background: var(--line);
+    border-radius: var(--radius-md);
+}
+.back-btn::before {
+    content: "\2190" / "";              /* left arrow; the link has an aria-label */
+    font-size: 1.4rem;
+    line-height: 1;
+}
+.back-btn:hover {
+    color: var(--white);
+    background: var(--primary);
+}
+.login-head h1 {
+    font-size: clamp(2.25rem, 7vw, 3rem);
+}
+.login-head p {
+    margin-top: var(--space-1);
+    color: var(--warm-muted);
+}
+.login-form {
+    display: grid;
+    gap: var(--space-4);
+}
+.login-fields {
+    display: grid;
+    gap: var(--space-3);
+}
+.login-field {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);   /* icon | input */
+    align-items: center;
+    column-gap: var(--space-3);
+    padding-inline: 1.25rem;
+    cursor: text;
+    background: var(--line);
+    border-radius: var(--radius-lg);
+}
+/* Icon box is bigger than the 2.5rem column and cancelled by a negative margin:
+   sizes each icon visually without growing the field
+   (email.png has more transparent padding than lock.png). */
+.login-field img {
+    --icon-size: 20px;
+    opacity: 50%;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin: calc((2.5rem - var(--icon-size)) / 2);
+    justify-self: center;
+    object-fit: contain;
+}
+.login-field--email img {
+    --icon-size: 36px;
+    opacity: 50%;
+}
+.login-field--password {
+    grid-template-columns: 2.5rem minmax(0, 1fr) 2.5rem;
+}
+.password-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    border-radius: var(--radius-pill);
+    justify-self: center;
+    padding: 0;
+    outline: none;
+}
+.password-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+.password-toggle img {
+    --icon-size: 22px;
+    opacity: 50%;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin: 0;
+    justify-self: center;
+    object-fit: contain;
+    transition: opacity 0.15s ease;
+}
+.password-toggle:hover img {
+    opacity: 85%;
+}
+.login-field input {
+    width: 100%;
+    padding-block: 1.1rem;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--warm-ink);
+    background: transparent;
+    border: 0;
+}
+.login-field input::placeholder {
+    color: var(--warm-muted);
+}
+.login-field input:focus-visible {
+    outline: none;                      /* the whole field shows the ring below */
+}
+.login-field:focus-within {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+}
+/* Autofill paints its own background: cover it with the field color */
+.login-field input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 100px var(--warm-100) inset;
+    -webkit-text-fill-color: var(--warm-ink);
+}
+.login-actions {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-2);
+}
+.btn-signin {
+    width: 100%;
+    padding: 0.95rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    border: 0;
+    border-radius: var(--radius-pill);
+}
+.btn-signin:hover {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+@media (min-width: 769px) {
+    .login-card {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);   /* brand | form */
+        min-height: 32rem;
+    }
+    .login-brand { padding: var(--space-5); }
+    .login-logo {
+        width: 8rem;
+        height: 8rem;
+        padding: 1rem;
+    }
+}
+@media (max-width: 480px) {
+    .login-field { padding-inline: 1rem; }
+}
+
+
+/* ==========================================================================
+   10. DASHBOARDS  (pages/after/*.html - pop-up modals)
+   Opened/closed by js/dashboard.js
+   ========================================================================== */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modal-content {
+    width: min(92%, 42rem);
+    max-height: 80vh;
+    margin: 10% auto;
+    padding: 20px;
+    overflow: auto;
+    background: var(--white);
+}
+
+
+/* ==========================================================================
+   11. DASHBOARDS: TEACHER / STUDENT / GURU PIKET / ADMIN  (pages/after/ROLE/)
+   Sidebar + main. Dark mode: <html data-theme="dark"> (set in main.js).
+   Colors come from the existing tokens.
+   Main containers: soft shadow + subtle border. Menu hover ring = inset shadow.
+   Transitions: animation.css
+   ========================================================================== */
+
+/* ---- 11.1 Tokens: light / dark ---- */
+.dash-body {
+    --dash-sidebar-w: 18rem;
+    --dash-content-w: 56rem;            /* content never fills a wide screen */
+
+    /* SOFT BALANCE PALETTE (from image) */
+    --dash-bg: #f5f4ef;                 /* IVORY-tint soft serene backdrop */
+    --dash-sidebar: var(--sb-navy);     /* #33415e NAVY */
+    --dash-surface: #ffffff;            /* crisp white cards & panels */
+    --dash-hover: #dce4f4;              /* SKY-tint hover glow */
+    --dash-popup: #ffffff;              /* pure white modal & popup surface */
+    --dash-ink: #222d42;                /* deep slate-navy text */
+    --dash-muted: #6b7588;              /* soft slate-gray */
+    --dash-accent: var(--sb-periwinkle);/* #7a90c9 PERIWINKLE accent */
+    --dash-on-accent: var(--white);     /* crisp white on periwinkle */
+    --dash-hairline: rgba(51, 65, 94, 0.12);
+    --dash-edge: #ded9d1;               /* GRAY/BEIGE harmonized subtle border */
+    --dash-scrim: rgba(33, 44, 66, 0.5);
+    --dash-shadow: 0 2px 8px rgba(51, 65, 94, 0.06);
+    --dash-shadow-pop: 0 12px 32px rgba(51, 65, 94, 0.15);
+    /* Icons are black PNGs: invert them on dark surfaces */
+    --dash-icon-filter: none;
+    --dash-accent-icon-filter: invert(1);
+
+    background: var(--dash-bg);
+    color: var(--dash-ink);
+}
+html[data-theme="dark"] {
+    color-scheme: dark;                 /* native date picker, select, scrollbars */
+}
+html[data-theme="dark"] .dash-body {
+    --dash-bg: #1c2433;                 /* deep slate navy */
+    --dash-sidebar: #141b27;            /* midnight navy */
+    --dash-surface: #252f42;            /* elevated slate-navy card */
+    --dash-hover: #323e57;              /* lighter slate hover */
+    --dash-popup: #252f42;              /* modal popup surface */
+    --dash-ink: var(--sb-ivory);        /* #f0efea IVORY text */
+    --dash-muted: var(--sb-gray);       /* #b8b5ac GRAY muted text */
+    --dash-accent: #8ea3d7;             /* luminous PERIWINKLE */
+    --dash-on-accent: #141b27;
+    --dash-hairline: rgba(240, 239, 234, 0.12);
+    --dash-edge: rgba(211, 219, 240, 0.14);
+    --dash-scrim: rgba(10, 15, 23, 0.75);
+    --dash-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    --dash-shadow-pop: 0 12px 32px rgba(0, 0, 0, 0.55);
+    --dash-icon-filter: invert(1);
+    --dash-accent-icon-filter: none;
+}
+
+/* Reset native button/field look (zero specificity: classes below win) */
+:where(.dash-body) :is(button, input, select, textarea) {
+    border: 0;
+    background: none;
+}
+.dash-body :focus-visible {
+    outline-color: var(--dash-accent);
+}
+.dash-body.has-modal {
+    overflow: hidden;                   /* page stays still behind a pop-up */
+}
+.dash-sr {                              /* visually hidden, read by screen readers */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.dash-icon {
+    width: 1.4rem;
+    height: 1.4rem;
+    flex-shrink: 0;
+    filter: var(--dash-icon-filter);
+}
+
+
+/* ---- 11.2 Shell: sidebar (fixed) + main ---- */
+.dash {
+    position: relative;
+    flex: 1 0 auto;
+}
+.dash-main {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: var(--space-5) var(--gutter);
+}
+.dash-content {
+    width: 100%;
+    max-width: var(--dash-content-w);
+    margin-inline: auto;
+}
+.dash[data-sidebar="closed"] .dash-sidebar {
+    transform: translateX(-100%);           /* closes to the left */
+    visibility: hidden;                     /* out of the tab order */
+}
+.dash-scrim {
+    display: none;
+}
+
+/* ---- 11.3 Sidebar ---- */
+.dash-sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    width: var(--dash-sidebar-w);
+    max-width: 85vw;
+    background: var(--dash-sidebar);
+    color: var(--white);
+    /* No overflow clipping: the Learn More menu opens outside the sidebar */
+}
+/* Ensure icons in dark navy sidebar/topbar are crisp white */
+.dash-sidebar .dash-icon,
+.dash-topbar .dash-icon {
+    filter: brightness(0) invert(1);
+}
+/* Top left: toggle icon + brand text. Same spot in the sidebar and in .dash-topbar */
+.dash-sidebar__top,
+.dash-topbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-3);
+}
+.dash-brand {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--white);
+}
+.dash-icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+/* Brand and sidebar-open icon for the transparent topbar when sidebar is closed */
+.dash-topbar .dash-brand-closed {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    color: #000;
+}
+.dash-topbar .dash-icon {
+    filter: none;
+}
+/* In dark mode, keep the closed-sidebar brand and toggle readable on the page background. */
+html[data-theme="dark"] .dash-topbar .dash-brand-closed {
+    color: var(--dash-ink);
+}
+html[data-theme="dark"] .dash-topbar .dash-icon {
+    filter: brightness(0) invert(1);
+}
+.dash-topbar {
+    background: transparent;
+}
+
+.dash-icon-btn:hover,
+.dash-icon-btn[aria-expanded="true"] {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Page menu: no border by default; ring only on hover / focus / click */
+.dash-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-3);
+    overflow-y: auto;
+}
+.dash-menu__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.8rem var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(240, 239, 234, 0.85);
+    outline: none;                          /* the ring below replaces the outline */
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.dash-menu__item[aria-current="page"] {
+    background: var(--dash-accent);         /* periwinkle active page fill */
+    color: var(--white);
+}
+.dash-menu__item:hover,
+.dash-menu__item:focus,
+.dash-menu__item:active {
+    background: rgba(211, 219, 240, 0.18);
+    color: var(--white);
+    box-shadow: inset 0 0 0 2px var(--dash-accent);
+}
+
+/* Account (bottom) + settings button */
+.dash-account {
+    position: relative;                     /* the settings menu opens above this */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    color: var(--white);
+}
+.dash-account::before {                     /* divider line */
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+}
+.dash-account__info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+}
+.dash-avatar {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--sb-sky);
+    color: var(--sb-navy);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+.dash-account__name {
+    overflow: hidden;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* ---- 11.4 Settings menu (above the account container) ---- */
+.dash-settings {
+    position: absolute;
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: calc(100% + var(--space-1));
+    z-index: 2;
+    padding: 0.35rem;
+    border-radius: var(--radius-md);
+    background: var(--dash-popup);
+    border: 1px solid var(--dash-edge);
+    box-shadow: var(--dash-shadow-pop);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0.5rem);
+}
+.dash-settings .dash-icon,
+.dash-submenu .dash-icon {
+    filter: var(--dash-icon-filter);
+}
+.dash-settings.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+}
+.dash-settings > * + * {                    /* hairline between menus */
+    background: linear-gradient(var(--dash-hairline), var(--dash-hairline)) no-repeat top center / calc(100% - var(--space-4)) 1px;
+}
+.dash-settings__item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: 100%;
+    padding: 0.75rem var(--space-2);
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: left;
+    color: var(--dash-ink);
+}
+.dash-settings__item:hover,
+.dash-settings__item:focus-visible {
+    background-color: var(--dash-hover);
+}
+.dash-settings__item .dash-icon--end {
+    width: 1rem;
+    height: 1rem;
+    margin-left: auto;
+}
+
+/* Dark / light switch: both icons exist, the one for the current mode shows */
+.dash-switch {
+    position: relative;
+    width: 2.5rem;
+    height: 1.4rem;
+    margin-left: auto;
+    border-radius: var(--radius-pill);
+    background: var(--muted);
+    flex-shrink: 0;
+}
+.dash-switch::after {                       /* knob */
+    content: "";
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+[aria-checked="true"] > .dash-switch {
+    background: var(--dash-accent);
+}
+[aria-checked="true"] > .dash-switch::after {
+    transform: translateX(1.1rem);
+}
+.dash-icon--dark {
+    display: none;
+}
+html[data-theme="dark"] .dash-icon--dark {
+    display: block;
+}
+html[data-theme="dark"] .dash-icon--light {
+    display: none;
+}
+
+/* Learn More (desktop): sub-menu opens on hover, to the right, with its bottom
+   on the same level as the settings menu (.dash-learn is not positioned, so the
+   sub-menu is placed against .dash-settings). Touch/phone: opens on click. */
+.dash-submenu {
+    position: absolute;
+    bottom: 0;
+    left: 100%;
+    min-width: 13rem;
+    padding-left: 0.6rem;                   /* hover bridge across the gap */
+    opacity: 0;
+    visibility: hidden;
+}
+.dash-submenu__box {
+    padding: 0.35rem;
+    border-radius: var(--radius-md);
+    background: var(--dash-popup);
+    border: 1px solid var(--dash-edge);
+    box-shadow: var(--dash-shadow-pop);
+}
+.dash-learn:has(:focus-visible) .dash-submenu {        /* keyboard focus */
+    opacity: 1;
+    visibility: visible;
+}
+@media (hover: hover) and (min-width: 601px) {
+    .dash-learn:hover .dash-submenu {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+@media (hover: none), (max-width: 600px) {              /* click (main.js adds .is-open) */
+    .dash-learn.is-open .dash-submenu {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+
+/* ---- 11.5 Page header: title + tools ---- */
+.dash-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-5);          /* gap between header and content */
+}
+.dash-head__title {
+    min-width: 0;
+}
+.dash-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+    text-transform: uppercase;
+}
+.dash-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+}
+.dash-search {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    width: 13rem;
+    max-width: 100%;
+    height: 2.75rem;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-pill);
+    background: var(--dash-surface);
+}
+.dash-search:focus-within {
+    border-color: var(--dash-accent);
+    box-shadow: 0 0 0 1px var(--dash-accent);
+}
+.dash-search input {
+    flex: 1;
+    min-width: 0;
+    font: inherit;
+    color: inherit;
+    outline: none;
+}
+.dash-search input::placeholder {
+    color: var(--dash-muted);
+    opacity: 1;
+}
+.dash-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    height: 2.75rem;
+    padding: 0 var(--space-4);
+    border: 1px solid color-mix(in srgb, var(--dash-accent) 85%, var(--ink));
+    border-radius: var(--radius-pill);
+    background: var(--dash-accent);
+    color: var(--dash-on-accent);
+    font-weight: 600;
+    white-space: nowrap;
+}
+.dash-btn:hover {
+    border-color: color-mix(in srgb, var(--dash-accent) 78%, var(--ink));
+    background: color-mix(in srgb, var(--dash-accent) 85%, var(--ink));
+}
+.dash-btn .dash-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    filter: var(--dash-accent-icon-filter);
+}
+.dash-btn--ghost {
+    border-color: var(--dash-edge);
+    background: var(--dash-surface);
+    color: var(--dash-ink);
+}
+.dash-btn--ghost:hover {
+    border-color: var(--dash-edge);
+    background: var(--dash-hover);
+}
+
+
+/* ---- 11.6 Lists (jadwal, logs, rekap) ---- */
+.dash-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+.dash-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+.dash-card {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-3);
+    min-height: 4rem;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+}
+.dash-card__name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.dash-card__meta {
+    margin-left: auto;
+    align-self: flex-end;                   /* date sits bottom right */
+    font-size: 0.8125rem;
+    color: var(--dash-muted);
+    white-space: nowrap;
+}
+.dash-action {                              /* edit / download button */
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+    flex-shrink: 0;
+}
+.dash-action:hover {
+    background: var(--dash-hover);
+}
+
+/* Jadwal: status square + larger card */
+.dash-status {
+    width: 3.25rem;
+    height: 3.25rem;
+    border: 1px solid transparent;          /* color set per status below */
+    border-radius: var(--radius-md);
+    box-shadow: var(--dash-shadow);
+    flex-shrink: 0;
+}
+.dash-status--on {
+    border-color: color-mix(in srgb, var(--status-ok) 85%, var(--ink));
+    background: var(--status-ok);
+}
+.dash-status--off {
+    border-color: color-mix(in srgb, var(--status-bad) 85%, var(--ink));
+    background: var(--status-bad);
+}
+.dash-card--lg {
+    min-height: 5.5rem;
+}
+.dash-card__title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+.dash-card__side {
+    margin-left: auto;
+    text-align: right;
+}
+.dash-card__side small {
+    display: block;
+    font-size: 0.8125rem;
+    color: var(--dash-muted);
+}
+
+/* Student jadwal: sub-headings + zoom button in the middle of the card */
+.dash-section + .dash-section {
+    margin-top: var(--space-5);
+}
+.dash-subtitle {
+    margin-bottom: var(--space-3);
+    font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+    text-transform: uppercase;
+}
+.dash-card__zoom {
+    margin-inline: auto;
+}
+.dash-card__zoom + .dash-card__side {
+    margin-left: 0;                         /* free space is shared around the zoom button */
+}
+
+/* Admin: featured card (photo, name, date) */
+.dash-feature {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+}
+.dash-feature .dash-card__title {
+    font-size: clamp(1.5rem, 4vw, 2.4rem);
+}
+.dash-feature .dash-card__meta {
+    margin-left: 0;
+}
+.dash-photo {                               /* photo placeholder */
+    display: grid;
+    place-items: center;
+    width: 5.5rem;
+    aspect-ratio: 3 / 4;
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-popup);
+    color: var(--dash-muted);
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+
+/* ---- 11.7 Pop-ups (Mulai Absensi, Tambah Jurnal) ---- */
+.dash-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    padding: var(--space-3);
+    background: var(--dash-scrim);
+    opacity: 0;
+    visibility: hidden;
+}
+.dash-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+.dash-modal__box {
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 38rem);
+    max-height: min(46rem, calc(100vh - 2 * var(--space-3)));
+    max-height: min(46rem, calc(100dvh - 2 * var(--space-3)));
+    border-radius: var(--radius-lg);
+    background: var(--dash-popup);
+    border: 1px solid var(--dash-edge);
+    color: var(--dash-ink);
+    box-shadow: var(--dash-shadow-pop);
+    position: relative;                     /* anchors .dash-modal__close */
+    overflow: hidden;
+    outline: none;
+    transform: translateY(0.75rem) scale(0.97);
+}
+.dash-modal.is-open .dash-modal__box {
+    transform: none;
+}
+.dash-modal__box--wide {
+    width: min(100%, 44rem);
+}
+.dash-modal__head {
+    padding: var(--space-4) var(--space-4) var(--space-2);
+}
+.dash-modal__title {
+    font-size: 1.6rem;
+    text-transform: uppercase;
+}
+.dash-modal__body {
+    flex: 1;
+    min-height: 0;
+    padding: var(--space-2) var(--space-4);
+    overflow: auto;                         /* long forms/tables scroll here */
+}
+.dash-modal__body--table {                  /* Full-bleed table/header: remove body padding on all sides */
+    padding-block: 0;
+    padding-inline: 0;
+}
+.dash-modal__foot {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4) var(--space-4);
+}
+
+/* Form fields */
+.dash-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3) var(--space-4);
+}
+.dash-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+}
+.dash-field--full {
+    grid-column: 1 / -1;
+}
+.dash-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+}
+.dash-input {
+    width: 100%;
+    min-width: 0;
+    height: 2.75rem;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-bg);
+    color: inherit;
+    font: inherit;
+}
+.dash-input:focus,
+.dash-range:focus-within {
+    outline: 2px solid var(--dash-accent);
+}
+.dash-input--center {
+    text-align: center;
+}
+.dash-input::placeholder,
+.dash-range input::placeholder {
+    color: var(--dash-muted);
+    opacity: 1;
+}
+.dash-input[type="date"]:invalid {          /* empty date reads like a placeholder */
+    color: var(--dash-muted);
+}
+textarea.dash-input {
+    height: auto;
+    min-height: 9rem;
+    max-height: 50vh;
+    padding: var(--space-2) var(--space-3);
+    resize: vertical;                       /* grows downward only */
+}
+/* Pilih Guru Piket pop-up: centered title, close button, stacked fields */
+.dash-modal__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background: var(--dash-hover);
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.dash-modal__close:hover {
+    background: var(--dash-edge);
+}
+.dash-modal__head--center {
+    padding-inline: 3.5rem;                 /* clear of the close button */
+    text-align: center;
+}
+.dash-modal__body--last {
+    padding-bottom: var(--space-4);
+}
+.dash-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+.dash-stack > .dash-btn {
+    align-self: center;
+}
+.dash-label--left {
+    text-align: left;
+}
+.dash-or {                                  /* "ATAU" divider */
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-block: var(--space-3);
+    color: var(--dash-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.dash-or::before,
+.dash-or::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--dash-hairline);
+}
+.dash-copy-field {
+    position: relative;
+}
+.dash-copy-field .dash-input {
+    padding-right: 3.25rem;
+}
+.dash-copy-btn {
+    position: absolute;
+    top: 50%;
+    right: 0.35rem;
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-md);
+    transform: translateY(-50%);
+}
+.dash-copy-btn:hover {
+    background: var(--dash-hover);
+}
+.dash-copy-btn.is-copied {                  /* feedback for 1.4s (admin-piket.js) */
+    background: var(--dash-accent);
+}
+.dash-copy-btn.is-copied .dash-icon {
+    filter: var(--dash-accent-icon-filter);
+}
+.dash-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    align-self: flex-start;
+    margin-top: var(--space-2);
+    color: var(--dash-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.dash-link-btn .dash-icon {
+    width: 1rem;
+    height: 1rem;
+}
+.dash-link-btn:hover {
+    text-decoration: underline;
+}
+
+/* Jam ke-: two number inputs with a line between them */
+.dash-range {
+    display: flex;
+    height: 2.75rem;
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-bg);
+    overflow: hidden;
+}
+.dash-range input {
+    flex: 1;
+    min-width: 0;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    outline: none;
+}
+.dash-range__line {
+    width: 2px;
+    background: var(--dash-ink);
+}
+/* Mata Pelajaran: select with the arrow icon on the right */
+.dash-select {
+    position: relative;
+}
+.dash-select select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 2.75rem;
+    cursor: pointer;
+}
+.dash-select .dash-icon {
+    position: absolute;
+    top: 50%;
+    right: var(--space-3);
+    width: 1rem;
+    height: 1rem;
+    transform: translateY(-50%) rotate(90deg);   /* right arrow -> down arrow */
+    pointer-events: none;
+}
+
+/* Absensi table: sticky header, zebra rows, green / red checkboxes */
+.dash-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.dash-table thead {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    /* Fill the entire header area, including any space behind spanning cells. */
+    background: var(--dash-hover);
+    color: var(--dash-ink);
+}
+.dash-table thead tr,
+.dash-table th {
+    background-color: var(--dash-hover);
+}
+.dash-table th {
+    padding: 0.6rem var(--space-2);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.dash-table td {
+    padding: 0.5rem var(--space-2);
+    font-size: 0.9rem;
+    text-align: center;
+}
+.dash-table .dash-table__name {            /* Nama Siswa: left aligned */
+    text-align: left;
+}
+.dash-table tbody tr:nth-child(odd) {
+    background: var(--dash-surface);
+}
+.dash-check {
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-grid;
+    place-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    vertical-align: middle;
+}
+.dash-check::after {                        /* check mark */
+    content: "";
+    width: 0.9rem;
+    height: 0.9rem;
+    background: var(--white);
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0, 43% 62%);
+    transform: scale(0);
+}
+.dash-check:checked::after {
+    transform: scale(1);
+}
+.dash-check--ok {
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--status-ok) 70%, transparent);
+}
+.dash-check--bad {
+    box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--status-bad) 70%, transparent);
+}
+.dash-check--ok:checked {
+    background: var(--status-ok);
+    box-shadow: none;
+}
+.dash-check--bad:checked {
+    background: var(--status-bad);
+    box-shadow: none;
+}
+
+
+/* ---- 11.7b Day tabs + redesigned jadwal cards ---- */
+
+/* Day-of-week tab row */
+.dash-daytabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+    margin-bottom: var(--space-4);
+}
+.dash-daytab {
+    padding: 0.55rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--dash-ink);
+    background: var(--dash-surface);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    white-space: nowrap;
+}
+.dash-daytab:hover {
+    background: var(--dash-hover);
+}
+.dash-daytab.is-active {
+    color: var(--dash-on-accent);
+    background: var(--dash-accent);
+    border-color: var(--dash-accent);
+}
+
+/* Jadwal card with left-border status indicator */
+.dash-jadwal-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-height: 4.75rem;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+    border-left: 12px solid transparent;
+}
+.dash-jadwal-card--on {
+    border-left-color: var(--status-ok);
+}
+.dash-jadwal-card--off {
+    border-left-color: var(--status-bad);
+}
+
+/* Inside the card: info on the left, time on the right */
+.dash-jadwal-card__info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+.dash-jadwal-card__subject {
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 3vw, 1.6rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+.dash-jadwal-card__teacher {
+    font-size: 0.875rem;
+    color: var(--dash-muted);
+    margin-top: 2px;
+}
+.dash-jadwal-card__time {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-left: auto;
+}
+
+
+/* ---- 11.8 Responsive ---- */
+/* Desktop: the sidebar pushes the content. Closed: content centers on the page
+   and the topbar (toggle + brand) shows top left. */
+@media (min-width: 1025px) {
+    .dash-main {
+        margin-left: var(--dash-sidebar-w);
+    }
+    .dash[data-sidebar="closed"] .dash-main {
+        margin-left: 0;
+    }
+    .dash-topbar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        opacity: 0;                         /* fades in when the sidebar closes */
+        visibility: hidden;
+    }
+    .dash[data-sidebar="closed"] .dash-topbar {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+/* Narrow desktops: centered content reaches the topbar, so it starts below it */
+@media (min-width: 1025px) and (max-width: 1375px) {
+    .dash[data-sidebar="closed"] .dash-main {
+        padding-top: calc(var(--space-5) + 2.5rem);
+    }
+}
+/* Tablet + phone: topbar above the page, sidebar opens as a drawer */
+@media (max-width: 1024px) {
+    .dash-main {
+        padding-top: var(--space-3);        /* topbar sits above */
+    }
+    .dash-topbar {
+        background: transparent;            /* follows the page background */
+    }
+    .dash[data-sidebar="open"] .dash-topbar {
+        opacity: 0;                         /* fades out while the drawer is open */
+        visibility: hidden;
+        pointer-events: none;
+    }
+    .dash-sidebar {
+        transform: translateX(-100%);
+        visibility: hidden;
+        box-shadow: var(--dash-shadow-pop);
+    }
+    .dash[data-sidebar="open"] .dash-sidebar {
+        transform: none;
+        visibility: visible;
+    }
+    .dash-scrim {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: var(--dash-scrim);
+        opacity: 0;
+        visibility: hidden;
+    }
+    .dash[data-sidebar="open"] .dash-scrim {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+@media (max-width: 600px) {
+    /* Tools: filter left of a shorter search bar, button on its own full row */
+    .dash-tools {
+        width: 100%;
+    }
+    .dash-tools .dash-icon-btn {
+        order: -1;
+    }
+    .dash-search {
+        flex: 1 1 0;
+        width: auto;
+    }
+    .dash-tools .dash-btn {
+        flex: 1 1 100%;
+    }
+    .dash-form-grid {
+        grid-template-columns: 1fr;
+    }
+    .dash-modal__head,
+    .dash-modal__body,
+    .dash-modal__foot {
+        padding-inline: var(--space-3);
+    }
+    .dash-card {
+        padding-inline: var(--space-3);
+    }
+    /* Admin featured card: photo + name, date on its own row */
+    .dash-feature {
+        grid-template-columns: auto 1fr;
+        gap: var(--space-2) var(--space-3);
+        padding: var(--space-3);
+    }
+    .dash-feature .dash-card__meta {
+        grid-column: 1 / -1;
+        justify-self: end;
+    }
+    /* Student jadwal cards (with zoom button) stay on one line */
+    .dash-card--lg:has(.dash-card__zoom) {
+        flex-wrap: nowrap;
+        gap: var(--space-1);
+    }
+    .dash-card--lg:has(.dash-card__zoom) .dash-card__title {
+        font-size: clamp(1rem, 5vw, 1.25rem);   /* fits 320px phones */
+        white-space: nowrap;
+    }
+    .dash-card--lg:has(.dash-card__zoom) .dash-card__side small {
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+    .dash-card--lg .dash-card__zoom {
+        width: 2rem;
+        height: 2rem;
+    }
+    .dash-status {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .dash-table th,
+    .dash-table td {
+        padding-inline: 0.35rem;
+    }
+    /* Learn More: pop-up above the button, over the Toggle row (higher z-index) */
+    .dash-learn {
+        position: relative;
+    }
+    .dash-submenu {
+        z-index: 3;
+        top: auto;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        min-width: 0;
+        padding: 0 0 var(--space-1);        /* gap above the button */
+    }
+    /* Day tabs: smaller on phones */
+    .dash-daytab {
+        padding: 0.45rem 0.9rem;
+        font-size: 0.8rem;
+    }
+    /* Jadwal card: tighter padding on phones */
+    .dash-jadwal-card {
+        padding: var(--space-2) var(--space-3);
+        min-height: 4rem;
+        gap: var(--space-2);
+    }
+    .dash-jadwal-card__subject {
+        font-size: clamp(1rem, 4vw, 1.25rem);
+    }
+    .dash-jadwal-card__time {
+        font-size: 0.8125rem;
+    }
+}
+
+/* ---- 11.7c Absensi Wizard & Nihil Checkbox ---- */
+.absen-step {
+    display: none;
+}
+.absen-step.is-active {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+#step-kelas.is-active,
+#step-jurusan.is-active {
+    display: block;
+    overflow-y: auto;
+}
+.absen-step__desc {
+    margin-bottom: var(--space-3);
+    font-size: 0.95rem;
+    color: var(--dash-muted);
+}
+.absen-grid-select {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-2);
+}
+.absen-choice-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-2);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    color: var(--dash-ink);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    text-align: center;
+}
+.absen-choice-card small {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--dash-muted);
+    font-weight: 400;
+}
+.absen-choice-card:hover {
+    background: var(--dash-hover);
+    border-color: var(--dash-accent);
+    transform: translateY(-2px);
+}
+.absen-choice-card:active {
+    transform: translateY(0);
+}
+
+/* Header modal with back button */
+.dash-modal__head-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+.dash-modal__back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid var(--dash-edge);
+    background: var(--dash-surface);
+    color: var(--dash-ink);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+}
+.dash-modal__back-btn:hover {
+    background: var(--dash-hover);
+    border-color: var(--dash-accent);
+}
+.dash-modal__back-btn .dash-icon {
+    width: 1.1rem;
+    height: 1.1rem;
+    transform: rotate(180deg);              /* right arrow rotated to back arrow */
+}
+
+/* Nihil control bar */
+.absen-nihil-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    align-self: stretch;
+    padding: 0.75rem var(--space-4);
+    /* Full-width colored bar; follows the active light/dark theme. */
+    background: var(--dash-hover);
+    border-top: 1px solid var(--dash-edge);
+    border-bottom: 1px solid var(--dash-edge);
+    flex-shrink: 0;
+}
+.absen-nihil-info {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dash-ink);
+}
+.absen-nihil-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dash-ink);
+}
+.absen-nihil-toggle .dash-check {
+    margin: 0;
+}
+
+#step-form .dash-modal__body--table {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}

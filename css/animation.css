@@ -1,0 +1,403 @@
+/* ==========================================================================
+   ANIMATION.CSS - transitions & keyframes (basic styles: main.css)
+   ========================================================================== */
+
+/* Smooth scroll for in-page links (footer -> program cards) */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   HOVER / STATE COLORS
+   -------------------------------------------------------------------------- */
+.nav-links a,
+.nav-toggle,
+.btn-login,
+.sosmed a,
+.footer li a,
+.footer-bottom a,
+.card-soft,
+.list-item,
+.dropdown-trigger,
+.back-btn,
+.btn-signin,
+.login-actions a {
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* --------------------------------------------------------------------------
+   DROPDOWN (Intra- & Ekstra-kulikuler)
+   -------------------------------------------------------------------------- */
+/* "+" -> "-" */
+.dropdown-icon::after {
+    transition: transform 0.3s ease;
+}
+
+/* Closing: height first, visibility flips at the end (delay = duration) */
+.dropdown-panel {
+    transition: grid-template-rows 0.4s ease, visibility 0s linear 0.4s;
+}
+
+/* Opening: visibility flips at once so the height animation shows */
+.dropdown-panel.is-open {
+    transition: grid-template-rows 0.4s ease, visibility 0s linear 0s;
+}
+
+/* --------------------------------------------------------------------------
+   HAMBURGER MENU (tablet/phone)
+   -------------------------------------------------------------------------- */
+/* Bars -> X */
+.nav-toggle-bar,
+.nav-toggle-bar::before,
+.nav-toggle-bar::after {
+    transition: top 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
+}
+
+/* Same open/close pattern as the dropdown panel */
+.nav-panel {
+    transition: grid-template-rows 0.35s ease, visibility 0s linear 0.35s;
+}
+.nav-panel.is-open {
+    transition: grid-template-rows 0.35s ease, visibility 0s linear 0s;
+}
+
+/* --------------------------------------------------------------------------
+   HOME (index.html)
+   -------------------------------------------------------------------------- */
+/* Floating navbar: slides/fades in when the main content is reached.
+   Visibility flips at the end of the fade out (delay = duration). */
+.navbar--float {
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0.35s;
+}
+.navbar--float.is-visible {
+    transition: opacity 0.35s ease, transform 0.35s ease, visibility 0s linear 0s;
+}
+
+/* Hero buttons + Halaman dropdown */
+.btn-hero {
+    transition: filter 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+.btn-hero:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+.hero-dropdown__icon {
+    transition: transform 0.25s ease;
+}
+.btn-hero[aria-expanded="true"] .hero-dropdown__icon {
+    transform: rotate(180deg);
+}
+.hero-dropdown__menu {
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+}
+.hero-dropdown__menu.is-open {
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0s;
+}
+.hero-dropdown__menu a {
+    transition: background-color 0.2s ease;
+}
+
+/* Hero corner pills float slowly */
+.hero-pill {
+    animation: pill-float 6s ease-in-out infinite alternate;
+}
+.hero-pill--green { animation-delay: -1.5s; }
+.hero-pill--blue { animation-delay: -3s; }
+.hero-pill--gold { animation-delay: -4.5s; }
+@keyframes pill-float {
+    from { transform: translateY(-4px); }
+    to   { transform: translateY(4px); }
+}
+
+/* Scroll-sequence: js/animation.js sets --seq (0 to 1) and --seq-dist.
+   Without JS the fallbacks show every card in place. */
+[data-seq] {
+    opacity: var(--seq, 1);
+    transform: translateY(calc((1 - var(--seq, 1)) * var(--seq-dist, 0px)));
+}
+/* Top + bottom (1st) cards: card flip (rotate X) instead of a fade */
+.home-card[data-seq] {
+    opacity: 1;
+    transform:
+        translateY(calc((1 - var(--seq, 1)) * var(--seq-dist, 0px)))
+        perspective(900px)
+        rotateX(calc((1 - var(--seq, 1)) * -90deg));    /* edge-on (-90deg) to flat (0) */
+    backface-visibility: hidden;
+}
+
+/* Fasilitas carousel: right to left. JS sets --marquee-shift (one set width)
+   and --marquee-duration. Pauses on hover and keyboard focus. */
+.fasilitas-marquee.is-ready .fasilitas-track {
+    animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+.fasilitas-marquee.is-ready:hover .fasilitas-track,
+.fasilitas-marquee.is-ready:focus-within .fasilitas-track {
+    animation-play-state: paused;
+}
+@keyframes marquee {
+    to { transform: translateX(var(--marquee-shift, -50%)); }
+}
+.fasilitas-slide {
+    transition: transform 0.25s ease;
+}
+.fasilitas-slide:hover {
+    transform: translateY(-4px);
+}
+
+/* Full image pop-up */
+.lightbox[open] {
+    animation: lightbox-in 0.25s ease;
+}
+@keyframes lightbox-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* 3D cards: slide to the center / back to the side */
+.cool-card {
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s ease;
+}
+
+/* Reduced motion: no loop, no slide. Carousel becomes a plain swipe row. */
+@media (prefers-reduced-motion: reduce) {
+    .hero-pill,
+    .fasilitas-marquee.is-ready .fasilitas-track,
+    .lightbox[open] {
+        animation: none;
+    }
+    .fasilitas-marquee.is-ready {
+        overflow-x: auto;
+    }
+    .fasilitas-set[data-clone] {
+        display: none;
+    }
+    .cool-card,
+    .navbar--float,
+    .hero-dropdown__menu {
+        transition-duration: 0.01s;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   PROFIL MANAJEMEN (pages/before/profil-manajemen.html)
+   -------------------------------------------------------------------------- */
+/* Hero: zoom + reveal follow the scroll (js/animation.js writes --hero-p and
+   --hero-r, 0 to 1). The short ease smooths mouse-wheel steps. */
+.pm-hero__bg {
+    transform: scale(calc(1 + var(--hero-p, 0) * 0.1));
+    transition: transform 0.2s ease-out;
+}
+.pm-hero__inner {
+    transform: scale(calc(1 + var(--hero-p, 0) * 0.04));
+    transition: transform 0.2s ease-out;
+}
+.pm-hero__reveal {
+    opacity: var(--hero-r, 0);
+    transform: translateY(calc((1 - var(--hero-r, 0)) * 1.25rem));
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+/* Groups slide in from the side: js sets --seq, --seq-dist (px) and --seq-dir (1 = from the right, -1 = from the left) */
+[data-seq-from] {
+    opacity: var(--seq, 1);
+    transform: translateX(calc((1 - var(--seq, 1)) * var(--seq-dist, 0px) * var(--seq-dir, 1)));
+}
+
+/* Photo + button hover */
+.pm-card,
+.pm-more {
+    transition: transform 0.2s ease;
+}
+.pm-card:hover,
+.pm-card:focus-visible {
+    transform: translateY(-4px);
+}
+.pm-more:hover,
+.pm-more:focus-visible {
+    transform: scale(1.05);
+}
+.pm-pop__close {
+    transition: background-color 0.2s ease;
+}
+
+/* Pop-ups fade in (same keyframes as the Beranda photo pop-up) */
+.pm-dialog[open] {
+    animation: lightbox-in 0.25s ease;
+}
+
+/* Reduced motion: no pinned zoom (hero shows the zoomed state), no slide */
+@media (prefers-reduced-motion: reduce) {
+    .pm-hero {
+        height: auto;
+    }
+    .pm-hero__pin {
+        position: relative;
+    }
+    .pm-hero__bg,
+    .pm-hero__inner {
+        transform: none;
+    }
+    .pm-hero__reveal {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+    [data-seq-from] {
+        opacity: 1;
+        transform: none;
+    }
+    .pm-dialog[open] {
+        animation: none;
+    }
+    .pm-card,
+    .pm-more {
+        transition-duration: 0.01ms;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   DASHBOARDS: TEACHER / STUDENT / GURU PIKET / ADMIN (pages/after/ROLE/)
+   -------------------------------------------------------------------------- */
+/* Sidebar slides left to close, right to open. Visibility flips after the
+   slide so closed menus leave the tab order (delay = duration). */
+.dash-sidebar {
+    transition: transform 0.3s ease, visibility 0s linear 0s;
+}
+.dash[data-sidebar="closed"] .dash-sidebar {
+    transition: transform 0.3s ease, visibility 0s linear 0.3s;
+}
+.dash-main {
+    transition: margin-left 0.3s ease, padding-top 0.3s ease;   /* content follows the sidebar */
+}
+/* Topbar: fades in when the sidebar closes, fades out (then hides) when it opens */
+.dash-topbar {
+    transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+.dash[data-sidebar="open"] .dash-topbar {
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+@media (max-width: 1024px) {
+    .dash-sidebar {
+        transition: transform 0.3s ease, visibility 0s linear 0.3s;
+    }
+    .dash[data-sidebar="open"] .dash-sidebar {
+        transition: transform 0.3s ease, visibility 0s linear 0s;
+    }
+    .dash-scrim {
+        transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    }
+    .dash[data-sidebar="open"] .dash-scrim {
+        transition: opacity 0.3s ease, visibility 0s linear 0s;
+    }
+}
+
+/* Hover / focus colors */
+.dash-menu__item,
+.dash-icon-btn,
+.dash-settings__item,
+.dash-btn,
+.dash-action,
+.dash-modal__close,
+.dash-copy-btn,
+.dash-link-btn,
+.dash-search,
+.dash-input,
+.dash-table tbody tr {
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+/* Settings menu + Learn More sub-menu: fade and rise */
+.dash-settings {
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+}
+.dash-settings.is-open {
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+}
+.dash-submenu {
+    transition: opacity 0.15s ease, visibility 0s linear 0.15s;
+}
+.dash-learn:hover .dash-submenu,
+.dash-learn:has(:focus-visible) .dash-submenu,
+.dash-learn.is-open .dash-submenu {
+    transition: opacity 0.15s ease, visibility 0s linear 0s;
+}
+
+/* Dark / light switch */
+.dash-switch,
+.dash-switch::after {
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Pop-ups: fade in, box rises */
+.dash-modal {
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+}
+.dash-modal.is-open {
+    transition: opacity 0.2s ease, visibility 0s linear 0s;
+}
+.dash-modal__box {
+    transition: transform 0.2s ease;
+}
+
+/* Check mark pops in */
+.dash-check,
+.dash-check::after {
+    transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* --------------------------------------------------------------------------
+   REDUCED MOTION: keep state changes, drop the movement
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    .nav-links a,
+    .nav-toggle,
+    .nav-toggle-bar,
+    .nav-toggle-bar::before,
+    .nav-toggle-bar::after,
+    .nav-panel,
+    .nav-panel.is-open,
+    .btn-login,
+    .sosmed a,
+    .footer li a,
+    .footer-bottom a,
+    .card-soft,
+    .list-item,
+    .dropdown-trigger,
+    .dropdown-icon::after,
+    .dropdown-panel,
+    .dropdown-panel.is-open,
+    .back-btn,
+    .btn-signin,
+    .login-actions a {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dash-sidebar,
+    .dash-main,
+    .dash-topbar,
+    .dash-scrim,
+    .dash-menu__item,
+    .dash-icon-btn,
+    .dash-settings,
+    .dash-settings__item,
+    .dash-submenu,
+    .dash-switch,
+    .dash-switch::after,
+    .dash-btn,
+    .dash-action,
+    .dash-search,
+    .dash-input,
+    .dash-table tbody tr,
+    .dash-modal,
+    .dash-modal__box,
+    .dash-check,
+    .dash-check::after {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
+    }
+}
