@@ -18,31 +18,18 @@
 .sosmed a,
 .footer li a,
 .footer-bottom a,
+.btn-more,
 .card-soft,
 .list-item,
-.dropdown-trigger,
 .back-btn,
 .btn-signin,
 .login-actions a {
     transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
 }
 
-/* --------------------------------------------------------------------------
-   DROPDOWN (Intra- & Ekstra-kulikuler)
-   -------------------------------------------------------------------------- */
-/* "+" -> "-" */
-.dropdown-icon::after {
-    transition: transform 0.3s ease;
-}
-
-/* Closing: height first, visibility flips at the end (delay = duration) */
-.dropdown-panel {
-    transition: grid-template-rows 0.4s ease, visibility 0s linear 0.4s;
-}
-
-/* Opening: visibility flips at once so the height animation shows */
-.dropdown-panel.is-open {
-    transition: grid-template-rows 0.4s ease, visibility 0s linear 0s;
+/* Chevron on "Selengkapnya" (profil manajemen) */
+.btn-more i {
+    transition: transform 0.2s ease;
 }
 
 /* --------------------------------------------------------------------------
@@ -126,6 +113,10 @@
         rotateX(calc((1 - var(--seq, 1)) * -90deg));    /* edge-on (-90deg) to flat (0) */
     backface-visibility: hidden;
 }
+/* Horizontal variant (Program Sekolah: Ko-kulikuler enters from the right) */
+[data-seq].seq-x {
+    transform: translateX(calc((1 - var(--seq, 1)) * var(--seq-dist, 0px)));
+}
 
 /* Fasilitas carousel: right to left. JS sets --marquee-shift (one set width)
    and --marquee-duration. Pauses on hover and keyboard focus. */
@@ -181,79 +172,58 @@
 }
 
 /* --------------------------------------------------------------------------
-   PROFIL MANAJEMEN (pages/before/profil-manajemen.html)
+   PROGRAM SEKOLAH (pages/before/program-sekolah.html)
+   Hero zoom + reveal: opacity/transform are driven every frame by
+   js/animation.js (initHeroZoom), so no transition on those (same as
+   [data-seq] above). Compact -> full, flip and the shared pop-up do
+   transition, driven by a class instead of a continuous value.
    -------------------------------------------------------------------------- */
-/* Hero: zoom + reveal follow the scroll (js/animation.js writes --hero-p and
-   --hero-r, 0 to 1). The short ease smooths mouse-wheel steps. */
-.pm-hero__bg {
-    transform: scale(calc(1 + var(--hero-p, 0) * 0.1));
-    transition: transform 0.2s ease-out;
+.keahlian-card {
+    transition: height 0.5s ease;
 }
-.pm-hero__inner {
-    transform: scale(calc(1 + var(--hero-p, 0) * 0.04));
-    transition: transform 0.2s ease-out;
+.keahlian-card__flipper {
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
-.pm-hero__reveal {
-    opacity: var(--hero-r, 0);
-    transform: translateY(calc((1 - var(--hero-r, 0)) * 1.25rem));
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+.keahlian-card__abbr {
+    transition: opacity 0.35s ease;
 }
-
-/* Groups slide in from the side: js sets --seq, --seq-dist (px) and --seq-dir (1 = from the right, -1 = from the left) */
-[data-seq-from] {
-    opacity: var(--seq, 1);
-    transform: translateX(calc((1 - var(--seq, 1)) * var(--seq-dist, 0px) * var(--seq-dir, 1)));
+.kelas-card,
+.ekstra-card {
+    transition: height 0.5s ease, transform 0.2s ease;
 }
-
-/* Photo + button hover */
-.pm-card,
-.pm-more {
-    transition: transform 0.2s ease;
+.kelas-card__label,
+.ekstra-card__label {
+    transition: opacity 0.35s ease;
 }
-.pm-card:hover,
-.pm-card:focus-visible {
-    transform: translateY(-4px);
+/* Ko-kulikuler rows: fade in once the panel is fully in view */
+.koku-list {
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
-.pm-more:hover,
-.pm-more:focus-visible {
-    transform: scale(1.05);
+/* Shared pop-up: fade in, box rises. Visibility flips at the end of the
+   fade out (delay = duration), same pattern as the dash pop-ups. */
+.card-modal {
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
 }
-.pm-pop__close {
-    transition: background-color 0.2s ease;
+.card-modal.is-open {
+    transition: opacity 0.25s ease, visibility 0s linear 0s;
+}
+.card-modal__box {
+    transition: transform 0.25s ease;
 }
 
-/* Pop-ups fade in (same keyframes as the Beranda photo pop-up) */
-.pm-dialog[open] {
-    animation: lightbox-in 0.25s ease;
-}
-
-/* Reduced motion: no pinned zoom (hero shows the zoomed state), no slide */
 @media (prefers-reduced-motion: reduce) {
-    .pm-hero {
-        height: auto;
-    }
-    .pm-hero__pin {
-        position: relative;
-    }
-    .pm-hero__bg,
-    .pm-hero__inner {
-        transform: none;
-    }
-    .pm-hero__reveal {
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-    }
-    [data-seq-from] {
-        opacity: 1;
-        transform: none;
-    }
-    .pm-dialog[open] {
-        animation: none;
-    }
-    .pm-card,
-    .pm-more {
-        transition-duration: 0.01ms;
+    .keahlian-card,
+    .keahlian-card__flipper,
+    .keahlian-card__abbr,
+    .kelas-card,
+    .kelas-card__label,
+    .ekstra-card,
+    .ekstra-card__label,
+    .koku-list,
+    .card-modal,
+    .card-modal__box {
+        transition-duration: 0.01ms !important;
+        transition-delay: 0s !important;
     }
 }
 
@@ -362,12 +332,10 @@
     .sosmed a,
     .footer li a,
     .footer-bottom a,
+    .btn-more,
+    .btn-more i,
     .card-soft,
     .list-item,
-    .dropdown-trigger,
-    .dropdown-icon::after,
-    .dropdown-panel,
-    .dropdown-panel.is-open,
     .back-btn,
     .btn-signin,
     .login-actions a {

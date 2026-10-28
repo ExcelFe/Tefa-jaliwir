@@ -2,15 +2,15 @@
 
 Plain HTML, CSS and JavaScript. No frameworks, no build step. Rules: [`rules.md`](./rules.md). Update this README with every code change.
 
-**Last updated: 2026-10-28**
+**Last updated: 2026-10-29**
 
 ## Pages and links
 
 | Page | Path | Notes |
 |------|------|-------|
 | Beranda | `index.html` | Full-height hero, gradient transition, naga main content (6 cards, fasilitas carousel, 3D cards) |
-| Profil Manajemen | `pages/before/profil-manajemen.html` | Pinned zoom hero (2 states), 4 colored groups (photos only), photo + list pop-ups |
-| Program Sekolah | `pages/before/program-sekolah.html` | Warm theme, dropdown tabs |
+| Profil Manajemen | `pages/before/profil-manajemen.html` | 4 groups, "Selengkapnya" buttons |
+| Program Sekolah | `pages/before/program-sekolah.html` | Warm theme, hero zoom, flip cards, pop-ups |
 | Login | `pages/login.html` | Warm theme, logo left / form right, no backend |
 | Admin: Status Guru | `pages/after/admin/admin-status.html` | Teacher status list, placeholders |
 | Admin: Pilih Guru Piket | `pages/after/admin/admin-piket.html` | Today's guru piket, log, "Pilih Guru Piket" pop-up |
@@ -70,22 +70,30 @@ All scripts are in `<head>` with `defer`.
 | File | Used on | Does |
 |------|---------|------|
 | `main.js` | Every page | Hamburger menu, missing-image fallback |
-| `program-sekolah.js` | Program Sekolah | Dropdown tabs, one open per group |
-| `profil-manajemen.js` | Profil Manajemen | Pop-ups: all photos of Guru/Staff, one person (photo + description) |
+| `program-sekolah.js` | Program Sekolah | Flip cards (Program Keahlian), pop-up lists (Intra-/Ekstra-kulikuler) |
+| `profil-manajemen.js` | Profil Manajemen | "Selengkapnya" toggle |
 | `login.js` | Login | Back button |
 | `dashboard.js` | `pages/after/*` | Pop-up open/close |
 | `main.js` (dashboard part) | `guru/*`, `siswa/*`, `guru-piket/*`, `admin/*` | Theme switch, sidebar, settings menu (Learn More click on touch/phone), pop-ups |
 | `guru-absen-siswa.js` | Absen Siswa, Absen Guru (piket) | Hadir / Tidak Hadir checkboxes |
 | `admin-piket.js` | Admin Pilih Guru Piket | Today's date, placeholder code, copy button |
-| `animation.js` | Home + Profil (all pages load it) | Scroll-sequence (`--seq`) for `[data-seq]`: flip (Home cards), slide up + fade (3D cards), slide from the side (`data-seq-from`, Profil groups); hero zoom (`--hero-p`, `--hero-r`, Profil) |
+| `animation.js` | Home + Program Sekolah (all pages load it) | Scroll-sequence (`--seq`) for `[data-seq]` cards: flip (top + bottom 1st cards), slide + fade (3D cards); hero zoom, compact/full reveal grids, Ko-kulikuler reveal (Program Sekolah) |
 | `cool-cards.js` | Home | 3D cards: only one at the center |
 | `main.js` (home part) | Home | Halaman dropdown, floating navbar, fasilitas carousel + pop-up |
 
 ## Program Sekolah
 
-Starts with a page hero (same `.page-hero` as Profil Manajemen). Each block: headline first, content below. Tabs closed on load; list opens under the tab row. Intra/Ko/Ekstra tabs and lists fill the full container width.
+Hero (`.hero-pin`, reuses `.home-hero`): default = headline only; scrolling pins + zooms the photo a touch, reveals sub-text + CTA (`--hero-progress`, `initHeroZoom`), then releases into normal scroll. Reduced motion: no pin, reveal shown at once.
 
-**Program Keahlian:** 2 x 2 grid (1 column on phones). Each card has 3 areas (CSS grid areas, no extra HTML): logo left (full height), headline top right, body text bottom right. Cards use abbreviation placeholders (TJKT, PPLG, DKV, BD); swap the `<span>` for an `<img>` when logos exist.
+Each block: headline first, content below (`[data-seq]`; Ko-kulikuler slides in from the right, `.seq-x`).
+
+**Program Keahlian:** 4 flip cards (PPLG, DKV, BD, TJKT; color per card, `--keahlian-*`). `[data-reveal]` grid: compact on enter, full (label shown) once scrolled further (`initRevealGrids`). Click flips the card (3D, `rotateY`); click the flipped card opens the enlarged pop-up.
+
+**Intra-/Ekstra-kulikuler:** same compact/full cards (3 classes / 4 categories). Click opens the shared pop-up (`#card-modal`) with the subject list, cloned from a `<template>` in the page.
+
+**Ko-kulikuler:** static panel (`.koku-panel`), enters from the right. Rows fade in only once the panel is fully in view (`initKokuReveal`).
+
+**Shared pop-up:** `#card-modal`, closes on the X, Escape, or an outside click (also un-flips Program Keahlian cards). Mobile: box capped at 80vh (never full viewport height).
 
 ## Login
 
@@ -97,20 +105,19 @@ Card = 2 columns (logo + school name | back button, headline, form). One column 
 |-------|---------|
 | >= 1025px | Full navbar (menu centred) |
 | <= 1024px | Hamburger menu |
-| >= 600px | Program Keahlian 2 x 2 |
+| >= 600px | Program Keahlian / Ekstra-Kulikuler: 2 x 2 |
+| >= 480px | Intra-Kulikuler: 3 columns |
 | <= 768px | Login stacks; hero centred |
-| <= 600px | Program Keahlian 1 column; ekstra tabs 2 x 2 |
-| <= 480px | Compact tabs |
-| <= 360px | Ekstra tabs 1 per row |
+| <= 600px | Program Keahlian / Ekstra-Kulikuler: 1 column; pop-up box max-height 80vh |
+| <= 480px | Intra-Kulikuler: 1 column |
 
 Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no console errors.
 
 ## Editing content
 
-- **Program card:** copy an `article.program-card`, new `id`, add a footer link.
-- **Tab:** add `button.dropdown-trigger` + `.dropdown-panel` (`aria-controls` = panel `id`), set `--trigger-cols` modifier.
-- **Person (Profil Manajemen):** copy one `li.pm-person` in its group list. Photo = `img` src, description = `.pm-desc`. Guru + Staff show the first 10; the pop-up shows all. Photos: `media/profil/`.
-- **Group colors (Profil Manajemen):** `--pm-red|brown|green` and `--home-band` (navy) in `main.css`; strips are the band color mixed with white.
+- **Keahlian card:** copy a `.keahlian-card` (color modifier `--pplg|dkv|bd|tjkt`), new `id`, front abbreviation + back title/text.
+- **Intra-/Ekstra card:** copy a `.kelas-card`/`.ekstra-card` + its `<template>` (subject list).
+- **Person card:** copy an `article.person`; photos go in `media/<group>/<group>-N.jpg`.
 - **Hero photo:** `--hero-img` in `main.css`.
 - **Fasilitas slide:** copy one `button.fasilitas-slide` in `index.html` (copies for the loop are made by JS).
 - **Home card colors:** `--card-red|blue|green|orange|white` in `main.css`.
@@ -125,14 +132,13 @@ Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no con
 - Unused after the Beranda rebuild: `.section`, `.icon-circle`, `.ratio-1610` (still defined in `main.css`).
 - Login: no backend; "Forgot Password?" has no page.
 - Dashboards: unstyled backend templates; `/admin/...` and `/guru/...` routes need the backend.
-- Existing borders kept on some Home elements (hero tags, highlight card, fasilitas). New and restyled parts (incl. Profil Manajemen) have none.
-- Profil Manajemen: 3 people have no photo file yet (Sahat Parulian Verri Tampubolon, Muchamad Bagaskara, Putu Suardita); a grey slot shows. Guru list repeats the Manajemen + Kaprog people (kept from the old page, 32 photos).
+- Existing borders kept on Home/Profil elements (hero tags, highlight card, fasilitas, person cards, "Selengkapnya"). New and restyled parts have none.
 
 ## Rules check
 
 | Rule | Status |
 |------|--------|
-| README updated | Yes |
+| Changelog updated | Yes |
 | JS in `<head>` with `defer` | Yes, all pages (inline scripts moved out) |
 | CSS in `main.css`, transitions in `animation.css` | Yes |
 | Logic in `main.js` + per-page files | Yes |
@@ -143,20 +149,17 @@ Checked in Chromium at 1440, 1100, 820, 390, 320px: no horizontal scroll, no con
 | Hamburger on tablet/phone | Yes on public pages (<= 1024px). Teacher pages: maximize icon (task override) |
 | No generated icons/images | Yes |
 
-## Changelog
-
-### 2026-10-28 - Profil Manajemen rebuild (codebase_22)
-- `profil-manajemen.html` main rebuilt (navbar + footer markup unchanged; navbar gets `.navbar--float`, same as Beranda). Old `.person` cards, "Selengkapnya" and group titles removed (old CSS removed, also `.btn-more` in `animation.css`).
-- Hero: full screen, 2 states. Default = glass headline only. Scrolling pins the hero and zooms the photo a tiny bit (`--hero-p`); then the H3 + Login + Halaman fade in (zoomed state), then the page scrolls on. `js/animation.js` `initHeroZoom`, styles in `animation.css`. Reduced motion / no JS: no pin, zoomed state shown.
-- Top transition: reuses `.home-transition` (hero end color to white); navbar shows after 50% of it (same sentinel as Beranda).
-- Groups: Manajemen (red, 5), Kaprog (brown, 4), Guru (navy, shows 10), Staff (green, shows 10). Full-width tinted strips + colored band, photos capped by `.container`. 5 per row (tablet 5, phone 3, 2 under 360px). Photos only, no descriptions. Manajemen + Guru slide in from the right, Kaprog + Staff from the left (`data-seq-from`, translate X, scroll-sequence).
-- "Cek Profil Guru" / "Cek Profil Staff": pop-up with all photos (32 / 13), 5 columns (3 on phones), rows grow and scroll, "Tutup Profil" at the bottom. Colors follow the group.
-- Click a photo (page or list pop-up): pop-up with photo left, description right (same text as before). `<dialog>`; Escape closes the top one only.
-- Bottom transition: empty gradient (white to footer color), footer right under it.
-- New: `--pm-red|brown|green`, `.pm-*` in `main.css` section 7; `animation.js`: sideways slide + hero zoom; `profil-manajemen.js` rewritten.
-- Source zip was codebase_20, so Program Sekolah is the codebase_20 version.
-- Checked in Chromium (1440, 820, 390, 320px): no horizontal scroll, no console errors, both pop-ups, reduced motion and no-JS tested.
-
+## Changelog
+
+### 2026-10-29 - Program Sekolah rebuild (codebase_22)
+- Hero: page hero replaced with a zoom hero (`.hero-pin`, reuses `.home-hero`). Default: headline only. Scroll pins + zooms the photo a touch, reveals sub-text + CTA (`initHeroZoom`, `--hero-progress`), releases into normal scroll. Reduced motion / no JS: shown at once, no pin.
+- Transition top/bottom: empty gradient containers (hero color to white; white to footer color), same pattern as Beranda.
+- Program Keahlian: dropdown removed; 4 flip cards (PPLG, DKV, BD, TJKT), reordered to match the reference, own color each. Compact on enter, full (label shown) further down (`initRevealGrids`, `[data-reveal]`). Click flips the card (3D); click again opens the enlarged pop-up.
+- Intra-/Ekstra-kulikuler: dropdown tabs removed; same compact/full cards. Click opens the shared pop-up with the subject list (`<template>`, existing data unchanged).
+- Ko-kulikuler: unchanged data, now a teal panel that slides in from the right (`.seq-x`); rows fade in only once fully in view (`initKokuReveal`).
+- Shared pop-up (`#card-modal`): closes on X / Escape / outside click; box capped at 85vh (80vh on phones).
+- Removed now-unused dropdown CSS/classes (`.dropdown-trigger`, `.dropdown-panel`, etc.) and `.program-card`/`.program-grid`.
+
 ### 2026-10-26 - Beranda changes (codebase_20)
 - Headline font: Anton to Montserrat Bold. `@import` + `--font-heading` in `main.css`, headings `font-weight: 700`. Applies to every page that uses `--font-heading` (checked: no overflow on Beranda, Profil, Program, Login, dashboards at 1280 and 390px). Hero headline resized (`clamp(1.9rem, 6.4vw, 5.5rem)`, no line wrap) because Montserrat is wider.
 - Top cards + bottom 1st container: fade replaced by a card flip (rotate X, `animation.css`); slide up (translate Y) kept. 3D cards keep slide + fade.

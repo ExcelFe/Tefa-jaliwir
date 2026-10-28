@@ -44,6 +44,15 @@
     --warm-muted: color-mix(in srgb, var(--warm-ink) 78%, var(--warm-50));
     --warm-rgb: 120, 90, 40;            /* warm shadow color */
 
+    /* PROGRAM KEAHLIAN CARD COLORS (Program Sekolah) */
+    --keahlian-pplg: #9a2b2b;
+    --keahlian-dkv: #1f6f8b;
+    --keahlian-bd: #1f8f5f;
+    --keahlian-tjkt: #d98c2a;
+
+    /* KOKULIKULER / INTRA / EKSTRA TEAL (Program Sekolah) */
+    --koku-teal: #159aa8;
+
     /* SOFT BALANCE PALETTE (After-Login Dashboards: admin, guru, guru-piket, siswa) */
     --sb-ivory: #f0efea;
     --sb-sky: #d3dbf0;
@@ -93,11 +102,6 @@
     --card-green: #50d254;
     --card-orange: #e4ac34;
     --card-white: #eeefef;
-
-    /* PROFIL MANAJEMEN (band colors; navy = --home-band) */
-    --pm-red: #961e20;
-    --pm-brown: #986016;
-    --pm-green: #2c5845;
 }
 
 
@@ -596,8 +600,7 @@ select {
     color: var(--white);
     background: var(--hero-end);
 }
-.home-hero::before,
-.pm-hero__bg {                          /* photo + color layers (clipped to the hero) */
+.home-hero::before {                    /* photo + color layers (clipped to the hero) */
     content: "";
     position: absolute;
     inset: 0;
@@ -779,8 +782,7 @@ select {
     background: url("../media/naga-basuki.png") center / contain no-repeat;
     pointer-events: none;
 }
-.home + .footer,
-.pm + .footer {                         /* gradient flows straight into the footer */
+.home + .footer {                       /* gradient flows straight into the footer */
     margin-top: 0;
 }
 
@@ -1098,316 +1100,173 @@ body.has-lightbox {
 
 /* ==========================================================================
    7. PROFIL MANAJEMEN  (pages/before/profil-manajemen.html)
-   Order: hero (2 states) | groups | bottom transition | pop-ups
-   Navbar, top transition, hero buttons and pills are shared with Home (section 6).
    ========================================================================== */
-
-/* ---------- HERO ----------
-   .pm-hero = tall scroll track, .pm-hero__pin stays on screen while it scrolls.
-   js/animation.js writes --hero-p (zoom) and --hero-r (reveal), styles in animation.css. */
-.pm-hero {
-    --hero-run: 90svh;                  /* scroll distance spent on the zoom */
-    position: relative;
-    z-index: 2;                         /* dropdown menu stays above the transition */
-    height: calc(100svh + var(--hero-run));
-    color: var(--white);
-    background: var(--hero-end);
-}
-.pm-hero__pin {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    height: 100svh;
-    overflow-x: clip;                   /* the zoomed headline never adds a horizontal scroll */
-}
-.pm-hero__bgwrap {                      /* clips the zoomed photo */
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-}
-.pm-hero__bg {                          /* photo + gradient: shared rule with .home-hero::before */
-    position: absolute;
-    inset: 0;
-}
-.pm-hero__inner {
-    position: relative;
-    display: grid;
-    grid-template-rows: 1fr auto 1fr;   /* headline stays centred in both states */
-    justify-items: center;
-    height: 100%;
-    padding: var(--space-5) var(--gutter);
-    text-align: center;
-}
-.pm-hero__title {
-    grid-row: 2;
-    max-width: 100%;
-    padding: 0.3em 0.75em;
-    font-size: clamp(1.75rem, 6vw, 4.5rem);
-    line-height: 1.15;
-    text-transform: uppercase;
-    text-wrap: balance;
-    text-shadow: 0 4px 24px rgba(10, 10, 40, 0.35);
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(10px);
-    border-radius: var(--radius-xl);
-}
-.pm-hero__reveal {                      /* H3 + Login + Halaman: zoomed state only */
-    grid-row: 3;
-    align-self: start;
-    padding-top: var(--space-4);
-    visibility: hidden;                 /* default state: not clickable, not focusable */
-}
-.pm-hero[data-hero-state="zoomed"] .pm-hero__reveal {
-    visibility: visible;
-}
-.pm-hero__sub {
-    font-family: var(--font-body);
-    font-size: clamp(1rem, 2.2vw, 1.375rem);
-    font-weight: 600;
-    letter-spacing: 0;
-    line-height: 1.4;
-    text-shadow: 0 2px 12px rgba(10, 10, 40, 0.4);
-}
-.pm-hero__reveal .hero-cta {
-    margin-top: var(--space-4);
-}
-
-/* ---------- GROUPS ----------
-   Full-width frame: tinted strip, colored band with photos, tinted strip
-   (the bottom strip holds the "Cek Profil" button). Photos are capped by .container. */
-[data-group="red"]   { --pm-band: var(--pm-red); }
-[data-group="brown"] { --pm-band: var(--pm-brown); }
-[data-group="navy"]  { --pm-band: var(--home-band); --pm-tint-pct: 35%; }
-[data-group="green"] { --pm-band: var(--pm-green); }
-
-.pm-content {
+.profil-wrap {
     display: flex;
     flex-direction: column;
-    gap: var(--space-6);
-    padding-block: var(--space-5);
+    gap: 56px;
+    padding-block: 48px;
+}
+.group-title {
+    padding-left: 12px;
+    font-size: 1.75rem;
+    color: var(--ink);
+    border-left: 4px solid var(--primary);
+}
+.person-grid {
+    display: grid;
+    gap: 16px;
+    margin-top: 20px;
+}
+.person-grid.extra {
+    margin-top: 16px;
+}
+.person {
+    display: flex;
+    gap: 16px;
+    padding: 12px;
     background: var(--white);
-    margin-top: 20vh;
-    margin-bottom: 20vh;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-.pm-group {
-    --cols: 5;                          /* photos per row */
-    --pm-gap: clamp(0.75rem, 3.4vw, 3rem);
-    --pm-row-gap: clamp(0.75rem, 2vw, 1.75rem);
-    overflow-x: clip;                   /* the side slide never adds a horizontal scroll */
-    padding-top: clamp(2.2rem, 2.8vw, 3.2rem);
-    margin-top: 40px;
-    background: color-mix(in srgb, var(--pm-band) var(--pm-tint-pct, 41%), var(--white));
+.person .img-slot {
+    width: 112px;
+    flex-shrink: 0;
+    border-radius: 12px;
 }
-.pm-group__band {
-    padding-block: clamp(2rem, 3.8vw, 3.5rem);
-    background: var(--pm-band);
+.person-info {
+    min-width: 0;
+    padding: 4px 0;
 }
-.pm-group__foot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: clamp(2.75rem, 3.4vw, 3.5rem);
-}
-.pm-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;            /* a short last row stays centred */
-    gap: var(--pm-row-gap) var(--pm-gap);
-}
-.pm-grid .pm-person {
-    width: calc((100% - (var(--cols) - 1) * var(--pm-gap)) / var(--cols));
-}
-/* Guru + Staff show the first 10 photos, the pop-up shows all */
-.pm-grid--preview > .pm-person:nth-child(n + 11) {
-    display: none;
-}
-.pm-card {
-    display: block;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    background: none;
-    border-radius: var(--radius-md);
-}
-.pm-card:focus-visible {
-    outline-color: var(--white);        /* blue ring is hard to see on the colored bands */
-}
-.pm-card .img-slot {
-    aspect-ratio: 2 / 3;
-    border-radius: inherit;
-    background: #d9d9d9;
-}
-.pm-card .img-slot > img,
-.pm-pop__pic > img {
-    object-position: 50% 20%;           /* faces are in the upper part */
-}
-.pm-more {                              /* "Cek Profil Guru" / "Tutup Profil" */
-    padding: 0.5rem 1.5rem;
-    font-family: var(--font-heading);
-    font-size: clamp(1rem, 1.6vw, 1.375rem);
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    color: var(--white);
-    background: none;
-    border: 0;
-    text-shadow: 0 1px 8px color-mix(in srgb, var(--pm-band) 70%, transparent);   /* keeps white readable on the light strip */
-}
-
-@media (max-width: 767px) {
-    .pm-group { --cols: 3; }
-    .pm-group[data-group="brown"] { --cols: 2; }
-}
-@media (max-width: 359px) {
-    .pm-group { --cols: 2; }
-}
-
-/* ---------- BOTTOM TRANSITION (page color -> footer color) ---------- */
-.pm-transition-bot {
-    height: clamp(20rem, 30vw, 25rem);
-    background: linear-gradient(180deg,
-        var(--white) 0%,
-        #cbccd0 16%,
-        #979aa1 33%,
-        #70747f 50%,
-        #505663 66%,
-        #303747 83%,
-        var(--footer) 100%);
-}
-
-/* ---------- POP-UPS (<dialog>, js/profil-manajemen.js) ---------- */
-.pm-dialog {
-    max-width: none;
-    max-height: none;
-    margin: auto;
-    padding: 0;
-    overflow: visible;
-    color: var(--ink);
-    background: transparent;
-    border: 0;
-}
-.pm-dialog::backdrop {
-    background: rgba(15, 23, 42, 0.72);
-    backdrop-filter: blur(4px);
-}
-
-/* All photos of a group: tinted frame, colored panel (5 columns, rows grow), close text */
-.pm-list {
-    --pm-row-gap: clamp(0.75rem, 2vw, 1.5rem);
-    width: min(94vw, 62rem);
-}
-.pm-list__frame {
-    display: flex;
-    flex-direction: column;
-    max-height: min(92vh, 52rem);
-    padding: clamp(0.75rem, 1.5vw, 1.25rem) clamp(0.75rem, 1.5vw, 1.25rem) 0;
-    background: color-mix(in srgb, var(--pm-band) var(--pm-tint-pct, 41%), var(--white));
-    border-radius: var(--radius-xl);
-}
-.pm-list__panel {
-    flex: 1 1 auto;
-    min-height: 0;                      /* lets the panel scroll */
-    padding: clamp(1rem, 3vw, 2rem);
-    overflow-y: auto;
-    background: var(--pm-band);
-    border-radius: var(--radius-lg);
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
-}
-.pm-list__panel:focus-visible {
-    outline-color: var(--white);        /* scroll area keeps keyboard scrolling, ring stays neutral */
-}
-.pm-grid--pop {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: var(--pm-row-gap) clamp(0.5rem, 2.5vw, 2rem);
-}
-.pm-grid--pop .pm-person {
-    width: auto;
-}
-
-/* One person: photo left, description right */
-.pm-person-dialog {
-    width: min(92vw, 46rem);
-}
-.pm-pop {
-    display: grid;
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-    max-height: 92vh;
-    overflow-y: auto;
-    background: color-mix(in srgb, var(--pm-band) 12%, var(--white));
-    border-radius: var(--radius-lg);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
-}
-.pm-pop__pic {
-    min-height: 100%;
-    aspect-ratio: 3 / 4;
-    border-radius: 0;
-    background: #ececec;
-}
-.pm-pop__body {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 3rem 1.75rem 1.75rem;
-}
-.pm-pop__close {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    font-size: 1.375rem;
-    color: var(--ink);
-    background: none;
-    border: 0;
-    border-radius: 50%;
-}
-.pm-pop__close:hover {
-    background: rgba(15, 23, 42, 0.1);
-}
-.pm-pop__desc h3 {
-    font-size: 1.375rem;
-    line-height: 1.25;
+.person-info h3 {
+    font-size: 1.25rem;
     color: var(--ink);
 }
-.pm-pop__desc p {
-    display: flex;
-    gap: 0.625rem;
-    margin-top: 0.5rem;
-    font-size: 0.9375rem;
-    line-height: 1.45;
+.person-info p {
+    margin-top: 4px;
+    font-size: 0.875rem;
     color: var(--text);
 }
-.pm-pop__desc i {
-    flex-shrink: 0;
-    width: 1rem;
-    margin-top: 0.2rem;
-    color: var(--pm-band);
+.person-info i {
+    width: 16px;
+    margin-right: 4px;
+    color: var(--primary);
+}
+.more-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+.btn-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: transparent;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-pill);
+}
+.btn-more:hover {
+    color: var(--white);
+    background: var(--primary);
+}
+.btn-more i {
+    font-size: 0.75rem;
+}
+.btn-more[aria-expanded="true"] i {
+    transform: rotate(180deg);
 }
 
-@media (max-width: 639px) {
-    .pm-grid--pop { grid-template-columns: repeat(3, 1fr); }
-    .pm-person-dialog { width: min(92vw, 24rem); }
-    .pm-pop {
-        position: relative;             /* close button sits on the photo */
-        grid-template-columns: 1fr;
+@media (min-width: 640px) {
+    .person .img-slot { width: 128px; }
+}
+@media (min-width: 768px) {
+    .person-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .profil-wrap section {
+        padding-block: 15px;
     }
-    .pm-pop__body { position: static; }
-    .pm-pop__close { background: rgba(255, 255, 255, 0.85); }
-    .pm-pop__pic {
-        min-height: 0;
-        aspect-ratio: 1 / 1;
-    }
-    .pm-pop__body { padding: 1.5rem 1.25rem 1.5rem; }
 }
 
 
 /* ==========================================================================
    8. PROGRAM SEKOLAH  (pages/before/program-sekolah.html)
-   Each block = headline first, content below it.
+   Order: hero (zoom-in on scroll) | transition top | 4 blocks | transition
+   bottom. Each block = headline first, content below it.
    ========================================================================== */
+
+/* ---------- HERO: default state (headline only) -> zoomed state (sub-text +
+   CTA) as the user scrolls. Reuses .home-hero (section 6); see js/animation.js
+   initHeroZoom for --hero-progress (0 to 1). ---------- */
+.hero-pin {
+    --hero-extra: clamp(14rem, 45svh, 26rem);       /* extra scroll while pinned */
+    position: relative;
+    height: calc(100svh + var(--hero-extra));
+}
+.hero-pin.is-static {                               /* reduced motion: no pin */
+    height: 100svh;
+}
+.hero-sticky {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+}
+.hero-pin.is-static .hero-sticky {
+    position: relative;
+}
+.program-hero::before {                             /* zooms the photo a touch */
+    transform: scale(calc(1 + var(--hero-progress, 0) * 0.045));
+}
+.hero-chip {
+    padding: var(--space-3) var(--space-5);
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 28px rgba(10, 10, 40, 0.22);
+}
+.program-hero {
+    padding-top: var(--nav-h);                      /* clears the fixed navbar (not floating here) */
+}
+.program-hero h1 {
+    margin-top: 0;
+    font-size: clamp(2rem, 6vw, 4rem);
+}
+/* Sub-text + CTA: hidden by default, fade/rise in with --hero-progress */
+.hero-reveal {
+    opacity: var(--hero-progress, 0);
+    transform: translateY(calc((1 - var(--hero-progress, 0)) * 1rem));
+    visibility: hidden;
+}
+.hero-pin.is-active .hero-reveal {
+    visibility: visible;
+}
+.program-hero .hero-sub {
+    margin-top: var(--space-4);
+}
+
+/* ---------- TRANSITIONS: empty containers, gradient only ---------- */
+.program-transition-top {                           /* hero color -> white */
+    height: clamp(14rem, 46svh, 24rem);
+    background: linear-gradient(180deg,
+        var(--hero-end) 0%,
+        #4c4d64 42%,
+        #d6d6dd 80%,
+        var(--white) 100%);
+}
+.program-transition-bot {                           /* white -> footer color */
+    height: clamp(9rem, 20svh, 16rem);
+    background: linear-gradient(180deg, var(--white) 0%, var(--white) 12%, var(--footer) 94%);
+}
+.program-main + .footer {                           /* gradient flows straight into the footer */
+    margin-top: 0;
+}
+
 .program {
     display: flex;
     flex-direction: column;
@@ -1424,54 +1283,184 @@ body.has-lightbox {
     line-height: 1.02;
     color: var(--navy);
 }
-
-/* ---------- PROGRAM KEAHLIAN: card grid ---------- */
-.program-grid {
+/* ---------- PROGRAM KEAHLIAN: 4 flip cards (PPLG, DKV, BD, TJKT) ----------
+   Compact on enter ([data-reveal], js/animation.js initRevealGrids) -> full
+   once scrolled further (.is-full). Click flips the card; click the flipped
+   card to open the enlarged pop-up (.card-modal, js/program-sekolah.js). */
+.keahlian-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);      /* phones: 1 column */
-    gap: var(--space-4);
+    grid-template-columns: minmax(0, 1fr);          /* phones: 1 column */
+    gap: var(--space-3);
     margin-bottom: 4rem;
 }
-/* Card = 3 areas: media (left, full height) | title (top right) | text (bottom right) */
-.program-card {
-    display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-    grid-template-rows: auto 1fr;
-    grid-template-areas:
-        "media title"
-        "media text";
-    overflow: hidden;                   /* clips media to the rounded corners */
+.keahlian-card {
+    position: relative;
+    height: 6rem;                                   /* compact */
+    perspective: 1200px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
 }
-.program-card-media {
-    grid-area: media;
+.keahlian-grid.is-full .keahlian-card {
+    height: 11rem;                                  /* full */
+}
+.keahlian-card__flipper {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    border-radius: inherit;
+}
+.keahlian-card.is-flipped .keahlian-card__flipper {
+    transform: rotateY(180deg);
+}
+.keahlian-card__face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-4);
+    overflow: hidden;
+    color: var(--white);
+    background: var(--card-bg);
+    border-radius: inherit;
+    backface-visibility: hidden;
+}
+.keahlian-card__face--back {
+    transform: rotateY(180deg);
+}
+.keahlian-card__abbr {
+    font-family: var(--font-heading);
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    text-align: center;
+    letter-spacing: 0.06em;
+    opacity: 0;                                     /* hidden in compact view */
+}
+.keahlian-grid.is-full .keahlian-card__abbr {
+    opacity: 1;
+}
+.keahlian-card__face--back h3 {
+    font-size: 1.0625rem;
+    line-height: 1.25;
+}
+.keahlian-card__face--back p {
+    margin-top: 0.4rem;
+    font-size: 0.8125rem;
+    opacity: 0.9;
+}
+.keahlian-card__zoom {                              /* hints the pop-up on click */
+    position: absolute;
+    right: var(--space-2);
+    bottom: var(--space-2);
+    width: 18px;
+    height: 18px;
+    opacity: 0.85;
+    filter: brightness(0) invert(1);
+}
+.keahlian-card--pplg { --card-bg: var(--keahlian-pplg); }
+.keahlian-card--dkv  { --card-bg: var(--keahlian-dkv); }
+.keahlian-card--bd   { --card-bg: var(--keahlian-bd); }
+.keahlian-card--tjkt { --card-bg: var(--keahlian-tjkt); }
+
+/* ---------- INTRA-KULIKULER: 3 cards (10, 11, 12) ----------
+   Compact -> full, same as Program Keahlian. Click opens a pop-up with the
+   class' subject list (<template>, js/program-sekolah.js). ---------- */
+.kelas-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+}
+.kelas-card {
+    height: 6rem;
     display: grid;
     place-items: center;
-    min-height: 7rem;
-    color: var(--navy);
+    background: var(--koku-teal);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
 }
-.program-card-media span {              /* abbreviation placeholder */
+.kelas-grid.is-full .kelas-card {
+    height: 9rem;
+}
+.kelas-card:hover {
+    transform: translateY(-4px);
+}
+.kelas-card__label {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    line-height: 1;
-    letter-spacing: 0.06em;
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    color: var(--white);
+    opacity: 0;
 }
-.program-card-media img {               /* for the real program logo */
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-.program-card h3 {
-    grid-area: title;
-    padding: var(--space-4) var(--space-4) var(--space-1);
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
-}
-.program-card p {
-    grid-area: text;
-    padding: 0 var(--space-4) var(--space-4);
-    color: var(--warm-muted);
+.kelas-grid.is-full .kelas-card__label {
+    opacity: 1;
 }
 
-/* ---------- LIST ROWS (Intra, Ko, Ekstra) ---------- */
+/* ---------- KO-KULIKULER: static panel, enters from the right ----------
+   Rows fade in only once the panel is fully in view (js/animation.js
+   initKokuReveal, [data-koku-list]). ---------- */
+.koku-panel {
+    padding: var(--space-5) var(--gutter);
+    background: linear-gradient(165deg, var(--koku-teal), color-mix(in srgb, var(--koku-teal) 65%, var(--navy)));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
+}
+.koku-list {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 56rem;
+    margin-inline: auto;
+    opacity: 0;
+    transform: translateY(0.75rem);
+}
+.koku-list.is-shown {
+    opacity: 1;
+    transform: none;
+}
+.koku-row {
+    padding: 1rem 1.5rem;
+    font-size: clamp(0.95rem, 2vw, 1.25rem);
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: var(--radius-pill);
+}
+
+/* ---------- EKSTRA-KULIKULER: 4 cards (Olahraga, Kesenian, Teknologi, Akademik)
+   Same compact/full + pop-up pattern as Intra-Kulikuler. ---------- */
+.ekstra-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+}
+.ekstra-card {
+    height: 6rem;
+    display: grid;
+    place-items: center;
+    background: var(--koku-teal);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+}
+.ekstra-grid.is-full .ekstra-card {
+    height: 8rem;
+}
+.ekstra-card:hover {
+    transform: translateY(-4px);
+}
+.ekstra-card__label {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 2.6vw, 1.5rem);
+    letter-spacing: 0.04em;
+    color: var(--white);
+    opacity: 0;
+}
+.ekstra-grid.is-full .ekstra-card__label {
+    opacity: 1;
+}
+
+/* ---------- LIST ROWS (inside the Intra / Ekstra pop-up) ---------- */
 .list-stack {
     display: grid;
     gap: var(--space-1);
@@ -1490,105 +1479,91 @@ body.has-lightbox {
     font-weight: 500;
 }
 
-/* ---------- DROPDOWN GROUP ----------
-   Tabs in one row, the open list sits below them (pushes content down).
-   One panel open at a time (js/program-sekolah.js). */
-.dropdown-triggers {
-    display: grid;
-    grid-template-columns: repeat(var(--trigger-cols, 3), minmax(0, 1fr));
-    gap: var(--space-2);
+/* ---------- SHARED POP-UP (Program Keahlian enlarge, Intra / Ekstra lists)
+   Markup: #card-modal. Logic: js/program-sekolah.js. ---------- */
+body.has-card-modal {
+    overflow: hidden;
 }
-.dropdown-triggers--3 { --trigger-cols: 3; }
-.dropdown-triggers--4 { --trigger-cols: 4; }
-.dropdown-trigger {
+.card-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.6rem;
-    padding: 0.8rem 1rem;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--white);
-    background: var(--secondary);
-    border: 0;
-    border-radius: var(--radius-pill);
-}
-.dropdown-trigger:hover {
-    background: var(--primary);
-}
-.dropdown-trigger[aria-expanded="true"] {
-    color: var(--white);
-    background: var(--primary);
-}
-/* "+" drawn with CSS; becomes "-" when open */
-.dropdown-icon {
-    position: relative;
-    flex: none;
-    width: 14px;
-    height: 14px;
-}
-.dropdown-icon::before,
-.dropdown-icon::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    margin-top: -1px;
-    border-radius: 2px;
-    background: currentColor;
-}
-.dropdown-icon::after {
-    transform: rotate(90deg);
-}
-.dropdown-trigger[aria-expanded="true"] .dropdown-icon::after {
-    transform: rotate(0deg);
-}
-/* Panel: same 0fr -> 1fr height trick as the navbar panel */
-.dropdown-panel {
-    display: grid;
-    grid-template-rows: 0fr;
+    padding: var(--space-4);
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0;
     visibility: hidden;
 }
-.dropdown-panel.is-open {
-    grid-template-rows: 1fr;
+.card-modal.is-open {
+    opacity: 1;
     visibility: visible;
 }
-.dropdown-inner {
-    min-height: 0;
-    overflow: hidden;
+.card-modal__box {
+    position: relative;
+    width: min(100%, 32rem);
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: var(--space-5);
+    color: var(--warm-ink);
+    background: var(--white);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+    transform: translateY(0.75rem) scale(0.98);
 }
-.dropdown-inner > ul {
-    padding-top: var(--space-3);        /* inside the clipped box: a closed panel takes no space */
+.card-modal.is-open .card-modal__box {
+    transform: none;
+}
+.card-modal__close {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--text);
+    background: var(--primary-soft);
+    border: 0;
+    border-radius: 50%;
+}
+.card-modal__eyebrow {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--primary);
+}
+.card-modal__eyebrow:empty {
+    display: none;
+}
+.card-modal__title {
+    margin-top: 0.35rem;
+    padding-right: var(--space-5);                  /* room for the close button */
+    font-size: 1.5rem;
+    color: var(--navy);
+}
+.card-modal__body {
+    margin-top: var(--space-3);
+}
+.card-modal__body p {
+    color: var(--text);
 }
 
 /* 2 x 2 grid on tablet, laptop and PC */
 @media (min-width: 600px) {
-    .program-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .keahlian-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ekstra-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+@media (min-width: 480px) {
+    .kelas-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* Phones: smaller pop-up box, no need for the full viewport height */
 @media (max-width: 600px) {
-    .dropdown-triggers--4 { --trigger-cols: 2; }
+    .card-modal__box { max-height: 80vh; }
 }
-/* Phones: compact tabs so Kelas 10 / 11 / 12 stay on one row */
-@media (max-width: 480px) {
-    .dropdown-triggers { gap: var(--space-1); }
-    .dropdown-trigger {
-        gap: 0.4rem;
-        padding: 0.75rem 0.4rem;
-        font-size: 0.95rem;
-    }
-    .dropdown-icon {
-        width: 12px;
-        height: 12px;
-    }
-    .list-item { padding: 0.8rem 1rem; }
-}
-@media (max-width: 360px) {
-    .dropdown-triggers--3 .dropdown-icon { display: none; }
-    .dropdown-triggers--4 { --trigger-cols: 1; }
-}
-
 
 /* ==========================================================================
    9. LOGIN  (pages/login.html)

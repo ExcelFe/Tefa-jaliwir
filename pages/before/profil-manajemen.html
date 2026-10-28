@@ -11,12 +11,10 @@
     <script defer src="../../js/main.js"></script>
     <script defer src="../../js/profil-manajemen.js"></script>
     <script defer src="../../js/animation.js"></script>
-    <!-- No JS: show the navbar, the hero text and a normal (unpinned) hero -->
-    <noscript><style>.navbar--float { opacity: 1; visibility: visible; transform: none; } .pm-hero { height: auto; } .pm-hero__pin { position: relative; } .pm-hero__reveal { opacity: 1; visibility: visible; transform: none; }</style></noscript>
 </head>
 <body>
     <!-- NAVBAR: same block on every page (hamburger on tablet/phone, js/main.js) -->
-    <header class="navbar navbar--float">
+    <header class="navbar">
         <div class="container navbar-inner">
             <a href="../../index.html" class="brand">
                 <div class="img-slot logo-slot"><img src="../../media/logo.webp" alt="Logo SMK TI Bali Global Badung"></div>
@@ -38,443 +36,274 @@
         </div>
     </header>
 
-    <main class="pm">
-        <!-- HERO: 2 states. Default = headline only. Zoomed (scroll-sequence, js/animation.js) = + H3 and buttons.
-             Photo = --hero-img in css/main.css -->
-        <section class="pm-hero" data-hero-zoom aria-label="Profil Manajemen">
-            <div class="pm-hero__pin">
-                <div class="pm-hero__bgwrap" aria-hidden="true"><div class="pm-hero__bg"></div></div>
-                <!-- Decorative pills (hero-page.png corners). Delete this block to remove them -->
-                <span class="hero-pill hero-pill--red" aria-hidden="true"></span>
-                <span class="hero-pill hero-pill--green" aria-hidden="true"></span>
-                <span class="hero-pill hero-pill--blue" aria-hidden="true"></span>
-                <span class="hero-pill hero-pill--gold" aria-hidden="true"></span>
-
-                <div class="pm-hero__inner">
-                    <h1 class="pm-hero__title">Profil Manajemen</h1>
-                    <div class="pm-hero__reveal">
-                        <h3 class="pm-hero__sub">Bersama membangun generasi berdaya dan berkarakter</h3>
-                        <div class="hero-cta">
-                            <a href="../login.html" class="btn-hero btn-hero--primary">Login</a>
-                            <!-- Halaman dropdown: links every page before login (js/main.js initDropdowns) -->
-                            <div class="hero-dropdown" data-dropdown>
-                                <button type="button" class="btn-hero btn-hero--glass" aria-expanded="false" aria-controls="hero-menu" data-dropdown-toggle>
-                                    Halaman
-                                    <img class="hero-dropdown__icon" src="../../media/vector/dropdown.png" alt="" width="18" height="18">
-                                </button>
-                                <ul class="hero-dropdown__menu" id="hero-menu">
-                                    <li><a href="../../index.html">Beranda</a></li>
-                                    <li><a href="profil-manajemen.html" aria-current="page">Profil Manajemen</a></li>
-                                    <li><a href="program-sekolah.html">Program Sekolah</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>PROFIL <em>MANAJEMEN</em> SEKOLAH</h1>
             </div>
         </section>
+        <div class="container profil-wrap">
 
-        <!-- TRANSITION TOP: empty gradient (hero end color -> white).
-             Navbar shows after 50% of it (js/main.js initHomeNavbar) -->
-        <div class="home-transition" aria-hidden="true">
-            <span class="navbar-sentinel" data-navbar-sentinel></span>
+            <!-- ===== MANAJEMEN SEKOLAH ===== -->
+            <section id="manajemen">
+                <h2 class="group-title">Manajemen Sekolah</h2>
+                <!-- The first 4 cards always show. Copy/remove <article> blocks as needed -->
+                <div class="person-grid">
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/kepalasekolah.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Made Indra Aribawa, SH</h3><p><i class="fa-solid fa-book-open"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-book-open"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group"></i>Kepala Sekolah</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/wakakurikulum.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Gede Putu Agustyawan, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Sejarah Indonesia</p><p><i class="fa-solid fa-people-group"></i>Koordinator P5</p><p><i class="fa-solid fa-people-group"></i>Waka Kurikulum</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/wakasarpras.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Made Dwi Adnyana, SH</h3><p><i class="fa-solid fa-book-open"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-people-group"></i>Waka Sarana Prasarana</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/wakakesiswaan.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ida Ayu Cempaka Putri, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group"></i>Waka Kesiswaan</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/wakahumas.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ida Ayu Made Ari Widyawati, S.Pd.H</h3><p><i class="fa-solid fa-book-open"></i>Agama Hindu & Budi Pekerti</p><p><i class="fa-solid fa-people-group"></i>Waka Humas</p></div>
+                </article>
+                </div>
+            </section>
+
+            <!-- ===== KEPALA PROGRAM KEAHLIAN ===== -->
+            <section id="kaprog">
+                <h2 class="group-title">Kepala Program Keahlian</h2>
+                <div class="person-grid">
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/kaprog/kaprogpplg.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Putu Ade Pranata, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>KK PPLG</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan KKA</p><p><i class="fa-solid fa-people-group"></i>Kaprog PPLG</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/kaprog/kaprogdkv.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Bagas Alif Rizkianto, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>DPK PPLG & DPK BD</p><p><i class="fa-solid fa-book-open"></i>KK RPL</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan PPLG</p><p><i class="fa-solid fa-people-group"></i>Kaprog DKV</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/kaprog/kaprogtjkt.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gede Bagus Ardiyana Irawan, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>KK TKJ</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan TKJ</p><p><i class="fa-solid fa-people-group"></i>Kaprog TKJ</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/kaprog/kaprogbd.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>A.A Ngurah Putra Agung Amurvabhumi Yoga Cara, S.M</h3><p><i class="fa-solid fa-book-open"></i>KK BD</p><p><i class="fa-solid fa-book-open"></i>KIK</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan BD</p><p><i class="fa-solid fa-people-group"></i>Kaprog BD</p></div>
+                </article>
+                </div>
+            </section>
+
+            <!-- ===== GURU PENGAJAR ===== -->
+            <section id="guru">
+                <h2 class="group-title">Guru Pengajar</h2>
+                <!-- The first 4 cards always show. Copy/remove <article> blocks as needed -->
+                <div class="person-grid">
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/kepalasekolah.jpg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Made Indra Aribawa, SH</h3><p><i class="fa-solid fa-book-open"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-book-open"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group"></i>Kepala Sekolah</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/wakakurikulum.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Gede Putu Agustyawan, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Sejarah Indonesia</p><p><i class="fa-solid fa-people-group"></i>Koordinator P5</p><p><i class="fa-solid fa-people-group"></i>Waka Kurikulum</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/wakasarpras.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Made Dwi Adnyana, SH</h3><p><i class="fa-solid fa-book-open"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-people-group"></i>Waka Sarana Prasarana</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/wakakesiswaan.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ida Ayu Cempaka Putri, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group"></i>Waka Kesiswaan</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/manajemen/wakahumas.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ida Ayu Made Ari Widyawati, S.Pd.H</h3><p><i class="fa-solid fa-book-open"></i>Agama Hindu & Budi Pekerti</p><p><i class="fa-solid fa-people-group"></i>Waka Humas</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/kaprog/kaprogpplg.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Putu Ade Pranata, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>KK PPLG</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan KKA</p><p><i class="fa-solid fa-people-group"></i>Kaprog PPLG</p></div>
+                </article>
+                </div>
+                <!-- Extra cards: shown after "Selengkapnya" (js/profil-manajemen.js). Remove this block + its button if not needed -->
+                <div id="extra-guru" class="person-grid extra" hidden>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/kaprog/kaprogdkv.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Bagas Alif Rizkianto, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>DPK PPLG & DPK BD</p><p><i class="fa-solid fa-book-open"></i>KK RPL</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan PPLG</p><p><i class="fa-solid fa-people-group"></i>Kaprog DKV</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/kaprog/kaprogtjkt.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gede Bagus Ardiyana Irawan, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>KK TKJ</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan TKJ</p><p><i class="fa-solid fa-people-group"></i>Kaprog TKJ</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/kaprog/kaprogbd.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>A.A Ngurah Putra Agung Amurvabhumi Yoga Cara, S.M</h3><p><i class="fa-solid fa-book-open"></i>KK BD</p><p><i class="fa-solid fa-book-open"></i>KIK</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan BD</p><p><i class="fa-solid fa-people-group"></i>Kaprog BD</p></div>
+                </article>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/murniproduktif.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Nyoman Murni, S.Kom, M.Kom</h3><p><i class="fa-solid fa-book-open"></i>Informatika</p><p><i class="fa-solid fa-book-open"></i>DPK TKJ</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/wahyuproduktif.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gusti Putu Wahyu Armandha Kumara, S.Kom</h3><p><i class="fa-solid fa-book-open"></i>KK DKV & KK BD</p><p><i class="fa-solid fa-book-open"></i>DPK DKV</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan DKV</p>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/thessaproduktif.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Thessa Sahara Umami, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>KK DKV & KK TKj</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan DKV</p>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/assmarkom.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Dapa Putra</h3><p><i class="fa-solid fa-book-open"></i>DPK BD</p><p><i class="fa-solid fa-book-open"></i>KK BD</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan DKV</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/asslab.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Putu Raditya Wijaya</h3><p><i class="fa-solid fa-book-open"></i>Informatika</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p</div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/lalaipas.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Kadek Lala Mistariadi, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>IPAS</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan IPAS</p><p><i class="fa-solid fa-people-group"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p</div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/ditaipas.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Nyoman Dita Tri Pramida, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>IPAS</p><p><i class="fa-solid fa-book-open"></i>Matematika</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan IPAS</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/meirahindu.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Putu Meira Yanti, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Agama Hindu & Budi Pekerti</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/samsulislam.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Samsul Arifin, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Agama Islam & Budi Pekerti</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/yanpancasila.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Yan Anugrah Wisesa, S.Sos.H., M.Pd</h3><p><i class="fa-solid fa-book-open"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/candrabindo.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Luh Candra Dewi, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Bahasa Indonesia</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/bintabindo.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Binta Lestari Putry, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Bahasa Indonesia</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/sinthyabing.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Kadek Dwi Sintya Dewi, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Bahasa Inggris</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/oktiabing.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Gusti Ayu Oktianingsih, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Bahasa Inggris</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/imeldajapan.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Putu Ayu Imelda Sasiandari, S.S</h3><p><i class="fa-solid fa-book-open"></i>Bahasa Jepang</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/kantianimatik.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Wayan Kantiani, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Matematika</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/darmamatik.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gede Made Darma Wiguna, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Matematika</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/urusankesiswaan.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gede Bayu Mahendra Wijaya, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Matematika</p><p><i class="fa-solid fa-people-group"></i>Bimbingan Konseling</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/ratihpkwu.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gusti Ayu Ary Ratih, S.E, M.M</h3><p><i class="fa-solid fa-book-open"></i>KIK</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/ratnasenibudaya.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Putu Juli Ratna Dewi, S.Sn</h3><p><i class="fa-solid fa-book-open"></i>Seni Budaya</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/muliawanpenjas.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Wayan Muliawan, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Penjasorkes</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/" alt="Foto"></div>
+                    <div class="person-info"><h3>Sahat Parulian Verri Tampubolon, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Agama Kristen</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/produktif/" alt="Foto"></div>
+                    <div class="person-info"><h3>Muchamad Bagaskara</h3><p><i class="fa-solid fa-book-open"></i>KK DKV</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan DKV</p></div>
+                </article>
+                </div>
+                <div class="more-row">
+                    <button type="button" class="btn-more" data-toggle="extra-guru" aria-expanded="false"><span>Selengkapnya</span> <i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+            </section>
+
+            <!-- ===== STAF PEGAWAI ===== -->
+            <section id="staff">
+                <h2 class="group-title">Staff Pegawai</h2>
+                <!-- The first 4 cards always show. Copy/remove <article> blocks as needed -->
+                <div class="person-grid">
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/kepalatatausaha.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Putu Agus Purnama Adi Putra, SE., MM</h3><p><i class="fa-solid fa-people-group"></i>Kepala Tata Usaha</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/kmarkom.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gusti Ngurah Artha WIjaya</h3><p><i class="fa-solid fa-people-group"></i>Staff Digital Marketing</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/assmarkom.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Dapa Putra</h3><p><i class="fa-solid fa-book-open"></i>DPK BD</p><p><i class="fa-solid fa-book-open"></i>KK BD</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-book-open"></i>Mapel Pilihan DKV</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/kepegawaian.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ida Ayu Ketut Diah Kartini, S.Bns</h3><p><i class="fa-solid fa-people-group"></i>Staff Kepegawaian</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/asslab.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Putu Raditya Wijaya</h3><p><i class="fa-solid fa-book-open"></i>Informatika</p><p><i class="fa-solid fa-book-open"></i>KKA</p><p><i class="fa-solid fa-people-group"></i>Koordinator KO</p</div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/keuangan1.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Nadia Wanda Oktavia, S.M</h3><p><i class="fa-solid fa-people-group"></i>Staff Keuangan</p></div>
+                </article>
+                </div>
+                <!-- Extra cards: shown after "Selengkapnya" (js/profil-manajemen.js). Remove this block + its button if not needed -->
+                <div id="extra-staff" class="person-grid extra" hidden>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/keuangan2.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ayu Astari, S.I.Kom</h3><p><i class="fa-solid fa-people-group"></i>Staff Keuangan</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/urusankesiswaan.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gede Bayu Mahendra Wijaya, S.Pd</h3><p><i class="fa-solid fa-book-open"></i>Matematika</p><p><i class="fa-solid fa-people-group"></i>Bimbingan Konseling</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/cs1.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Gusti Made Sunarta</h3><p><i class="fa-solid fa-people-group"></i>Staff Kebersihan</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/cs2.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Ketut Andayani</h3><p><i class="fa-solid fa-people-group"></i>Staff Kebersihan</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/cs3.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>Ni Nyoman Mas Utami</h3><p><i class="fa-solid fa-people-group"></i>Staff Kebersihan</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff/kkeamanan.jpeg" alt="Foto"></div>
+                    <div class="person-info"><h3>I Nyoman Budiasa</h3><p><i class="fa-solid fa-people-group"></i>Staff Keamanan</p></div>
+                </article>
+                <article class="person">
+                    <div class="img-slot ratio-34" data-label="Foto"><img src="../../media/profil/staff" alt="Foto"></div>
+                    <div class="person-info"><h3>Putu Suardita</h3><p><i class="fa-solid fa-people-group"></i>Staff Keamanan</p></div>
+                </article>
+                </div>
+                <div class="more-row">
+                    <button type="button" class="btn-more" data-toggle="extra-staff" aria-expanded="false"><span>Selengkapnya</span> <i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+            </section>
         </div>
-
-        <!-- MAIN CONTENT: 4 containers. Slide in on scroll: 1st + 3rd from the right, 2nd + 4th from the left
-             (data-seq-from, js/animation.js). Click a photo = description pop-up (js/profil-manajemen.js).
-             Add a person: copy one li.pm-person. Photos: media/profil/ -->
-        <div class="pm-content">
-        <!-- ===== MANAJEMEN SEKOLAH ===== -->
-        <section class="pm-group" id="manajemen" data-group="red" aria-label="Manajemen Sekolah">
-            <div class="pm-group__band">
-                <ul class="pm-grid container" data-seq data-seq-from="right">
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Made Indra Aribawa, SH">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/kepalasekolah.jpg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Made Indra Aribawa, SH</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kepala Sekolah</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Gede Putu Agustyawan, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/wakakurikulum.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Gede Putu Agustyawan, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Sejarah Indonesia</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator P5</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Waka Kurikulum</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Made Dwi Adnyana, SH">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/wakasarpras.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Made Dwi Adnyana, SH</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Waka Sarana Prasarana</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ida Ayu Cempaka Putri, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/wakakesiswaan.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ida Ayu Cempaka Putri, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Waka Kesiswaan</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ida Ayu Made Ari Widyawati, S.Pd.H">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/wakahumas.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ida Ayu Made Ari Widyawati, S.Pd.H</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Agama Hindu &amp; Budi Pekerti</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Waka Humas</p></div>
-                    </li>
-                </ul>
-            </div>
-            <div class="pm-group__foot"></div>
-        </section>
-
-        <!-- ===== KEPALA PROGRAM KEAHLIAN ===== -->
-        <section class="pm-group" id="kaprog" data-group="brown" aria-label="Kepala Program Keahlian">
-            <div class="pm-group__band">
-                <ul class="pm-grid container" data-seq data-seq-from="left">
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Putu Ade Pranata, S.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/kaprog/kaprogpplg.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Putu Ade Pranata, S.Kom</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK PPLG</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan KKA</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kaprog PPLG</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Bagas Alif Rizkianto, S.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/kaprog/kaprogdkv.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Bagas Alif Rizkianto, S.Kom</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>DPK PPLG &amp; DPK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK RPL</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan PPLG</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kaprog DKV</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gede Bagus Ardiyana Irawan, S.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/kaprog/kaprogtjkt.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gede Bagus Ardiyana Irawan, S.Kom</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK TKJ</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan TKJ</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kaprog TKJ</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil A.A Ngurah Putra Agung Amurvabhumi Yoga Cara, S.M">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/kaprog/kaprogbd.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>A.A Ngurah Putra Agung Amurvabhumi Yoga Cara, S.M</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KIK</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan BD</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kaprog BD</p></div>
-                    </li>
-                </ul>
-            </div>
-            <div class="pm-group__foot"></div>
-        </section>
-
-        <!-- ===== GURU PENGAJAR ===== -->
-        <section class="pm-group" id="guru" data-group="navy" aria-label="Guru Pengajar">
-            <div class="pm-group__band">
-                <ul class="pm-grid container pm-grid--preview" id="guru-list" data-seq data-seq-from="right">
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Made Indra Aribawa, SH">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/kepalasekolah.jpg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Made Indra Aribawa, SH</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kepala Sekolah</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Gede Putu Agustyawan, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/wakakurikulum.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Gede Putu Agustyawan, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Sejarah Indonesia</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator P5</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Waka Kurikulum</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Made Dwi Adnyana, SH">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/wakasarpras.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Made Dwi Adnyana, SH</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Waka Sarana Prasarana</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ida Ayu Cempaka Putri, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/wakakesiswaan.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ida Ayu Cempaka Putri, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Waka Kesiswaan</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ida Ayu Made Ari Widyawati, S.Pd.H">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/manajemen/wakahumas.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ida Ayu Made Ari Widyawati, S.Pd.H</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Agama Hindu &amp; Budi Pekerti</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Waka Humas</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Putu Ade Pranata, S.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/kaprog/kaprogpplg.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Putu Ade Pranata, S.Kom</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK PPLG</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan KKA</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kaprog PPLG</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Bagas Alif Rizkianto, S.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/kaprog/kaprogdkv.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Bagas Alif Rizkianto, S.Kom</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>DPK PPLG &amp; DPK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK RPL</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan PPLG</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kaprog DKV</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gede Bagus Ardiyana Irawan, S.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/kaprog/kaprogtjkt.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gede Bagus Ardiyana Irawan, S.Kom</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK TKJ</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan TKJ</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kaprog TKJ</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil A.A Ngurah Putra Agung Amurvabhumi Yoga Cara, S.M">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/kaprog/kaprogbd.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>A.A Ngurah Putra Agung Amurvabhumi Yoga Cara, S.M</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KIK</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan BD</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kaprog BD</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Nyoman Murni, S.Kom, M.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/murniproduktif.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Nyoman Murni, S.Kom, M.Kom</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Informatika</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>DPK TKJ</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gusti Putu Wahyu Armandha Kumara, S.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/wahyuproduktif.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gusti Putu Wahyu Armandha Kumara, S.Kom</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK DKV &amp; KK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>DPK DKV</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan DKV</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Thessa Sahara Umami, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/thessaproduktif.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Thessa Sahara Umami, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK DKV &amp; KK TKj</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan DKV</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Dapa Putra">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/assmarkom.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Dapa Putra</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>DPK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan DKV</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Putu Raditya Wijaya">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/asslab.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Putu Raditya Wijaya</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Informatika</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Kadek Lala Mistariadi, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/lalaipas.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Kadek Lala Mistariadi, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>IPAS</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan IPAS</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Bimbingan Konseling</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Nyoman Dita Tri Pramida, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/ditaipas.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Nyoman Dita Tri Pramida, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>IPAS</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Matematika</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan IPAS</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Putu Meira Yanti, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/meirahindu.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Putu Meira Yanti, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Agama Hindu &amp; Budi Pekerti</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Samsul Arifin, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/samsulislam.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Samsul Arifin, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Agama Islam &amp; Budi Pekerti</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Yan Anugrah Wisesa, S.Sos.H., M.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/yanpancasila.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Yan Anugrah Wisesa, S.Sos.H., M.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Pendidikan Pancasila</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Luh Candra Dewi, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/candrabindo.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Luh Candra Dewi, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bahasa Indonesia</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Binta Lestari Putry, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/bintabindo.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Binta Lestari Putry, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bahasa Indonesia</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Kadek Dwi Sintya Dewi, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/sinthyabing.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Kadek Dwi Sintya Dewi, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bahasa Inggris</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Gusti Ayu Oktianingsih, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/oktiabing.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Gusti Ayu Oktianingsih, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bahasa Inggris</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Putu Ayu Imelda Sasiandari, S.S">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/imeldajapan.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Putu Ayu Imelda Sasiandari, S.S</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Bahasa Jepang</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Wayan Kantiani, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/kantianimatik.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Wayan Kantiani, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Matematika</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gede Made Darma Wiguna, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/darmamatik.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gede Made Darma Wiguna, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Matematika</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gede Bayu Mahendra Wijaya, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/urusankesiswaan.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gede Bayu Mahendra Wijaya, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Matematika</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Bimbingan Konseling</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gusti Ayu Ary Ratih, S.E, M.M">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/ratihpkwu.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gusti Ayu Ary Ratih, S.E, M.M</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KIK</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Putu Juli Ratna Dewi, S.Sn">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/ratnasenibudaya.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Putu Juli Ratna Dewi, S.Sn</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Seni Budaya</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Wayan Muliawan, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/muliawanpenjas.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Wayan Muliawan, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Penjasorkes</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Sahat Parulian Verri Tampubolon, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Sahat Parulian Verri Tampubolon, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Agama Kristen</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Muchamad Bagaskara">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/produktif/" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Muchamad Bagaskara</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK DKV</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan DKV</p></div>
-                    </li>
-                </ul>
-            </div>
-            <div class="pm-group__foot">
-                <button type="button" class="pm-more" data-list-open="guru-list" data-label="Cek Profil Guru" aria-haspopup="dialog">Cek Profil Guru</button>
-            </div>
-        </section>
-
-        <!-- ===== STAFF PEGAWAI ===== -->
-        <section class="pm-group" id="staff" data-group="green" aria-label="Staff Pegawai">
-            <div class="pm-group__band">
-                <ul class="pm-grid container pm-grid--preview" id="staff-list" data-seq data-seq-from="left">
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Putu Agus Purnama Adi Putra, SE., MM">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/kepalatatausaha.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Putu Agus Purnama Adi Putra, SE., MM</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Kepala Tata Usaha</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gusti Ngurah Artha WIjaya">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/kmarkom.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gusti Ngurah Artha WIjaya</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Digital Marketing</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Dapa Putra">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/assmarkom.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Dapa Putra</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>DPK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KK BD</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Mapel Pilihan DKV</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ida Ayu Ketut Diah Kartini, S.Bns">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/kepegawaian.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ida Ayu Ketut Diah Kartini, S.Bns</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Kepegawaian</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Putu Raditya Wijaya">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/asslab.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Putu Raditya Wijaya</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Informatika</p><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>KKA</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Koordinator KO</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Nadia Wanda Oktavia, S.M">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/keuangan1.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Nadia Wanda Oktavia, S.M</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Keuangan</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ayu Astari, S.I.Kom">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/keuangan2.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ayu Astari, S.I.Kom</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Keuangan</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gede Bayu Mahendra Wijaya, S.Pd">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/urusankesiswaan.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gede Bayu Mahendra Wijaya, S.Pd</h3><p><i class="fa-solid fa-book-open" aria-hidden="true"></i>Matematika</p><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Bimbingan Konseling</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Gusti Made Sunarta">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/cs1.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Gusti Made Sunarta</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Kebersihan</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Ketut Andayani">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/cs2.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Ketut Andayani</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Kebersihan</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Ni Nyoman Mas Utami">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/cs3.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Ni Nyoman Mas Utami</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Kebersihan</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil I Nyoman Budiasa">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff/kkeamanan.jpeg" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>I Nyoman Budiasa</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Keamanan</p></div>
-                    </li>
-                    <li class="pm-person">
-                        <button type="button" class="pm-card" data-profile aria-haspopup="dialog" aria-label="Lihat profil Putu Suardita">
-                            <span class="img-slot" data-label="Foto"><img src="../../media/profil/staff" alt="" loading="lazy"></span>
-                        </button>
-                        <div class="pm-desc" hidden><h3>Putu Suardita</h3><p><i class="fa-solid fa-people-group" aria-hidden="true"></i>Staff Keamanan</p></div>
-                    </li>
-                </ul>
-            </div>
-            <div class="pm-group__foot">
-                <button type="button" class="pm-more" data-list-open="staff-list" data-label="Cek Profil Staff" aria-haspopup="dialog">Cek Profil Staff</button>
-            </div>
-        </section>
-
-        </div>
-
-        <!-- TRANSITION BOTTOM: empty gradient (page color -> footer color), the footer sits right under it -->
-        <div class="pm-transition-bot" aria-hidden="true"></div>
-
-        <!-- POP-UP: all photos of a group (5 columns). Filled by js/profil-manajemen.js from the list in the page -->
-        <dialog class="pm-dialog pm-list" id="pm-list" aria-label="Daftar profil">
-            <div class="pm-list__frame">
-                <div class="pm-list__panel">
-                    <ul class="pm-grid pm-grid--pop" data-list-target></ul>
-                </div>
-                <div class="pm-group__foot">
-                    <button type="button" class="pm-more" data-list-close autofocus>Tutup Profil</button>
-                </div>
-            </div>
-        </dialog>
-
-        <!-- POP-UP: one person. Left = photo, right = description -->
-        <dialog class="pm-dialog pm-person-dialog" id="pm-person" aria-label="Profil">
-            <div class="pm-pop">
-                <div class="pm-pop__pic img-slot" data-label="Foto" data-person-pic></div>
-                <div class="pm-pop__body">
-                    <button type="button" class="pm-pop__close" aria-label="Tutup profil" data-person-close><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
-                    <div class="pm-pop__desc" data-person-desc></div>
-                </div>
-            </div>
-        </dialog>
     </main>
 
     <!-- FOOTER: same block on every page -->
