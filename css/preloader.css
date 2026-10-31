@@ -1,0 +1,241 @@
+/* ========================================================================
+   SCHOOL INTRO PRELOADER — cinematic image collage, homepage entry only.
+   After-login dashboards retain their in-layout skeleton loaders.
+   ======================================================================== */
+.school-preloader {
+    --loader-black: #090909;
+    position: fixed;
+    inset: 0;
+    z-index: 2147483000;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--loader-black);
+    color: #fff;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0);
+    will-change: transform;
+}
+
+html.school-intro-active,
+html.school-intro-active body {
+    overflow: hidden;
+}
+
+.school-intro-skip .school-preloader,
+.school-preloader.is-gone {
+    display: none !important;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.school-preloader__scene {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: var(--loader-black);
+}
+
+/* Moving photo strips create the full-screen visual field. */
+.school-preloader__collage {
+    position: absolute;
+    inset: -18% -7%;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(8px, 1.1vw, 17px);
+    transform: rotate(-5deg) scale(1.07);
+    opacity: .78;
+    filter: saturate(.86) contrast(1.08);
+}
+
+.school-preloader__track {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: clamp(8px, 1.1vw, 17px);
+    will-change: transform;
+    animation: school-preloader-drift-up 8s linear infinite;
+}
+
+.school-preloader__track--two { animation-duration: 9.5s; animation-direction: reverse; }
+.school-preloader__track--three { animation-duration: 8.7s; animation-delay: -9s; }
+.school-preloader__track--four { animation-duration: 10.5s; animation-direction: reverse; animation-delay: -14s; }
+
+.school-preloader__tile {
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    margin: 0;
+    overflow: hidden;
+    background: #222;
+}
+
+.school-preloader__tile--wide { aspect-ratio: 16 / 10; }
+.school-preloader__tile--tall { aspect-ratio: 3 / 4; }
+.school-preloader__tile img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1);
+    opacity: .78;
+    transform: scale(1.04);
+}
+
+/* The school-front image is the first, dominant frame before the collage appears. */
+.school-preloader__first-shot {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    overflow: hidden;
+    background: #101010;
+    animation: school-preloader-first-shot 1.75s cubic-bezier(.65, 0, .35, 1) forwards;
+    pointer-events: none;
+}
+
+.school-preloader__first-shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 47%;
+    filter: grayscale(1) brightness(.78);
+    transform: scale(1.035);
+    animation: school-preloader-first-zoom 1.8s cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.school-preloader__shade {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: linear-gradient(180deg, rgba(0,0,0,.48), rgba(0,0,0,.18) 36%, rgba(0,0,0,.38) 67%, rgba(0,0,0,.78));
+    pointer-events: none;
+}
+
+.school-preloader__topline,
+.school-preloader__bottomline {
+    position: absolute;
+    z-index: 5;
+    right: clamp(20px, 4vw, 64px);
+    left: clamp(20px, 4vw, 64px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
+.school-preloader__topline { top: clamp(18px, 3.2vh, 34px); }
+.school-preloader__brand { display: flex; align-items: center; gap: 11px; font-size: 9px; line-height: 1.3; letter-spacing: .15em; }
+.school-preloader__brand img { width: 34px; height: 34px; object-fit: contain; filter: grayscale(1) brightness(0) invert(1); }
+.school-preloader__brand strong { font-weight: 800; }
+.school-preloader__edition { display: inline-flex; align-items: center; gap: 10px; color: rgba(255,255,255,.68); font-size: 8px; letter-spacing: .18em; }
+.school-preloader__edition i { display: inline-block; width: 4px; height: 4px; border-radius: 50%; background: #fff; }
+
+.school-preloader__wordmark {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    width: min(88vw, 980px);
+    text-align: center;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 3px 24px rgba(0,0,0,.22);
+    animation: school-preloader-wordmark-in .9s .25s cubic-bezier(.16, 1, .3, 1) both;
+}
+
+.school-preloader__eyebrow {
+    display: block;
+    margin-bottom: clamp(7px, 1.2vh, 14px);
+    font: 700 clamp(8px, .85vw, 11px)/1.2 Arial, Helvetica, sans-serif;
+    letter-spacing: .38em;
+}
+
+.school-preloader__wordmark h1 {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(76px, 17vw, 220px);
+    font-weight: 900;
+    line-height: .78;
+    letter-spacing: -.095em;
+    text-indent: -.095em;
+}
+
+.school-preloader__wordmark p {
+    margin: clamp(13px, 2vh, 23px) 0 0;
+    font: 700 clamp(10px, 1.25vw, 16px)/1.2 Arial, Helvetica, sans-serif;
+    letter-spacing: .42em;
+}
+
+.school-preloader__bottomline { bottom: clamp(20px, 3.3vh, 35px); align-items: end; }
+.school-preloader__motto { color: rgba(255,255,255,.72); font-size: 8px; font-weight: 700; letter-spacing: .2em; }
+.school-preloader__motto i { padding: 0 5px; font-style: normal; color: rgba(255,255,255,.42); }
+.school-preloader__progress { display: inline-flex; align-items: baseline; gap: 3px; font-family: Arial, Helvetica, sans-serif; line-height: 1; }
+.school-preloader__progress b { min-width: 3ch; font-size: clamp(28px, 4vw, 48px); font-weight: 500; letter-spacing: -.06em; font-variant-numeric: tabular-nums; }
+.school-preloader__progress small { font-size: 11px; color: rgba(255,255,255,.7); }
+
+/* A single upward reveal hands off to the homepage. */
+.school-preloader.is-exiting { animation: school-preloader-reveal 1.05s cubic-bezier(.76, 0, .18, 1) forwards; }
+.school-preloader.is-exiting .school-preloader__collage { animation: school-preloader-collage-out .95s cubic-bezier(.65, 0, .35, 1) forwards; }
+.school-preloader.is-exiting .school-preloader__wordmark { animation: school-preloader-wordmark-out .55s ease-in forwards; }
+.school-preloader.is-exiting .school-preloader__topline,
+.school-preloader.is-exiting .school-preloader__bottomline { opacity: 0; transition: opacity .35s ease; }
+
+@keyframes school-preloader-drift-up {
+    from { transform: translateY(0); }
+    to { transform: translateY(-50%); }
+}
+@keyframes school-preloader-first-shot {
+    0%, 43% { opacity: 1; visibility: visible; }
+    100% { opacity: 0; visibility: hidden; }
+}
+@keyframes school-preloader-first-zoom {
+    from { transform: scale(1.035); }
+    to { transform: scale(1.13); }
+}
+@keyframes school-preloader-wordmark-in {
+    from { opacity: 0; transform: translate(-50%, calc(-50% + 26px)); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
+}
+@keyframes school-preloader-reveal {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(0, -101%, 0); visibility: hidden; }
+}
+@keyframes school-preloader-collage-out {
+    to { transform: rotate(-5deg) scale(1.18) translateY(-4%); opacity: 0; }
+}
+@keyframes school-preloader-wordmark-out {
+    to { opacity: 0; transform: translate(-50%, calc(-50% - 36px)) scale(.98); }
+}
+
+@media (max-width: 760px) {
+    .school-preloader__collage { inset: -12% -24%; grid-template-columns: repeat(3, minmax(0, 1fr)); transform: rotate(-7deg) scale(1.08); }
+    .school-preloader__track--four { display: none; }
+    .school-preloader__topline, .school-preloader__bottomline { right: 18px; left: 18px; }
+    .school-preloader__brand { gap: 8px; font-size: 7px; letter-spacing: .11em; }
+    .school-preloader__brand img { width: 28px; height: 28px; }
+    .school-preloader__edition { font-size: 6px; letter-spacing: .1em; }
+    .school-preloader__wordmark { width: 94vw; }
+    .school-preloader__wordmark h1 { font-size: clamp(72px, 22vw, 150px); }
+    .school-preloader__wordmark p { letter-spacing: .28em; }
+    .school-preloader__motto { max-width: 56%; font-size: 6px; letter-spacing: .12em; line-height: 1.6; }
+    .school-preloader__progress b { font-size: 32px; }
+}
+
+@media (max-width: 390px) {
+    .school-preloader__edition { display: none; }
+    .school-preloader__wordmark h1 { font-size: 21vw; }
+    .school-preloader__wordmark p { font-size: 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .school-preloader__track,
+    .school-preloader__first-shot,
+    .school-preloader__first-shot img,
+    .school-preloader__wordmark { animation: none !important; }
+    .school-preloader.is-exiting { animation-duration: .12s; }
+}

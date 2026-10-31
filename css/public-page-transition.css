@@ -1,0 +1,124 @@
+/* Public-page transitions only. Never loaded by after-login/dashboard pages. */
+:root {
+    --page-transition-ink: #10233f;
+    --page-transition-accent: #24b8b0;
+}
+
+.page-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    overflow: hidden;
+    visibility: hidden;
+    pointer-events: none;
+    isolation: isolate;
+}
+
+.page-transition__panels {
+    /* Extend past the viewport edge so fractional grid widths cannot expose seams. */
+    position: absolute;
+    inset: -1px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.page-transition__panel {
+    position: relative;
+    display: block;
+    min-width: 0;
+    width: calc(100% + 2px);
+    height: 100%;
+    margin-left: -1px;
+    background: var(--page-transition-ink);
+    border: 0;
+    transform: scaleY(0);
+    transform-origin: center bottom;
+    backface-visibility: hidden;
+    will-change: transform;
+}
+.page-transition[data-direction="down"] .page-transition__panel { transform-origin: center top; }
+.page-transition[data-direction="up"] .page-transition__panel { transform-origin: center bottom; }
+
+.page-transition__panel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--page-transition-accent);
+    opacity: .9;
+}
+.page-transition[data-direction="up"] .page-transition__panel::after {
+    top: auto;
+    bottom: 0;
+}
+
+.page-transition__label {
+    position: absolute;
+    z-index: 2;
+    left: clamp(22px, 5vw, 76px);
+    bottom: clamp(24px, 5vh, 56px);
+    color: rgba(255, 255, 255, .88);
+    font: 600 11px/1.4 system-ui, sans-serif;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateY(12px);
+}
+
+.page-transition.is-leaving,
+.page-transition.is-entering {
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.page-transition.is-leaving .page-transition__panel {
+    animation: publicTransitionCover .62s cubic-bezier(.76, 0, .18, 1) var(--panel-delay, 0ms) both;
+}
+.page-transition.is-entering .page-transition__panel {
+    transform: scaleY(1);
+    animation: publicTransitionReveal .62s cubic-bezier(.76, 0, .18, 1) var(--panel-delay, 0ms) both;
+}
+
+.page-transition.is-leaving .page-transition__label {
+    animation: publicTransitionLabelIn .28s .25s ease forwards;
+}
+.page-transition.is-entering .page-transition__label {
+    opacity: 1;
+    animation: publicTransitionLabelOut .22s ease forwards;
+}
+
+@keyframes publicTransitionCover {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+}
+@keyframes publicTransitionReveal {
+    from { transform: scaleY(1); }
+    to { transform: scaleY(0); }
+}
+@keyframes publicTransitionLabelIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes publicTransitionLabelOut {
+    to { opacity: 0; transform: translateY(-8px); }
+}
+
+@media (max-width: 600px) {
+    .page-transition__label {
+        left: 18px;
+        bottom: 22px;
+        font-size: 9px;
+        letter-spacing: .14em;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-transition.is-leaving .page-transition__panel,
+    .page-transition.is-entering .page-transition__panel,
+    .page-transition.is-leaving .page-transition__label,
+    .page-transition.is-entering .page-transition__label {
+        animation-duration: .01ms;
+        animation-delay: 0ms;
+    }
+}

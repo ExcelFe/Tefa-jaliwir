@@ -1,0 +1,161 @@
+/* ==========================================================================
+   DASHBOARD SKELETON - keeps the dashboard shell visible while content loads
+   Uses the dashboard's own DOM as a layout template.
+   ========================================================================== */
+.dash-content {
+    position: relative;
+}
+.dash-content.is-skeleton-loading {
+    min-height: max(16rem, calc(100dvh - 4rem));
+}
+.dash-content.is-skeleton-loading > :not(.dash-skeleton-preview) {
+    visibility: hidden !important;
+}
+.dash-skeleton-preview {
+    position: absolute;
+    z-index: 8;
+    inset: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+    color: transparent !important;
+}
+.dash-skeleton-preview__content {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    color: transparent !important;
+}
+.dash-skeleton-preview :where(*) {
+    color: transparent !important;
+    text-shadow: none !important;
+    text-decoration-color: transparent !important;
+    caret-color: transparent !important;
+}
+.dash-skeleton-preview :where(.dash-card, .dash-jadwal-card, .dash-feature, .dash-photo, .dash-search, .dash-btn, .dash-table, .dash-table thead, .dash-table th, .dash-table td) {
+    border-color: var(--dash-edge) !important;
+    box-shadow: none !important;
+}
+.dash-skeleton-preview :where(.dash-card, .dash-jadwal-card, .dash-feature, .dash-photo, .dash-table) {
+    background: var(--dash-surface) !important;
+}
+.dash-skeleton-preview :where(.dash-jadwal-card--on, .dash-jadwal-card--off) {
+    background: var(--dash-surface) !important;
+}
+.dash-skeleton-preview :where(.dash-skeleton-line, .dash-skeleton-shape) {
+    display: inline-block;
+    flex: 0 0 auto;
+    background: linear-gradient(100deg,
+        color-mix(in srgb, var(--dash-muted) 12%, var(--dash-surface)) 18%,
+        color-mix(in srgb, var(--dash-muted) 24%, var(--dash-surface)) 38%,
+        color-mix(in srgb, var(--dash-muted) 12%, var(--dash-surface)) 58%);
+    background-size: 220% 100%;
+    animation: dash-skeleton-shimmer 1.25s ease-in-out infinite;
+    vertical-align: middle;
+}
+.dash-skeleton-preview .dash-skeleton-line {
+    max-width: 100%;
+    min-width: 1.8ch;
+    height: 0.72em;
+    border-radius: 999px;
+    margin-inline-end: 0.22em;
+}
+.dash-skeleton-preview .dash-skeleton-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    border: 1px solid var(--dash-edge) !important;
+    background: color-mix(in srgb, var(--dash-muted) 8%, var(--dash-surface)) !important;
+    box-shadow: none !important;
+}
+.dash-skeleton-preview .dash-skeleton-media {
+    border: 0 !important;
+    background: linear-gradient(100deg,
+        color-mix(in srgb, var(--dash-muted) 14%, var(--dash-surface)) 18%,
+        color-mix(in srgb, var(--dash-muted) 26%, var(--dash-surface)) 38%,
+        color-mix(in srgb, var(--dash-muted) 14%, var(--dash-surface)) 58%) !important;
+    background-size: 220% 100% !important;
+}
+.dash-skeleton-preview .dash-daytabs {
+    background: color-mix(in srgb, var(--dash-muted) 5%, var(--dash-surface)) !important;
+}
+.dash-skeleton-preview .dash-table {
+    overflow: hidden;
+}
+.dash-skeleton-preview .dash-table :where(th, td) {
+    color: transparent !important;
+}
+.dash-skeleton-preview.is-skeleton-hiding {
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+.dash-skeleton-empty {
+    display: grid;
+    gap: clamp(1rem, 2.5vw, 1.5rem);
+    padding-top: clamp(0.5rem, 2vw, 1rem);
+}
+.dash-skeleton-empty__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 3.25rem;
+}
+.dash-skeleton-empty__cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+.dash-skeleton-empty__card,
+.dash-skeleton-empty__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: clamp(1rem, 2.5vw, 1.4rem);
+    border: 1px solid var(--dash-edge);
+    border-radius: var(--radius-md);
+    background: var(--dash-surface);
+    box-shadow: var(--dash-shadow);
+}
+.dash-skeleton-empty__card {
+    min-height: 8rem;
+    justify-content: center;
+}
+.dash-skeleton-empty__panel {
+    gap: 0;
+    min-height: 14rem;
+}
+.dash-skeleton-empty__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 2.5rem;
+    border-bottom: 1px solid var(--dash-hairline);
+}
+.dash-skeleton-empty__row:last-child {
+    border-bottom: 0;
+}
+@keyframes dash-skeleton-shimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: -120% 0; }
+}
+@media (max-width: 640px) {
+    .dash-skeleton-empty__cards {
+        grid-template-columns: 1fr;
+    }
+    .dash-skeleton-empty__card {
+        min-height: 5.5rem;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dash-skeleton-preview :where(.dash-skeleton-line, .dash-skeleton-shape) {
+        animation: none;
+    }
+    .dash-skeleton-preview.is-skeleton-hiding {
+        transition: none;
+    }
+}
