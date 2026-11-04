@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /pages/after/admin/
+Disallow: /pages/after/guru/
+Disallow: /pages/after/guru-piket/
+Disallow: /pages/after/siswa/
+Disallow: /pages/before/profil-manajemen.html
+Disallow: /404.html
